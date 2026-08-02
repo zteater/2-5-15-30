@@ -39,9 +39,9 @@ Keep commit subjects concise, written in the imperative mood, and without a trai
 
    ```sh
    node --check app.js
-   node --check data.js
+   node -e "for (const file of ['data.json', 'equipment.json', 'exercises.json']) JSON.parse(require('fs').readFileSync(file, 'utf8'))"
    ```
 
 4. Confirm the app still runs from a static server.
 
-This is a dependency-free static site. Keep workout catalog content in `data.js`, planner and interaction logic in `app.js`, and presentation rules in `styles.css` or `supersets.css`. Do not add a database, server-side state, or a build step without an explicit product decision.
+This is a dependency-free static site. Keep exercise catalog content in `exercises.json`, equipment catalog content in `equipment.json`, planner-specific data in `data.json`, planner and interaction logic in `app.js`, and presentation rules in `styles.css` or `supersets.css`. Do not add a database, server-side state, or a build step without an explicit product decision.

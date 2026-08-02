@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,16 +9,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=20260802" />
-    <link rel="stylesheet" href="supersets.css?v=20260802" />
+    <link rel="stylesheet" href="styles.css?v=20260952" />
+    <link rel="stylesheet" href="supersets.css?v=20260812" />
   </head>
   <body>
     <main id="top">
       <section class="hero shell">
         <div class="hero-copy">
           <p class="eyebrow">THE 2–5–15–30 METHOD</p>
-          <h1>A plan that fits<br /><em>your real life.</em></h1>
-          <p class="hero-lede">Choose what you have. We’ll build 4–16 focused sessions that cover every major muscle twice across a repeatable four-session cycle — without taking over your day.</p>
+          <h1>A plan that fits<br /><em>real life.</em></h1>
+          <p class="hero-lede">Choose what you have. We’ll build 4–16 focused routines that cover every major muscle twice across a repeatable four-routine cycle — without taking over your day.</p>
         </div>
         <div class="hero-art" aria-hidden="true">
           <div class="sun"></div>
@@ -33,35 +33,42 @@
       </section>
 
       <section class="tool-header shell" id="planner">
+        <p class="eyebrow tool-tagline">SMALL RULES. BIG CONSISTENCY.</p>
         <div class="tool-title-row">
           <a class="results-brand tool-brand home-link" id="brand-link" href="#top" aria-label="2–5–15–30 home"><span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span><span>2–5–15–30</span></a>
-          <div class="tool-actions">
-            <button class="how-it-works" id="info-button" type="button">How it works <span aria-hidden="true">↗</span></button>
-            <button class="how-it-works" id="progression-button" type="button">Progression <span aria-hidden="true">↗</span></button>
+          <div class="tool-actions desktop-tool-actions">
+            <button class="how-it-works" id="info-button" type="button">How it works <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 18h2v-2h-2v2zm1-16a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm0-14c-2.21 0-4 1.79-4 4h2a2 2 0 1 1 3.41 1.41C12.77 12.65 12 13.5 12 15h2c0-.83.31-1.39.94-2.02A3.98 3.98 0 0 0 12 6z" /></svg></button>
+            <button class="how-it-works" id="progression-button" type="button">Progression <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m16 6 2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6h-6z" /></svg></button>
           </div>
+          <button class="menu-button" id="menu-button" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span><span></span></button>
         </div>
+        <div class="menu-backdrop" id="menu-backdrop"></div>
+        <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile menu">
+          <div class="mobile-menu-header"><button class="menu-close" id="menu-close" type="button" aria-label="Close menu">X</button></div>
+          <button type="button" data-menu-action="info">How it works <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 18h2v-2h-2v2zm1-16a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm0-14c-2.21 0-4 1.79-4 4h2a2 2 0 1 1 3.41 1.41C12.77 12.65 12 13.5 12 15h2c0-.83.31-1.39.94-2.02A3.98 3.98 0 0 0 12 6z" /></svg></button>
+          <button type="button" data-menu-action="progression">Progression <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m16 6 2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6h-6z" /></svg></button>
+          <button type="button" data-menu-action="config">Config <span aria-hidden="true">↗</span></button>
+          <div class="mobile-menu-divider" aria-hidden="true"></div>
+          <button type="button" data-menu-action="privacy">Privacy <span aria-hidden="true">↗</span></button>
+          <button type="button" data-menu-action="terms">Terms <span aria-hidden="true">↗</span></button>
+        </nav>
         <dialog class="info-modal config-modal" id="config-modal">
           <div class="info-modal-card">
             <div class="info-modal-header">
               <div>
-                <p class="eyebrow">CONFIGURE</p>
-                <h2>Configure plan.</h2>
+                <p class="eyebrow">PLAN SETUP</p>
+                <h2>Build the sequence</h2>
               </div>
               <button class="modal-close" id="config-close" type="button" aria-label="Close">×</button>
             </div>
         <div class="equipment-picker">
-          <div class="equipment-picker-heading"><span>Equipment</span><span class="selection-count" id="selection-count">8 selected</span></div>
-          <div class="equipment-grid" role="group" aria-label="Available equipment">
+          <section class="equipment-group">
+            <h3>Primary <span class="equipment-group-note">Required</span></h3>
+            <div class="equipment-grid" role="group" aria-label="Primary equipment">
           <button class="equipment-card is-selected" type="button" data-equipment="dumbbells" aria-pressed="true">
             <span class="equipment-icon dumbbell-icon" aria-hidden="true"><span></span><i></i><span></span></span>
             <span class="equipment-name">Dumbbells</span>
             <span class="equipment-detail">Fixed or adjustable</span>
-            <span class="check" aria-hidden="true">✓</span>
-          </button>
-          <button class="equipment-card is-selected" type="button" data-equipment="bench" aria-pressed="true">
-            <span class="equipment-icon bench-icon" aria-hidden="true"><span></span><i></i><b></b></span>
-            <span class="equipment-name">Adjustable bench</span>
-            <span class="equipment-detail">Flat or incline</span>
             <span class="check" aria-hidden="true">✓</span>
           </button>
           <button class="equipment-card" type="button" data-equipment="kettlebells" aria-pressed="false">
@@ -76,21 +83,32 @@
             <span class="equipment-detail">Handles, ankle straps, door anchor</span>
             <span class="check" aria-hidden="true">✓</span>
           </button>
+          <button class="equipment-card is-selected" type="button" data-equipment="bar" aria-pressed="true">
+            <span class="equipment-icon barbell-icon" aria-hidden="true"><span></span><i></i><b></b></span>
+            <span class="equipment-name">Olympic bar + plates</span>
+            <span class="equipment-detail">Barbell and landmine work</span>
+            <span class="check" aria-hidden="true">✓</span>
+          </button>
+            </div>
+          </section>
+          <section class="equipment-group">
+            <h3>Secondary <span class="equipment-group-note">Optional</span></h3>
+            <div class="equipment-grid" role="group" aria-label="Secondary lifting equipment">
+          <button class="equipment-card is-selected" type="button" data-equipment="bench" aria-pressed="true">
+            <span class="equipment-icon bench-icon" aria-hidden="true"><span></span><i></i><b></b></span>
+            <span class="equipment-name">Adjustable bench</span>
+            <span class="equipment-detail">Flat or incline</span>
+            <span class="check" aria-hidden="true">✓</span>
+          </button>
           <button class="equipment-card is-selected" type="button" data-equipment="pullupbar" aria-pressed="true">
             <span class="equipment-icon pullup-icon" aria-hidden="true"><span></span><i></i><b></b></span>
             <span class="equipment-name">Pull-up bar</span>
             <span class="equipment-detail">Vertical pulling</span>
             <span class="check" aria-hidden="true">✓</span>
           </button>
-          <button class="equipment-card is-selected" type="button" data-equipment="barbell" aria-pressed="true">
-            <span class="equipment-icon barbell-icon" aria-hidden="true"><span></span><i></i><b></b></span>
-            <span class="equipment-name">Olympic bar + plates</span>
-            <span class="equipment-detail">Heavy strength work</span>
-            <span class="check" aria-hidden="true">✓</span>
-          </button>
           <button class="equipment-card is-selected" type="button" data-equipment="ezbar" aria-pressed="true">
             <span class="equipment-icon barbell-icon" aria-hidden="true"><span></span><i></i><b></b></span>
-            <span class="equipment-name">EZ-bar</span>
+            <span class="equipment-name">EZ-bar + plates</span>
             <span class="equipment-detail">Curls and close-grip work</span>
             <span class="check" aria-hidden="true">✓</span>
           </button>
@@ -106,6 +124,17 @@
             <span class="equipment-detail">Squat and press safely</span>
             <span class="check" aria-hidden="true">✓</span>
           </button>
+          <button class="equipment-card" type="button" data-equipment="trapbar" aria-pressed="false">
+            <span class="equipment-icon barbell-icon" aria-hidden="true"><span></span><i></i><b></b></span>
+            <span class="equipment-name">Trap bar + plates</span>
+            <span class="equipment-detail">Deadlifts, squats, and carries</span>
+            <span class="check" aria-hidden="true">✓</span>
+          </button>
+            </div>
+          </section>
+          <section class="equipment-group">
+            <h3>Conditioning <span class="equipment-group-note">Optional</span></h3>
+            <div class="equipment-grid" role="group" aria-label="Conditioning equipment">
           <button class="equipment-card" type="button" data-equipment="slamball" aria-pressed="false">
             <span class="equipment-icon slam-icon" aria-hidden="true"><span></span><i></i></span>
             <span class="equipment-name">Slam ball</span>
@@ -124,6 +153,17 @@
             <span class="equipment-detail">Intervals and conditioning</span>
             <span class="check" aria-hidden="true">✓</span>
           </button>
+          <button class="equipment-card" type="button" data-equipment="plyobox" aria-pressed="false">
+            <span class="equipment-icon plyo-icon" aria-hidden="true"><span></span><i></i></span>
+            <span class="equipment-name">Plyo box</span>
+            <span class="equipment-detail">Jumps and step-ups</span>
+            <span class="check" aria-hidden="true">✓</span>
+          </button>
+            </div>
+          </section>
+          <section class="equipment-group">
+            <h3>Cardio <span class="equipment-group-note">Optional</span></h3>
+            <div class="equipment-grid" role="group" aria-label="Cardio equipment">
           <button class="equipment-card" type="button" data-equipment="treadmill" aria-pressed="false">
             <span class="equipment-icon treadmill-icon" aria-hidden="true"><span></span><i></i><b></b></span>
             <span class="equipment-name">Treadmill</span>
@@ -142,25 +182,38 @@
             <span class="equipment-detail">Low-impact cardio</span>
             <span class="check" aria-hidden="true">✓</span>
           </button>
-          </div>
+          <button class="equipment-card" type="button" data-equipment="elliptical" aria-pressed="false">
+            <span class="equipment-icon elliptical-icon" aria-hidden="true"><span></span><i></i><b></b></span>
+            <span class="equipment-name">Elliptical</span>
+            <span class="equipment-detail">Low-impact cardio</span>
+            <span class="check" aria-hidden="true">✓</span>
+          </button>
+            </div>
+          </section>
         </div>
 
         <div class="plan-settings">
           <div class="plan-options">
+            <span class="session-range-copy"><strong>Routines in sequence</strong><small>Choose a flexible plan length</small></span>
             <label class="session-range" for="session-slider">
-              <span class="session-range-top"><span><strong>Sessions in sequence</strong><small>Choose your flexible plan length</small></span><output id="session-count-output">4 sessions</output></span>
               <input type="range" id="session-slider" min="4" max="16" step="4" value="4" />
               <span class="session-range-scale" aria-hidden="true"><span>4</span><span>8</span><span>12</span><span>16</span></span>
             </label>
-            <label class="switch-row">
-              <span>
-                <strong>Add cardio sessions</strong>
-                <small>Optional 30-minute finishers on 4-exercise sessions</small>
-              </span>
-              <input type="checkbox" id="cardio-toggle" checked />
-              <span class="switch" aria-hidden="true"></span>
-            </label>
           </div>
+        </div>
+        <label class="config-setting switch-row warmup-setting" for="dynamic-warmups-toggle">
+          <span><strong>Dynamic warm-ups</strong><small>Match warm-ups to exercises</small></span>
+          <input type="checkbox" id="dynamic-warmups-toggle" checked />
+          <span class="switch" aria-hidden="true"></span>
+        </label>
+        <label class="config-setting switch-row rest-setting" for="dynamic-rest-toggle">
+          <span><strong>Dynamic rest</strong><small>Match rest to exercises</small></span>
+          <input type="checkbox" id="dynamic-rest-toggle" checked />
+          <span class="switch" aria-hidden="true"></span>
+        </label>
+        <div class="theme-setting">
+          <span><strong>Appearance</strong><small>Dark or light mode</small></span>
+          <button class="theme-toggle config-theme-toggle" type="button" data-theme-toggle aria-label="Switch to light mode" aria-pressed="true"><svg class="theme-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" /></svg></button>
         </div>
           </div>
         </dialog>
@@ -169,8 +222,10 @@
 
       <section class="results shell" id="results" aria-live="polite">
         <div class="cards-actions">
-          <button class="text-button" id="config-button" type="button">⚙ Config</button>
-          <button class="text-button" id="regenerate-button" type="button">↻ Regenerate</button>
+          <button class="text-button" id="config-button" type="button" aria-label="Configure plan" title="Configure plan"><svg class="action-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19.43 12.98c.04-.32.07-.65.07-.98s-.02-.66-.07-.98l2.11-1.65a.5.5 0 0 0 .12-.64l-2-3.46a.5.5 0 0 0-.61-.22l-2.49 1a7.2 7.2 0 0 0-1.69-.98L14.5 2.42A.49.49 0 0 0 14.01 2h-4a.49.49 0 0 0-.49.42L9.14 5.07c-.6.24-1.16.57-1.69.98l-2.49-1a.49.49 0 0 0-.61.22l-2 3.46a.5.5 0 0 0 .12.64l2.11 1.65c-.04.32-.08.65-.08.98s.03.66.08.98l-2.11 1.65a.5.5 0 0 0-.12.64l2 3.46c.12.21.37.3.61.22l2.49-1c.53.41 1.09.74 1.69.98l.38 2.65c.04.24.25.42.49.42h4c.24 0 .45-.18.49-.42l.38-2.65c.6-.24 1.16-.57 1.69-.98l2.49 1c.23.08.49-.01.61-.22l2-3.46a.5.5 0 0 0-.12-.64l-2.11-1.65zM12 15.5A3.5 3.5 0 1 1 12 8a3.5 3.5 0 0 1 0 7.5z" /></svg></button>
+          <button class="text-button" id="share-button" type="button" aria-label="Share plan" title="Share plan"><svg class="share-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11A2.99 2.99 0 1 0 15 5c0 .24.04.47.09.7L8.04 9.81A3 3 0 1 0 8 14.19l7.05 4.11c-.05.21-.08.43-.08.65a3.03 3.03 0 1 0 3.03-2.87zM6 13a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm12-9a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm0 16.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" /></svg></button>
+          <button class="text-button" id="regenerate-button" type="button" aria-label="Regenerate routines" title="Regenerate routines"><svg class="action-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.65 6.35A7.96 7.96 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4a6 6 0 1 1 4.24-10.24L13 11h7V4l-2.35 2.35z" /></svg></button>
+          <span class="share-popover" id="share-popover" role="status" aria-live="polite">Link copied</span>
         </div>
         <div id="routine-output"></div>
       </section>
@@ -181,16 +236,16 @@
         <div class="info-modal-header">
           <div>
             <p class="eyebrow">THE SIMPLE FORMULA</p>
-            <h2>Small rules.<br /><em>Big consistency.</em></h2>
+            <h2>Small rules<br /><em>Big consistency</em></h2>
           </div>
           <button class="modal-close" id="info-close" type="button" aria-label="Close">×</button>
         </div>
-        <p class="info-modal-lede">Choose your equipment, set the sequence length, and complete the routines in order whenever life gives you the time.</p>
+        <p class="info-modal-lede">Complete the routines in order whenever life gives you the time</p>
         <div class="modal-rule-list">
-          <div class="modal-rule"><strong>2×</strong><span>Every major muscle group appears twice across each four-session cycle.</span></div>
-          <div class="modal-rule"><strong>5</strong><span>No more than five exercises in a routine.</span></div>
-          <div class="modal-rule"><strong>15</strong><span>No more than fifteen total lifting sets.</span></div>
-          <div class="modal-rule"><strong>30′</strong><span>Sessions are designed to fit within thirty minutes, with optional cardio finishers.</span></div>
+          <div class="modal-rule"><strong>2×</strong><span>Train every muscle group twice per four-routine cycle</span></div>
+          <div class="modal-rule"><strong>5</strong><span>No more than five exercises in a routine</span></div>
+          <div class="modal-rule"><strong>15</strong><span>No more than fifteen sets in a routine</span></div>
+          <div class="modal-rule"><strong>30′</strong><span>Complete each routine in thirty minutes</span></div>
         </div>
       </div>
     </dialog>
@@ -200,17 +255,16 @@
         <div class="info-modal-header">
           <div>
             <p class="eyebrow">PROGRESSION</p>
-            <h2>Own the range.<br /><em>Then add weight.</em></h2>
+            <h2>Own the range<br /><em>Then add weight</em></h2>
           </div>
           <button class="modal-close" id="progression-close" type="button" aria-label="Close">×</button>
         </div>
-        <p class="info-modal-lede">Use one working weight for all three sets. Try to reach the session max on every set, but never let a later set exceed the reps completed on the set before it.</p>
-        <div class="progression-example">
-          <div><span>Set 1</span><strong>6–10 reps</strong></div>
-          <div><span>Set 2</span><strong>6–Set 1 reps</strong></div>
-          <div><span>Set 3</span><strong>6–Set 2 reps</strong></div>
+        <div class="modal-rule-list progression-rules">
+          <div class="modal-rule"><strong>1</strong><span>Complete as many clean reps as possible</span></div>
+          <div class="modal-rule"><strong>2</strong><span>Stay within the rep range</span></div>
+          <div class="modal-rule"><strong>3</strong><span>Use one working weight for all three sets</span></div>
+          <div class="modal-rule"><strong>4</strong><span>Keep the weight until every set reaches the top of the range</span></div>
         </div>
-        <p class="info-modal-lede progression-finish">Example: 9 reps, then 7 reps means the next target is 6–7. Increase weight next session when all three sets reach 10.</p>
       </div>
     </dialog>
 
@@ -219,23 +273,37 @@
         <div class="info-modal-header">
           <div>
             <p class="eyebrow">PRIVACY</p>
-            <h2>Your data stays yours.</h2>
+            <h2>Personal data stays private</h2>
           </div>
           <button class="modal-close" id="privacy-close" type="button" aria-label="Close">×</button>
         </div>
-        <p class="info-modal-lede">2–5–15–30 is free to use and does not collect or store your personal data. There are no accounts, no database, and no data sales. We do not want anything from you.</p>
-        <p class="info-modal-lede privacy-finish">Use the tool, feed the gains, and be healthy.</p>
+        <p class="info-modal-lede">2-5-15-30 is free to use and does not collect or store your personal data in the app. There are no accounts, no user database, no workout tracking database, no analytics, no ads, and no data sales.</p>
+        <p class="info-modal-lede">The site is hosted on GitHub Pages. GitHub may process limited technical data, such as IP addresses, for hosting, security, and service operations under GitHub’s own privacy practices.</p>
+        <p class="info-modal-lede">We do not want your personal information.</p>
+        <p class="info-modal-lede">Use the tool for free.</p>
+        <p class="info-modal-lede privacy-finish">Feed the gains, and be healthy.</p>
+      </div>
+    </dialog>
+
+    <dialog class="info-modal" id="terms-modal">
+      <div class="info-modal-card">
+        <div class="info-modal-header">
+          <div>
+            <p class="eyebrow">TERMS &amp; FITNESS DISCLAIMER</p>
+            <h2>Train smart<br /><em>Stay within safe limits</em></h2>
+          </div>
+          <button class="modal-close" id="terms-close" type="button" aria-label="Close">×</button>
+        </div>
+        <p class="info-modal-lede">2-5-15-30 provides general fitness and workout-planning information only. It is not medical advice and does not replace guidance from a physician, physical therapist, certified trainer, or other qualified professional.</p>
+        <p class="info-modal-lede">Exercise involves risk of injury. Start conservatively, use proper form, and stop any exercise that causes pain, dizziness, unusual shortness of breath, or joint instability. Consult a qualified professional before beginning or changing an exercise program, especially if you have a medical condition, injury, or health concern.</p>
+        <p class="info-modal-lede privacy-finish">You are responsible for how you use the app and for deciding whether an exercise or routine is appropriate for you. The app is provided as-is, without warranties, and 2-5-15-30 is not responsible for injuries, losses, or damages resulting from use of the app.</p>
       </div>
     </dialog>
 
     <footer class="site-footer shell">
-      <span id="footer-legal">© 2026 Zak Studios · All rights reserved · <button class="footer-link" id="privacy-button" type="button">Privacy</button></span>
-      <span>General fitness information only.<br />Train within your abilities and consult a qualified professional with health concerns.</span>
+      <span class="footer-legal"><span class="footer-copyright">© 2026 2-5-15-30 · </span><button class="footer-link" id="privacy-button" type="button" aria-label="View privacy policy">Privacy</button><span aria-hidden="true"> · </span><button class="footer-link" id="terms-button" type="button" aria-label="View terms of service">Terms</button></span>
     </footer>
 
-    <div class="easter-toast" id="easter-toast" role="status" aria-live="polite"></div>
-
-    <script src="data.js"></script>
-    <script src="app.js"></script>
+    <script src="app.js?v=20260961"></script>
   </body>
 </html>

@@ -4,10 +4,10 @@
 
 ## The idea
 
-- **2×** — train each major muscle group twice across a four-session cycle
+- **2×** — train each major muscle group twice across a four-routine cycle
 - **5** — no more than five lifting exercises in a routine
 - **15** — no more than fifteen total lifting sets
-- **30′** — aim to finish the lifting session in about thirty minutes
+- **30′** — aim to finish the lifting routine in about thirty minutes
 
 You can take rest days whenever you need them. Once you finish the last routine, start again at the beginning of the sequence.
 
@@ -16,7 +16,7 @@ You can take rest days whenever you need them. Once you finish the last routine,
 Each routine is built around mixed muscle groups and includes:
 
 - A high-impact first lift with specific ramp-up sets
-- Three mostly static, session-agnostic warmups
+- Three mostly static, routine-agnostic warmups
 - A fourth warmup when the routine has five lifting exercises
 - Superset A and Superset B with three working sets per exercise
 - Core work reserved for the final lifting slot when included
@@ -28,7 +28,7 @@ The generator also avoids repeating an exercise in adjacent routines when a comp
 
 ## Configure a plan
 
-Choose a session sequence of **4, 8, 12, or 16 routines** and select the equipment you have. Bodyweight is always available for warmups and appropriate accessory work.
+Choose a routine sequence of **4, 8, 12, or 16 routines** and select the equipment you have. Bodyweight is always available for warmups and appropriate accessory work.
 
 Available equipment includes:
 
@@ -48,7 +48,7 @@ Landmine exercises require an Olympic bar to be selected.
 
 ## Seeded plans
 
-Every generated plan has a compact seed in the URL. The seed captures the generation state, session count, cardio setting, and equipment selection. Reloading a seeded URL reproduces the same routines; **Regenerate** creates a new seed and a new sequence.
+Every generated plan has a compact seed in the URL. The seed captures the generation state, routine count, cardio setting, and equipment selection. Reloading a seeded URL reproduces the same routines; **Regenerate** creates a new seed and a new sequence.
 
 ## Run locally
 
@@ -64,28 +64,13 @@ There is no build step and no database. The basic syntax checks are:
 
 ```sh
 node --check app.js
-node --check data.js
+node -e "for (const file of ['data.json', 'equipment.json', 'exercises.json']) JSON.parse(require('fs').readFileSync(file, 'utf8'))"
 ```
-
-## Project structure
-
-| File | Purpose |
-| --- | --- |
-| [`index.html`](index.html) | Page structure, configuration controls, dialogs, and footer |
-| [`app.js`](app.js) | Seed handling, plan generation, rendering, and interactions |
-| [`data.js`](data.js) | Exercise, warmup, cardio, equipment, and label data |
-| [`styles.css`](styles.css) | Core layout, typography, responsive behavior, and configuration UI |
-| [`supersets.css`](supersets.css) | Superset, warmup, cardio, and routine-card styling |
-
-## Deploy to GitHub Pages
-
-1. Push the repository to GitHub.
-2. Open **Settings → Pages**.
-3. Choose **Deploy from a branch**.
-4. Select the default branch and `/ (root)`.
-
-No build command, environment variables, or server configuration are required.
 
 ## Privacy and safety
 
-The app is free to use and does not collect personal data, require accounts, use a database, or sell data. It provides general fitness information only. Train within your abilities and consult a qualified professional if you have health concerns.
+2-5-15-30 is free to use and does not collect or store personal data in the app. There are no accounts, user database, workout tracking database, analytics, ads, or data sales.
+
+The site is hosted on GitHub Pages. GitHub may process limited technical data, such as IP addresses, for hosting, security, and service operations under GitHub’s own privacy practices.
+
+We do not want your personal information. The app provides general fitness information only. Train within your abilities and consult a qualified professional if you have health concerns.

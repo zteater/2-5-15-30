@@ -1,0 +1,138 @@
+{
+  "equipment": [
+    {
+      "key": "dumbbells",
+      "label": "Dumbbells",
+      "group": "primary",
+      "isDefault": true,
+      "dependencies": []
+    },
+    {
+      "key": "bench",
+      "label": "Adjustable bench",
+      "group": "secondary",
+      "isDefault": true,
+      "dependencies": []
+    },
+    {
+      "key": "tubebands",
+      "label": "Tube bands",
+      "group": "primary",
+      "isDefault": false,
+      "dependencies": []
+    },
+    {
+      "key": "bar",
+      "label": "Olympic bar + plates",
+      "group": "primary",
+      "isDefault": true,
+      "dependencies": [],
+      "aliases": [
+        "barbell",
+        "plates"
+      ]
+    },
+    {
+      "key": "rack",
+      "label": "Adjustable rack",
+      "group": "secondary",
+      "isDefault": true,
+      "dependencies": [
+        "bar"
+      ]
+    },
+    {
+      "key": "kettlebells",
+      "label": "Kettlebells",
+      "group": "primary",
+      "isDefault": false,
+      "dependencies": []
+    },
+    {
+      "key": "pullupbar",
+      "label": "Pull-up bar",
+      "group": "secondary",
+      "isDefault": true,
+      "dependencies": []
+    },
+    {
+      "key": "ezbar",
+      "label": "EZ-bar + plates",
+      "group": "secondary",
+      "isDefault": true,
+      "dependencies": []
+    },
+    {
+      "key": "landmine",
+      "label": "Landmine extension",
+      "group": "secondary",
+      "isDefault": true,
+      "dependencies": [
+        "bar"
+      ]
+    },
+    {
+      "key": "slamball",
+      "label": "Slam ball",
+      "group": "conditioning",
+      "isDefault": false,
+      "dependencies": []
+    },
+    {
+      "key": "medicineball",
+      "label": "Medicine ball",
+      "group": "conditioning",
+      "isDefault": false,
+      "dependencies": []
+    },
+    {
+      "key": "jumprope",
+      "label": "Jump rope",
+      "group": "conditioning",
+      "isDefault": false,
+      "dependencies": []
+    },
+    {
+      "key": "treadmill",
+      "label": "Treadmill",
+      "group": "cardio",
+      "isDefault": false,
+      "dependencies": []
+    },
+    {
+      "key": "rower",
+      "label": "Rowing machine",
+      "group": "cardio",
+      "isDefault": false,
+      "dependencies": []
+    },
+    {
+      "key": "bike",
+      "label": "Stationary bike",
+      "group": "cardio",
+      "isDefault": true,
+      "dependencies": []
+    },
+    {
+      "key": "trapbar",
+      "label": "Trap bar + plates",
+      "group": "secondary",
+      "isDefault": false,
+      "dependencies": []
+    },
+    {
+      "key": "plyobox",
+      "label": "Plyo box",
+      "group": "conditioning",
+      "isDefault": false,
+      "dependencies": []
+    },
+    {
+      "key": "elliptical",
+      "label": "Elliptical",
+      "group": "cardio",
+      "isDefault": false,
+      "dependencies": []
+    }
+  ]
+}

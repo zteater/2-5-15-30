@@ -109,6 +109,18 @@
   text-align: right;
 }
 
+html[data-theme="dark"] .warmup-block .superset-heading > span:first-child,
+html[data-theme="dark"] .warmup-block .exercise-name,
+html[data-theme="dark"] .warmup-block .exercise-sets {
+  color: #f2cf58;
+}
+
+html[data-theme="dark"] .cardio-block .superset-heading > span:first-child,
+html[data-theme="dark"] .cardio-exercise .exercise-name,
+html[data-theme="dark"] .cardio-exercise .exercise-sets {
+  color: #cbb1f3;
+}
+
 .primary-sets {
   display: flex;
   flex-direction: column;
@@ -124,6 +136,22 @@
 @media (max-width: 620px) {
   .superset-heading small {
     font-size: 8px;
+  }
+
+  .superset-heading {
+    font-size: 11px;
+  }
+
+  .exercise-name {
+    font-size: 13px;
+  }
+
+  .exercise-muscle {
+    font-size: 11px;
+  }
+
+  .exercise-sets {
+    font-size: 12px;
   }
 
   .routine-card {

@@ -1,0 +1,112 @@
+{
+  "routineBlueprints": [
+    {
+      "title": "Mixed strength",
+      "primaryMuscle": "hamstrings",
+      "muscles": [
+        "hamstrings",
+        "chest",
+        "triceps",
+        "shoulders",
+        "core"
+      ]
+    },
+    {
+      "title": "Mixed strength",
+      "primaryMuscle": "quads",
+      "muscles": [
+        "quads",
+        "back",
+        "glutes",
+        "calves",
+        "core"
+      ]
+    },
+    {
+      "title": "Mixed strength",
+      "primaryMuscle": "hamstrings",
+      "muscles": [
+        "biceps",
+        "hamstrings",
+        "shoulders",
+        "triceps"
+      ]
+    },
+    {
+      "title": "Mixed strength",
+      "primaryMuscle": "quads",
+      "muscles": [
+        "quads",
+        "chest",
+        "hamstrings",
+        "calves",
+        "core"
+      ]
+    },
+    {
+      "title": "Mixed strength",
+      "primaryMuscle": "chest",
+      "muscles": [
+        "chest",
+        "back",
+        "shoulders",
+        "triceps",
+        "core"
+      ]
+    },
+    {
+      "title": "Mixed strength",
+      "primaryMuscle": "back",
+      "muscles": [
+        "back",
+        "hamstrings",
+        "biceps",
+        "shoulders"
+      ]
+    },
+    {
+      "title": "Mixed strength",
+      "primaryMuscle": "glutes",
+      "muscles": [
+        "glutes",
+        "chest",
+        "hamstrings",
+        "quads",
+        "core"
+      ]
+    },
+    {
+      "title": "Mixed strength",
+      "primaryMuscle": "shoulders",
+      "muscles": [
+        "shoulders",
+        "back",
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "title": "Mixed strength",
+      "primaryMuscle": "biceps",
+      "muscles": [
+        "biceps",
+        "back",
+        "hamstrings",
+        "shoulders",
+        "core"
+      ]
+    },
+    {
+      "title": "Mixed strength",
+      "primaryMuscle": "triceps",
+      "muscles": [
+        "triceps",
+        "chest",
+        "shoulders",
+        "back",
+        "core"
+      ]
+    }
+  ],
+  "muscleLabels": {}
+}

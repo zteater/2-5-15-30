@@ -1,5 +1,5 @@
 async function startApp() {
-  const loadJson = (file) => fetch(`./${file}?v=20260973`).then((response) => {
+  const loadJson = (file) => fetch(`./${file}?v=20260974`).then((response) => {
     if (!response.ok) throw new Error(`Unable to load workout data (${response.status})`);
     return response.json();
   });
@@ -29,6 +29,18 @@ const brandLinks = [...document.querySelectorAll(".home-link")];
 const configButton = document.querySelector("#config-button");
 const configModal = document.querySelector("#config-modal");
 const configClose = document.querySelector("#config-close");
+const exerciseDetailModal = document.querySelector("#exercise-detail-modal");
+const exerciseDetailClose = document.querySelector("#exercise-detail-close");
+const exerciseDetailName = document.querySelector("#exercise-detail-name");
+const exerciseDetailMeta = document.querySelector("#exercise-detail-meta");
+const exerciseDetailContent = document.querySelector("#exercise-detail-content");
+const exerciseDetailExclude = document.querySelector("#exercise-detail-exclude");
+const excludedExerciseList = document.querySelector("#excluded-exercise-list");
+const excludedExerciseCount = document.querySelector("#excluded-exercise-count");
+const clearExclusionsButton = document.querySelector("#clear-exclusions");
+const planToast = document.querySelector("#plan-toast");
+const planToastMessage = document.querySelector("#plan-toast-message");
+const planToastUndo = document.querySelector("#plan-toast-undo");
 const shareButton = document.querySelector("#share-button");
 const sharePopover = document.querySelector("#share-popover");
 const menuButton = document.querySelector("#menu-button");
@@ -56,6 +68,14 @@ const equipmentLabels = new Map(equipmentCatalog.flatMap((item) => [
 const primaryLiftingEquipment = new Set(equipmentCatalog.filter((item) => item.group === "primary").map((item) => item.key));
 const cardioEquipment = new Set(equipmentCatalog.filter((item) => item.group === "cardio").map((item) => item.key));
 const conditioningEquipment = new Set(equipmentCatalog.filter((item) => item.group === "conditioning").map((item) => item.key));
+const planParams = new URLSearchParams(window.location.search);
+const exerciseIds = new Set(exercises.map((exercise) => exercise.id));
+const exerciseCatalogById = new Map(exercises.map((exercise) => [exercise.id, exercise]));
+const excludedExerciseIds = new Set((planParams.get("exclude") || "")
+  .split(",")
+  .map((id) => id.trim())
+  .filter((id) => exerciseIds.has(id)));
+const isExcluded = (exercise) => excludedExerciseIds.has(exercise.id);
 const strengthExercises = exercises.filter((exercise) => exercise.type === "strength");
 const cardioExercises = exercises.filter((exercise) => exercise.type === "cardio");
 const universalWarmupSets = new Map();
@@ -67,7 +87,6 @@ exercises.filter((exercise) => exercise.type === "warmup" && exercise.isUniversa
   });
 const equipmentDependencies = new Map(equipmentCatalog.map((item) => [item.key, item.dependencies || []]));
 const defaultEquipment = equipmentCatalog.filter((item) => item.isDefault).map((item) => item.key);
-const planParams = new URLSearchParams(window.location.search);
 const loadedFromSeed = Boolean(planParams.get("seed"));
 const equipmentKeys = equipmentCatalog.map((item) => item.key);
 const equipmentIndexes = new Map(equipmentKeys.map((equipment, index) => [equipment, index]));
@@ -149,6 +168,9 @@ function encodePlanSeed() {
 function updatePlanUrl() {
   const url = new URL(window.location.href);
   url.searchParams.set("seed", encodePlanSeed());
+  const encodedExclusions = [...excludedExerciseIds].sort().join(",");
+  if (encodedExclusions) url.searchParams.set("exclude", encodedExclusions);
+  else url.searchParams.delete("exclude");
   url.searchParams.delete("sessions");
   url.searchParams.delete("equipment");
   url.searchParams.delete("cardio");
@@ -159,7 +181,7 @@ let activeSeed = decodedPlan?.seed || planParams.get("seed") || createSeed();
 updatePlanUrl();
 
 function planSeedMaterial() {
-  return `${activeSeed}:${sessionCount}:${[...selectedEquipment].sort().join(",")}:${cardioEnabled() ? "1" : "0"}:${dynamicWarmups ? "1" : "0"}:${dynamicRest ? "1" : "0"}`;
+  return `${activeSeed}:${sessionCount}:${[...selectedEquipment].sort().join(",")}:${[...excludedExerciseIds].sort().join(",")}:${cardioEnabled() ? "1" : "0"}:${dynamicWarmups ? "1" : "0"}:${dynamicRest ? "1" : "0"}`;
 }
 
 let randomState = hashSeed(planSeedMaterial());
@@ -281,6 +303,82 @@ function exerciseWarmupSets(exercise) {
   return WARMUP_PROTOCOLS[exercise.warmupProtocol] || [];
 }
 
+let currentExerciseDetails = new Map();
+let activeDetailExerciseId = null;
+let previousDetailTarget = null;
+let exclusionToastTimeout;
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function exerciseTypeLabel(exercise) {
+  if (exercise.type === "warmup") return "Warm-up";
+  if (exercise.type === "cardio") return "Cardio";
+  if (exercise.conditioning) return "Conditioning";
+  return "Strength";
+}
+
+function formatRestSeconds(seconds) {
+  if (!Number.isFinite(seconds)) return null;
+  return `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, "0")}`;
+}
+
+function detailEquipment(exercise) {
+  const equipment = [...new Set([...(exercise.equipment || []), ...(exercise.requires || [])])]
+    .filter((item) => item !== "bodyweight");
+  return equipment.length
+    ? equipment.map((item) => equipmentLabels.get(item) || item)
+    : ["No equipment required"];
+}
+
+function detailPrescription(exercise) {
+  if (exercise.type === "cardio") {
+    return `<div class="detail-prescription-list">${(exercise.timing || []).map((interval) => `<div><strong>${escapeHtml(interval.sets)} × ${escapeHtml(interval.duration)}</strong></div>`).join("")}</div>`;
+  }
+  if (exercise.type === "warmup") return `<p>${escapeHtml(exercise.dose || "Move through the assigned dose")}</p>`;
+  const sets = exercise.sets || 3;
+  const range = exerciseRepRange(exercise);
+  const rangeLabel = exercise.durationRange ? range : `${range} reps${exercise.repUnit ? ` ${exercise.repUnit}` : ""}`;
+  const prescription = `<p><strong>${sets} sets × ${escapeHtml(rangeLabel)}</strong></p>`;
+  const rest = formatRestSeconds(exercise.detailRestSeconds ?? exercise.restPeriod);
+  const restMarkup = rest ? `<p>Rest ${rest} after each superset round</p>` : "";
+  const hasPowerPrep = exercise.conditioning && exercise.warmupProtocol === "powerPrep";
+  const warmupSets = exercise.primary || hasPowerPrep
+    ? exerciseWarmupSets(exercise)
+    : (exercise.secondaryWarmupSets || []);
+  const warmupMarkup = warmupSets.length
+    ? `<div class="detail-subsection"><h4>Warm-up</h4>${warmupSets.map((set) => `<p>${escapeHtml(set)}</p>`).join("")}</div>`
+    : "";
+  return `${prescription}${restMarkup}${warmupMarkup}`;
+}
+
+function detailProgression(exercise) {
+  if (exercise.type === "warmup" || exercise.type === "cardio") return "";
+  if (exercise.repNotes) return exercise.repNotes;
+  if (exercise.warmupProtocol === "powerPrep") return "Perform each repetition explosively while maintaining control. Stop the set when speed or technique noticeably declines.";
+  if (exercise.durationRange) return "Maintain good position for the assigned duration. Increase the duration within the range before progressing resistance or difficulty.";
+  if (exercise.repUnit === "per side") return "Complete the assigned range on each side.";
+  return "Use one working weight for all three sets.\n\nComplete as many clean reps as possible within the assigned range without sacrificing form.\n\nKeep the weight until every set reaches the top of the range, then increase the weight the next time the exercise appears. Repetitions do not need to increase every workout; they increase as ability improves.";
+}
+
+function renderExerciseDetails(exercise) {
+  const sections = [
+    `<section class="detail-section"><h3>Equipment</h3><ul class="detail-equipment-list">${detailEquipment(exercise).map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></section>`,
+    `<section class="detail-section"><h3>How to perform</h3><ol class="detail-instruction-list">${(exercise.instructions || []).map((step) => `<li>${escapeHtml(step)}</li>`).join("")}</ol></section>`,
+    `<section class="detail-section"><h3>${exercise.type === "cardio" ? "Timing" : "Sets and reps"}</h3>${detailPrescription(exercise)}</section>`,
+  ];
+  if (exercise.formCues?.length) sections.push(`<section class="detail-section"><h3>Key cues</h3><ul class="detail-cue-list">${exercise.formCues.map((cue) => `<li>${escapeHtml(cue)}</li>`).join("")}</ul></section>`);
+  const progression = detailProgression(exercise);
+  if (progression) sections.push(`<section class="detail-section"><h3>Progression</h3>${progression.split("\n\n").map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("")}</section>`);
+  return sections.join("");
+}
+
 function matchesSelectedEquipment(exercise) {
   const requirements = [...(exercise.equipment || []), ...(exercise.requires || [])]
     .filter((item) => item !== "bodyweight")
@@ -315,6 +413,7 @@ function isBodyweightOnly(exercise) {
 
 function selectedEquipmentSupportsMuscle(muscle) {
   return strengthExercises.some((exercise) => exercise.primaryMuscle === muscle
+    && !isExcluded(exercise)
     && matchesSelectedEquipment(exercise)
     && !isBodyweightOnly(exercise)
     && !exercise.conditioning);
@@ -325,7 +424,7 @@ function unsupportedCoverageMuscles() {
 }
 
 function chooseExercise(muscle, supersetExercises = [], exerciseIndex, recentExerciseIds = [], routineExercises = []) {
-  const muscleExercises = strengthExercises.filter((exercise) => exercise.primaryMuscle === muscle);
+  const muscleExercises = strengthExercises.filter((exercise) => exercise.primaryMuscle === muscle && !isExcluded(exercise));
   const matchingExercises = muscleExercises.filter(matchesSelectedEquipment);
   const weightedExercises = matchingExercises.filter((exercise) => !isBodyweightOnly(exercise) && !exercise.conditioning);
   const bodyweightFallback = matchingExercises.filter((exercise) => isBodyweightOnly(exercise));
@@ -359,6 +458,7 @@ function chooseExercise(muscle, supersetExercises = [], exerciseIndex, recentExe
 
 function chooseFinalExercise(preferredMuscle, supersetExercises = [], recentExerciseIds = [], routineExercises = []) {
   const candidates = strengthExercises
+    .filter((exercise) => !isExcluded(exercise))
     .filter(matchesSelectedEquipment)
     .filter((exercise) => exercise.primaryMuscle === "core"
       || isBodyweightOnly(exercise)
@@ -425,7 +525,7 @@ function chooseSecondaryWarmup(exercises) {
 }
 
 function universalWarmupsForRoutine(sequenceNumber) {
-  return universalWarmupSets.get((sequenceNumber - 1) % 4) || [];
+  return (universalWarmupSets.get((sequenceNumber - 1) % 4) || []).filter((warmup) => !isExcluded(warmup));
 }
 
 function buildRoutine(blueprint, sequenceNumber, recentExerciseIds = [], targetExerciseCount = blueprint.muscles.length, targetMuscles = null) {
@@ -541,6 +641,7 @@ function buildCoverageMusclePlan(routineExerciseCounts) {
 function warmupCandidates(muscle) {
   const candidates = exercises.filter((exercise) => exercise.type === "warmup"
     && exercise.primaryMuscle === muscle
+    && !isExcluded(exercise)
     && !(exercise.equipment || []).includes("tubebands")
     && !(exercise.requires || []).includes("tubebands"));
   const matchingEquipment = candidates.filter(matchesSelectedEquipment);
@@ -603,7 +704,8 @@ function cardioDurationMinutes(cardio) {
 
 function renderRoutine(routine) {
   const validWarmups = routine.warmups.filter((warmup) => warmup?.name);
-  const warmupMarkup = `<div class="superset warmup-block"><div class="superset-heading"><span>Warm up</span></div>${validWarmups.map((warmup) => `<div class="exercise warmup-exercise"><span><span class="exercise-name">${exerciseDisplayName(warmup)}</span><span class="exercise-muscle">${exerciseDescriptor(warmup, warmup.muscle)}</span></span><span class="exercise-sets">${warmup.dose}</span></div>`).join("")}</div>`;
+  const interactiveAttributes = (exercise) => `data-exercise-id="${escapeHtml(exercise.id)}" tabindex="0" role="button" aria-label="Open details for ${escapeHtml(exerciseDisplayName(exercise))}"`;
+  const warmupMarkup = `<div class="superset warmup-block"><div class="superset-heading"><span>Warm up</span></div>${validWarmups.map((warmup) => `<div class="exercise warmup-exercise exercise-row-interactive" ${interactiveAttributes(warmup)}><span><span class="exercise-name">${exerciseDisplayName(warmup)}</span><span class="exercise-muscle">${exerciseDescriptor(warmup, warmup.muscle)}</span></span><span class="exercise-sets">${warmup.dose}</span></div>`).join("")}</div>`;
   const supersetGroups = routine.exercises.length === 5
     ? [routine.exercises.slice(0, 2), routine.exercises.slice(2)]
     : [routine.exercises.slice(0, 2), routine.exercises.slice(2, 4)];
@@ -619,7 +721,7 @@ function renderRoutine(routine) {
         : (exercise.secondaryWarmupSets || []);
       const primarySets = [...preparationSets, `${exercise.sets} × ${exerciseRepRange(exercise)}`];
       return `
-        <div class="exercise">
+        <div class="exercise exercise-row-interactive" ${interactiveAttributes(exercise)}>
           <span><span class="exercise-name">${exerciseDisplayName(exercise)}</span><span class="exercise-muscle">${exerciseDescriptor(exercise, exercise.muscle)}</span></span>
           <span class="exercise-sets${primarySets.length > 1 ? " stacked-sets" : ""}">${primarySets.map((set) => `<span>${set}</span>`).join("")}</span>
         </div>`;
@@ -634,7 +736,7 @@ function renderRoutine(routine) {
       <div class="routine-top">
         <div class="routine-title-row"><h4>Routine ${String(routine.sequenceNumber).padStart(2, "0")}</h4><span class="routine-duration${routine.liftingMinutes > 30 ? " is-over-target" : ""}"><span>${routine.liftingMinutes}′</span>${routine.cardio ? `<span class="routine-duration-divider" aria-hidden="true"><svg viewBox="0 0 4 32"><path d="M2 1v30" /></svg></span><span class="routine-cardio-duration">${routine.cardioMinutes}′</span>` : ""}</span></div>
       </div>
-      <div class="exercise-list">${warmupMarkup}${exerciseMarkup}${routine.cardio ? `<div class="superset cardio-block"><div class="superset-heading"><span>Cardio finisher</span></div><div class="exercise cardio-exercise"><span><span class="exercise-name">${routine.cardio.name}</span><span class="exercise-muscle">cardio - conditioning</span></span><span class="exercise-sets cardio-sets">${routine.cardio.timing.map((interval) => `<span>${interval.sets} × ${interval.duration}</span>`).join("")}</span></div></div>` : ""}</div>
+      <div class="exercise-list">${warmupMarkup}${exerciseMarkup}${routine.cardio ? `<div class="superset cardio-block"><div class="superset-heading"><span>Cardio finisher</span></div><div class="exercise cardio-exercise exercise-row-interactive" ${interactiveAttributes(routine.cardio)}><span><span class="exercise-name">${routine.cardio.name}</span><span class="exercise-muscle">cardio - conditioning</span></span><span class="exercise-sets cardio-sets">${routine.cardio.timing.map((interval) => `<span>${interval.sets} × ${interval.duration}</span>`).join("")}</span></div></div>` : ""}</div>
     </article>`;
 }
 
@@ -667,7 +769,7 @@ function generatePlan({ newSeed = false } = {}) {
   const unsupportedMuscles = unsupportedCoverageMuscles();
   if (unsupportedMuscles.length) {
     output.innerHTML = `<p class="plan-error">Selected equipment cannot cover ${unsupportedMuscles.map(labelMuscle).join(", ")}. Add equipment or choose a different setup.</p>`;
-    return;
+    return false;
   }
   let routines;
   let planSignature;
@@ -679,7 +781,7 @@ function generatePlan({ newSeed = false } = {}) {
     }
     resetRandom();
     const availableCardio = cardioExercises.filter((option) =>
-      option.equipment.some((item) => selectedEquipment.has(item)),
+      !isExcluded(option) && option.equipment.some((item) => selectedEquipment.has(item)),
     );
     const cardioName = () => shuffle(availableCardio)[0] || null;
     const blueprintQueue = buildBlueprintQueue();
@@ -711,7 +813,7 @@ function generatePlan({ newSeed = false } = {}) {
     });
     if (routines.some((routine) => !routine)) {
       output.innerHTML = `<p class="plan-error">Selected equipment cannot build the requested routine sequence. Add equipment or choose a different setup.</p>`;
-      return;
+      return false;
     }
     planSignature = routines.map((routine) => [
       routine.exercises.map((exercise) => exercise.id).join(","),
@@ -722,8 +824,86 @@ function generatePlan({ newSeed = false } = {}) {
   } while (newSeed && planSignature === lastPlanSignature && attempts < 8);
 
   lastPlanSignature = planSignature;
+  currentExerciseDetails = new Map();
+  routines.forEach((routine) => {
+    const restPeriods = supersetRestPeriods(routine.exercises);
+    routine.exercises.forEach((exercise, index) => {
+      currentExerciseDetails.set(exercise.id, {
+        ...exercise,
+        detailRestSeconds: restPeriods[index < 2 ? 0 : 1],
+      });
+    });
+    routine.warmups.forEach((warmup) => currentExerciseDetails.set(warmup.id, { ...warmup }));
+    if (routine.cardio) currentExerciseDetails.set(routine.cardio.id, { ...routine.cardio });
+  });
   const routineMarkup = routines.map(renderRoutine).join("");
   output.innerHTML = `<div class="routine-grid">${routineMarkup}</div>`;
+  renderExcludedExercises();
+  return true;
+}
+
+function renderExcludedExercises() {
+  const excluded = [...excludedExerciseIds].sort();
+  excludedExerciseCount.textContent = String(excluded.length);
+  clearExclusionsButton.hidden = excluded.length === 0;
+  excludedExerciseList.innerHTML = excluded.length
+    ? excluded.map((id) => {
+      const exercise = exerciseCatalogById.get(id);
+      if (!exercise) return "";
+      return `<div class="excluded-exercise-row"><span><strong>${escapeHtml(exerciseDisplayName(exercise))}</strong><small>${escapeHtml(labelMuscle(exercise.primaryMuscle))}</small></span><button type="button" class="text-button" data-include-exercise="${escapeHtml(id)}">Include</button></div>`;
+    }).join("")
+    : "<p class=\"excluded-empty\">No exercises excluded</p>";
+}
+
+function showPlanToast(message, undoId = null) {
+  planToastMessage.textContent = message;
+  planToastUndo.hidden = !undoId;
+  planToastUndo.dataset.undoExercise = undoId || "";
+  planToast.classList.add("is-visible");
+  window.clearTimeout(exclusionToastTimeout);
+  exclusionToastTimeout = window.setTimeout(() => planToast.classList.remove("is-visible"), 5000);
+}
+
+function exerciseLabelById(id) {
+  return exerciseDisplayName(exerciseCatalogById.get(id) || { name: id });
+}
+
+function setExerciseExclusion(id, shouldExclude) {
+  if (!id) return;
+  if (shouldExclude) {
+    if (excludedExerciseIds.has(id)) return;
+    excludedExerciseIds.add(id);
+    if (!generatePlan()) {
+      excludedExerciseIds.delete(id);
+      updatePlanUrl();
+      generatePlan();
+      exerciseDetailExclude.checked = false;
+      showPlanToast("This exercise cannot be excluded with the current equipment.");
+      return;
+    }
+    updatePlanUrl();
+    exerciseDetailModal.close();
+    showPlanToast(`${exerciseLabelById(id)} excluded`, id);
+    return;
+  }
+  if (!excludedExerciseIds.delete(id)) return;
+  updatePlanUrl();
+  generatePlan();
+  exerciseDetailExclude.checked = false;
+  exerciseDetailModal.close();
+  showPlanToast(`${exerciseLabelById(id)} included`);
+}
+
+function openExerciseDetails(id) {
+  const exercise = currentExerciseDetails.get(id) || exerciseCatalogById.get(id);
+  if (!exercise) return;
+  previousDetailTarget = document.activeElement;
+  activeDetailExerciseId = id;
+  exerciseDetailName.textContent = exerciseDisplayName(exercise);
+  exerciseDetailMeta.textContent = `${labelMuscle(exercise.muscle || exercise.primaryMuscle)} · ${exerciseTypeLabel(exercise)}`;
+  exerciseDetailContent.innerHTML = renderExerciseDetails(exercise);
+  exerciseDetailExclude.checked = excludedExerciseIds.has(id);
+  exerciseDetailModal.showModal();
 }
 
 function updateEquipmentState(button) {
@@ -774,6 +954,43 @@ configButton.addEventListener("click", () => configModal.showModal());
 configClose.addEventListener("click", () => configModal.close());
 configModal.addEventListener("click", (event) => {
   if (event.target === configModal) configModal.close();
+});
+exerciseDetailClose.addEventListener("click", () => exerciseDetailModal.close());
+exerciseDetailModal.addEventListener("close", () => {
+  if (previousDetailTarget instanceof HTMLElement && document.contains(previousDetailTarget)) previousDetailTarget.focus();
+  previousDetailTarget = null;
+});
+exerciseDetailModal.addEventListener("click", (event) => {
+  if (event.target === exerciseDetailModal) exerciseDetailModal.close();
+});
+exerciseDetailExclude.addEventListener("change", () => {
+  setExerciseExclusion(activeDetailExerciseId, exerciseDetailExclude.checked);
+});
+output.addEventListener("click", (event) => {
+  const row = event.target.closest(".exercise-row-interactive");
+  if (row) openExerciseDetails(row.dataset.exerciseId);
+});
+output.addEventListener("keydown", (event) => {
+  const row = event.target.closest(".exercise-row-interactive");
+  if (!row || !["Enter", " "].includes(event.key)) return;
+  event.preventDefault();
+  openExerciseDetails(row.dataset.exerciseId);
+});
+excludedExerciseList.addEventListener("click", (event) => {
+  const includeButton = event.target.closest("[data-include-exercise]");
+  if (includeButton) setExerciseExclusion(includeButton.dataset.includeExercise, false);
+});
+clearExclusionsButton.addEventListener("click", () => {
+  if (!excludedExerciseIds.size) return;
+  excludedExerciseIds.clear();
+  updatePlanUrl();
+  generatePlan();
+  showPlanToast("All exercise exclusions cleared");
+});
+planToastUndo.addEventListener("click", () => {
+  const id = planToastUndo.dataset.undoExercise;
+  setExerciseExclusion(id, false);
+  planToast.classList.remove("is-visible");
 });
 
 let sharePopoverTimeout;

@@ -741,3 +741,243 @@ html[data-theme="dark"] .routine-cardio-duration {
     display: flex;
   }
 }
+
+.exercise-row-interactive {
+  cursor: pointer;
+}
+
+.exercise-row-interactive:hover,
+.exercise-row-interactive:focus-visible {
+  background: var(--paper);
+  outline: none;
+}
+
+.exercise-row-interactive:focus-visible {
+  box-shadow: inset 0 0 0 2px var(--lime-dark);
+}
+
+.exercise-detail-meta {
+  color: var(--muted);
+  margin: 8px 0 0;
+  font-size: 12px;
+}
+
+.detail-section {
+  border-top: 1px solid var(--line);
+  padding: 18px 0 0;
+  margin-top: 18px;
+}
+
+.detail-section h3 {
+  margin: 0 0 10px;
+  font-size: 13px;
+}
+
+.detail-section h4 {
+  margin: 16px 0 8px;
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.detail-section p,
+.detail-instruction-list,
+.detail-cue-list,
+.detail-equipment-list {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.detail-section p {
+  margin: 8px 0 0;
+}
+
+.detail-instruction-list,
+.detail-cue-list {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.detail-equipment-list {
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+}
+
+.detail-equipment-list li {
+  padding: 4px 0;
+}
+
+.detail-prescription-list {
+  color: var(--ink);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.detail-prescription-list div {
+  padding: 4px 0;
+}
+
+.detail-exclude-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  cursor: pointer;
+}
+
+.detail-exclude-row strong,
+.detail-exclude-row small {
+  display: block;
+}
+
+.detail-exclude-row strong {
+  font-size: 13px;
+}
+
+.detail-exclude-row small {
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 4px;
+}
+
+.detail-exclude-row input {
+  position: absolute;
+  opacity: 0;
+}
+
+.detail-exclude-row input:checked + .switch {
+  background: var(--lime-dark);
+}
+
+.detail-exclude-row input:checked + .switch::after {
+  transform: translateX(19px);
+}
+
+.excluded-exercises {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.excluded-exercises-heading {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.excluded-exercises-heading strong,
+.excluded-exercises-heading small {
+  display: block;
+}
+
+.excluded-exercises-heading strong {
+  font-size: 13px;
+}
+
+.excluded-exercises-heading small {
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 4px;
+}
+
+.excluded-exercises-heading > strong {
+  color: var(--muted);
+}
+
+.excluded-exercise-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+  border-top: 1px solid var(--line);
+}
+
+.excluded-exercise-row:first-child {
+  margin-top: 14px;
+}
+
+.excluded-exercise-row strong,
+.excluded-exercise-row small {
+  display: block;
+}
+
+.excluded-exercise-row strong {
+  font-size: 12px;
+}
+
+.excluded-exercise-row small {
+  color: var(--muted);
+  font-size: 10px;
+  margin-top: 3px;
+}
+
+.excluded-empty {
+  color: var(--muted);
+  font-size: 11px;
+  margin: 14px 0 0;
+}
+
+.clear-exclusions {
+  margin-top: 12px;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.clear-exclusions[hidden] {
+  display: none;
+}
+
+.plan-toast {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  width: max-content;
+  max-width: 100%;
+  margin: 14px 0 0 auto;
+  padding: 9px 12px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 11px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-4px);
+  transition: opacity .16s ease, transform .16s ease;
+}
+
+.plan-toast.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.plan-toast .text-button {
+  padding: 0;
+  color: var(--lime);
+  font-size: 11px;
+}
+
+@media (max-width: 620px) {
+  .exercise-detail-modal .info-modal-card {
+    max-height: calc(100dvh - 24px);
+    overflow-y: auto;
+  }
+
+  .detail-exclude-row {
+    align-items: flex-start;
+  }
+
+  .plan-toast {
+    width: 100%;
+  }
+}

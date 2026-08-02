@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f5f4ef" />
+    <meta name="description" content="Build a flexible, equipment-aware workout sequence with the 2–5–15–30 method." />
+    <title>2–5–15–30 — Flexible workout planner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css?v=20260802" />
+    <link rel="stylesheet" href="supersets.css?v=20260802" />
+  </head>
+  <body>
+    <main id="top">
+      <section class="hero shell">
+        <div class="hero-copy">
+          <p class="eyebrow">THE 2–5–15–30 METHOD</p>
+          <h1>A plan that fits<br /><em>your real life.</em></h1>
+          <p class="hero-lede">Choose what you have. We’ll build 4–16 focused sessions that cover every major muscle twice across a repeatable four-session cycle — without taking over your day.</p>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="sun"></div>
+          <svg viewBox="0 0 380 275" role="presentation">
+            <path class="art-line thick" d="M20 238c35-26 62-25 86-6 17 13 30 13 48-3 17-15 35-15 52 0 22 19 45 16 70-10 24-25 51-37 84-29" />
+            <path class="art-line" d="M21 256c39-21 65-18 86-2 18 14 34 16 51 3 21-16 38-18 58-4 21 15 42 9 59-11 25-30 54-45 85-39" />
+            <path class="art-line muted" d="M85 204c16-34 19-71 11-111M96 177c17-19 35-27 54-28M99 153c-13-15-26-23-42-25M286 220c-2-35 7-66 26-93M291 167c17-16 31-21 48-20M290 143c-9-16-20-26-35-32" />
+            <path class="art-line" d="M104 76c8-21 22-37 42-47M318 131c9-24 23-42 42-54" />
+            <circle class="art-dot" cx="49" cy="205" r="4" /><circle class="art-dot" cx="352" cy="188" r="4" />
+          </svg>
+        </div>
+      </section>
+
+      <section class="tool-header shell" id="planner">
+        <div class="tool-title-row">
+          <a class="results-brand tool-brand home-link" id="brand-link" href="#top" aria-label="2–5–15–30 home"><span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span><span>2–5–15–30</span></a>
+          <div class="tool-actions">
+            <button class="how-it-works" id="info-button" type="button">How it works <span aria-hidden="true">↗</span></button>
+            <button class="how-it-works" id="progression-button" type="button">Progression <span aria-hidden="true">↗</span></button>
+          </div>
+        </div>
+        <dialog class="info-modal config-modal" id="config-modal">
+          <div class="info-modal-card">
+            <div class="info-modal-header">
+              <div>
+                <p class="eyebrow">CONFIGURE</p>
+                <h2>Configure plan.</h2>
+              </div>
+              <button class="modal-close" id="config-close" type="button" aria-label="Close">×</button>
+            </div>
+        <div class="equipment-picker">
+          <div class="equipment-picker-heading"><span>Equipment</span><span class="selection-count" id="selection-count">8 selected</span></div>
+          <div class="equipment-grid" role="group" aria-label="Available equipment">
+          <button class="equipment-card is-selected" type="button" data-equipment="dumbbells" aria-pressed="true">
+            <span class="equipment-icon dumbbell-icon" aria-hidden="true"><span></span><i></i><span></span></span>
+            <span class="equipment-name">Dumbbells</span>
+            <span class="equipment-detail">Fixed or adjustable</span>
+            <span class="check" aria-hidden="true">✓</span>
+          </button>
+          <button class="equipment-card is-selected" type="button" data-equipment="bench" aria-pressed="true">
+            <span class="equipment-icon bench-icon" aria-hidden="true"><span></span><i></i><b></b></span>
+            <span class="equipment-name">Adjustable bench</span>
+            <span class="equipment-detail">Flat or incline</span>
+            <span class="check" aria-hidden="true">✓</span>
+          </button>
+          <button class="equipment-card" type="button" data-equipment="kettlebells" aria-pressed="false">
+            <span class="equipment-icon kettlebell-icon" aria-hidden="true"><span></span><i></i></span>
+            <span class="equipment-name">Kettlebells</span>
+            <span class="equipment-detail">Simple and versatile</span>
+            <span class="check" aria-hidden="true">✓</span>
+          </button>
+          <button class="equipment-card" type="button" data-equipment="tubebands" aria-pressed="false">
+            <span class="equipment-icon bands-icon" aria-hidden="true"><span></span><i></i><b></b></span>
+            <span class="equipment-name">Tube bands</span>
+            <span class="equipment-detail">Handles, ankle straps, door anchor</span>
+            <span class="check" aria-hidden="true">✓</span>
+          </button>
+          <button class="equipment-card is-selected" type="button" data-equipment="pullupbar" aria-pressed="true">
+            <span class="equipment-icon pullup-icon" aria-hidden="true"><span></span><i></i><b></b></span>
+            <span class="equipment-name">Pull-up bar</span>
+            <span class="equipment-detail">Vertical pulling</span>
+            <span class="check" aria-hidden="true">✓</span>
+          </button>
+          <button class="equipment-card is-selected" type="button" data-equipment="barbell" aria-pressed="true">
+            <span class="equipment-icon barbell-icon" aria-hidden="true"><span></span><i></i><b></b></span>
+            <span class="equipment-name">Olympic bar + plates</span>
+            <span class="equipment-detail">Heavy strength work</span>
+            <span class="check" aria-hidden="true">✓</span>
+          </button>
+          <button class="equipment-card is-selected" type="button" data-equipment="ezbar" aria-pressed="true">
+            <span class="equipment-icon barbell-icon" aria-hidden="true"><span></span><i></i><b></b></span>
+            <span class="equipment-name">EZ-bar</span>
+            <span class="equipment-detail">Curls and close-grip work</span>
+            <span class="check" aria-hidden="true">✓</span>
+          </button>
+          <button class="equipment-card is-selected" type="button" data-equipment="landmine" aria-pressed="true">
+            <span class="equipment-icon barbell-icon" aria-hidden="true"><span></span><i></i><b></b></span>
+            <span class="equipment-name">Landmine extension</span>
+            <span class="equipment-detail">Attaches to Olympic bar</span>
+            <span class="check" aria-hidden="true">✓</span>
+          </button>
+          <button class="equipment-card is-selected" type="button" data-equipment="rack" aria-pressed="true">
+            <span class="equipment-icon rack-icon" aria-hidden="true"><span></span><i></i><b></b></span>
+            <span class="equipment-name">Adjustable rack</span>
+            <span class="equipment-detail">Squat and press safely</span>
+            <span class="check" aria-hidden="true">✓</span>
+          </button>
+          <button class="equipment-card" type="button" data-equipment="slamball" aria-pressed="false">
+            <span class="equipment-icon slam-icon" aria-hidden="true"><span></span><i></i></span>
+            <span class="equipment-name">Slam ball</span>
+            <span class="equipment-detail">Power and conditioning</span>
+            <span class="check" aria-hidden="true">✓</span>
+          </button>
+          <button class="equipment-card" type="button" data-equipment="medicineball" aria-pressed="false">
+            <span class="equipment-icon slam-icon" aria-hidden="true"><span></span><i></i></span>
+            <span class="equipment-name">Medicine ball</span>
+            <span class="equipment-detail">Throws, presses, and core work</span>
+            <span class="check" aria-hidden="true">✓</span>
+          </button>
+          <button class="equipment-card" type="button" data-equipment="jumprope" aria-pressed="false">
+            <span class="equipment-icon bands-icon" aria-hidden="true"><span></span><i></i><b></b></span>
+            <span class="equipment-name">Jump rope</span>
+            <span class="equipment-detail">Intervals and conditioning</span>
+            <span class="check" aria-hidden="true">✓</span>
+          </button>
+          <button class="equipment-card" type="button" data-equipment="treadmill" aria-pressed="false">
+            <span class="equipment-icon treadmill-icon" aria-hidden="true"><span></span><i></i><b></b></span>
+            <span class="equipment-name">Treadmill</span>
+            <span class="equipment-detail">Walks and intervals</span>
+            <span class="check" aria-hidden="true">✓</span>
+          </button>
+          <button class="equipment-card" type="button" data-equipment="rower" aria-pressed="false">
+            <span class="equipment-icon bike-icon" aria-hidden="true"><span></span><i></i><b></b></span>
+            <span class="equipment-name">Rowing machine</span>
+            <span class="equipment-detail">Steady rows and intervals</span>
+            <span class="check" aria-hidden="true">✓</span>
+          </button>
+          <button class="equipment-card is-selected" type="button" data-equipment="bike" aria-pressed="true">
+            <span class="equipment-icon bike-icon" aria-hidden="true"><span></span><i></i><b></b></span>
+            <span class="equipment-name">Stationary bike</span>
+            <span class="equipment-detail">Low-impact cardio</span>
+            <span class="check" aria-hidden="true">✓</span>
+          </button>
+          </div>
+        </div>
+
+        <div class="plan-settings">
+          <div class="plan-options">
+            <label class="session-range" for="session-slider">
+              <span class="session-range-top"><span><strong>Sessions in sequence</strong><small>Choose your flexible plan length</small></span><output id="session-count-output">4 sessions</output></span>
+              <input type="range" id="session-slider" min="4" max="16" step="4" value="4" />
+              <span class="session-range-scale" aria-hidden="true"><span>4</span><span>8</span><span>12</span><span>16</span></span>
+            </label>
+            <label class="switch-row">
+              <span>
+                <strong>Add cardio sessions</strong>
+                <small>Optional 30-minute finishers on 4-exercise sessions</small>
+              </span>
+              <input type="checkbox" id="cardio-toggle" checked />
+              <span class="switch" aria-hidden="true"></span>
+            </label>
+          </div>
+        </div>
+          </div>
+        </dialog>
+
+      </section>
+
+      <section class="results shell" id="results" aria-live="polite">
+        <div class="cards-actions">
+          <button class="text-button" id="config-button" type="button">⚙ Config</button>
+          <button class="text-button" id="regenerate-button" type="button">↻ Regenerate</button>
+        </div>
+        <div id="routine-output"></div>
+      </section>
+    </main>
+
+    <dialog class="info-modal" id="info-modal">
+      <div class="info-modal-card">
+        <div class="info-modal-header">
+          <div>
+            <p class="eyebrow">THE SIMPLE FORMULA</p>
+            <h2>Small rules.<br /><em>Big consistency.</em></h2>
+          </div>
+          <button class="modal-close" id="info-close" type="button" aria-label="Close">×</button>
+        </div>
+        <p class="info-modal-lede">Choose your equipment, set the sequence length, and complete the routines in order whenever life gives you the time.</p>
+        <div class="modal-rule-list">
+          <div class="modal-rule"><strong>2×</strong><span>Every major muscle group appears twice across each four-session cycle.</span></div>
+          <div class="modal-rule"><strong>5</strong><span>No more than five exercises in a routine.</span></div>
+          <div class="modal-rule"><strong>15</strong><span>No more than fifteen total lifting sets.</span></div>
+          <div class="modal-rule"><strong>30′</strong><span>Sessions are designed to fit within thirty minutes, with optional cardio finishers.</span></div>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="info-modal" id="progression-modal">
+      <div class="info-modal-card">
+        <div class="info-modal-header">
+          <div>
+            <p class="eyebrow">PROGRESSION</p>
+            <h2>Own the range.<br /><em>Then add weight.</em></h2>
+          </div>
+          <button class="modal-close" id="progression-close" type="button" aria-label="Close">×</button>
+        </div>
+        <p class="info-modal-lede">Use one working weight for all three sets. Try to reach the session max on every set, but never let a later set exceed the reps completed on the set before it.</p>
+        <div class="progression-example">
+          <div><span>Set 1</span><strong>6–10 reps</strong></div>
+          <div><span>Set 2</span><strong>6–Set 1 reps</strong></div>
+          <div><span>Set 3</span><strong>6–Set 2 reps</strong></div>
+        </div>
+        <p class="info-modal-lede progression-finish">Example: 9 reps, then 7 reps means the next target is 6–7. Increase weight next session when all three sets reach 10.</p>
+      </div>
+    </dialog>
+
+    <dialog class="info-modal privacy-modal" id="privacy-modal">
+      <div class="info-modal-card">
+        <div class="info-modal-header">
+          <div>
+            <p class="eyebrow">PRIVACY</p>
+            <h2>Your data stays yours.</h2>
+          </div>
+          <button class="modal-close" id="privacy-close" type="button" aria-label="Close">×</button>
+        </div>
+        <p class="info-modal-lede">2–5–15–30 is free to use and does not collect or store your personal data. There are no accounts, no database, and no data sales. We do not want anything from you.</p>
+        <p class="info-modal-lede privacy-finish">Use the tool, feed the gains, and be healthy.</p>
+      </div>
+    </dialog>
+
+    <footer class="site-footer shell">
+      <span id="footer-legal">© 2026 Zak Studios · All rights reserved · <button class="footer-link" id="privacy-button" type="button">Privacy</button></span>
+      <span>General fitness information only.<br />Train within your abilities and consult a qualified professional with health concerns.</span>
+    </footer>
+
+    <div class="easter-toast" id="easter-toast" role="status" aria-live="polite"></div>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

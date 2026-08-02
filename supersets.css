@@ -1,0 +1,150 @@
+.superset {
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  margin-left: -6px;
+  margin-right: -6px;
+  padding: 8px 6px 9px;
+}
+
+.superset:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.superset + .superset {
+  margin-top: 8px;
+}
+
+.superset-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 2px;
+  color: var(--ink);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.superset-heading small {
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  white-space: nowrap;
+}
+
+.superset-a .superset-heading > span:first-child,
+.superset-a .exercise-rest .exercise-name,
+.superset-a .exercise-rest .exercise-sets {
+  color: #4f9d69;
+}
+
+.superset-b .superset-heading > span:first-child,
+.superset-b .exercise-rest .exercise-name,
+.superset-b .exercise-rest .exercise-sets {
+  color: #4a7fc1;
+}
+
+.superset-a {
+  background: rgba(91, 181, 111, .13);
+}
+
+.superset-b {
+  background: rgba(79, 133, 213, .13);
+}
+
+.warmup-block {
+  background: rgba(250, 214, 90, .22);
+  border-color: rgba(190, 145, 25, .25);
+  margin-top: -2px;
+  padding-top: 8px;
+}
+
+.routine-top {
+  border-bottom: 0;
+}
+
+.exercise-list {
+  padding-top: 13px;
+}
+
+.focus {
+  min-height: 24px;
+}
+
+.warmup-block .superset-heading > span:first-child {
+  color: #a97900;
+}
+
+.warmup-block .exercise-name,
+.warmup-block .exercise-sets {
+  color: #8b6700;
+}
+
+.cardio-block {
+  background: rgba(160, 125, 214, .18);
+  border-color: rgba(121, 81, 165, .22);
+}
+
+.cardio-block .superset-heading > span:first-child {
+  color: #7951a5;
+}
+
+.cardio-exercise {
+  border-bottom: 0 !important;
+}
+
+.cardio-exercise .exercise-name,
+.cardio-exercise .exercise-sets {
+  color: #7951a5;
+}
+
+.cardio-sets {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: right;
+}
+
+.primary-sets {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: right;
+}
+
+.superset .exercise {
+  grid-template-columns: 1fr auto;
+  padding: 8px 0;
+}
+
+@media (max-width: 620px) {
+  .superset-heading small {
+    font-size: 8px;
+  }
+
+  .routine-card {
+    display: block;
+    grid-template-columns: none;
+  }
+
+  .routine-top {
+    border-bottom: 1px solid var(--line);
+    border-right: 0;
+  }
+}
+
+@media (max-width: 700px) {
+  .routine-card {
+    display: block !important;
+    grid-template-columns: none !important;
+  }
+
+  .routine-top {
+    border-bottom: 1px solid var(--line) !important;
+    border-right: 0 !important;
+  }
+}

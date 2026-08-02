@@ -58,10 +58,11 @@ button { cursor: pointer; }
 .session-range input::-moz-range-thumb { width: 16px; height: 16px; border: 0; border-radius: 50%; background: var(--lime-dark); }
  .session-range-scale { display: block; position: relative; width: 100%; height: 12px; color: var(--muted); font-size: 10px; }
  .session-range-scale span { position: absolute; transform: translateX(-50%); }
- .session-range-scale span:nth-child(1) { left: 25%; }
- .session-range-scale span:nth-child(2) { left: 50%; }
- .session-range-scale span:nth-child(3) { left: 75%; }
- .session-range-scale span:nth-child(4) { left: 100%; }
+ .session-range-scale span:nth-child(1) { left: 0; transform: translateX(0); }
+ .session-range-scale span:nth-child(2) { left: 25%; }
+ .session-range-scale span:nth-child(3) { left: 50%; }
+ .session-range-scale span:nth-child(4) { left: 75%; }
+ .session-range-scale span:nth-child(5) { left: 100%; }
  @media (max-width: 620px) { .plan-options { display: block; margin-top: 24px; }.session-range { width: 100%; margin-top: 14px; }.switch-row { margin-top: 24px; } }
  .exercise { grid-template-columns: 1fr auto; }
  .plan-footnote strong { color: var(--ink); }
@@ -224,20 +225,6 @@ html[data-theme="dark"] .primary-button:hover {
     top: 2px;
     font-size: 10px;
     letter-spacing: .12em;
-  }
-}
-
-@media (min-width: 621px) {
-  .cards-actions #regenerate-button {
-    order: 1;
-  }
-
-  .cards-actions #config-button {
-    order: 2;
-  }
-
-  .cards-actions #share-button {
-    order: 3;
   }
 }
 
@@ -617,15 +604,10 @@ body {
   gap: 12px;
 }
 
-@media (min-width: 621px) {
-  .cards-actions #regenerate-button {
-    order: 1;
-  }
-
-  .cards-actions #config-button {
-    order: 2;
-  }
-}
+.cards-actions #regenerate-button { order: 1; }
+.cards-actions #config-button { order: 2; }
+.cards-actions #share-button { order: 3; }
+.plan-error { margin: 24px 0; color: var(--muted); font-size: 13px; line-height: 1.5; }
  .modal-rule-list { border-top: 1px solid var(--line); }
  .progression-rules { margin-top: 24px; }
  .modal-rule { display: grid; grid-template-columns: 42px 1fr; gap: 12px; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--line); color: var(--muted); font-size: 12px; line-height: 1.4; }

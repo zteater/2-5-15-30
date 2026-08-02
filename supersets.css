@@ -121,7 +121,8 @@ html[data-theme="dark"] .cardio-exercise .exercise-sets {
   color: #cbb1f3;
 }
 
-.primary-sets {
+.primary-sets,
+.stacked-sets {
   display: flex;
   flex-direction: column;
   gap: 2px;

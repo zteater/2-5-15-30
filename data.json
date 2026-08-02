@@ -66,17 +66,6 @@
     },
     {
       "title": "Mixed strength",
-      "primaryMuscle": "glutes",
-      "muscles": [
-        "glutes",
-        "chest",
-        "hamstrings",
-        "quads",
-        "core"
-      ]
-    },
-    {
-      "title": "Mixed strength",
       "primaryMuscle": "shoulders",
       "muscles": [
         "shoulders",

@@ -137,7 +137,7 @@
     {
       "key": "loopbands",
       "label": "Loop bands",
-      "group": "primary",
+      "group": "secondary",
       "isDefault": false,
       "dependencies": []
     },

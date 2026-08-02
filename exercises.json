@@ -14,7 +14,10 @@
       "type": "strength",
       "warmupProtocol": "ramp2",
       "id": "dumbbell-floor-press",
-      "primaryEligible": true
+      "primaryEligible": true,
+      "movementPattern": "horizontal-push",
+      "secondaryWarmupEligible": true,
+      "setupResources": []
     },
     {
       "name": "Barbell floor press",
@@ -34,7 +37,13 @@
       "requires": [
         "rack"
       ],
-      "primaryEligible": true
+      "primaryEligible": true,
+      "movementPattern": "horizontal-push",
+      "secondaryWarmupEligible": true,
+      "setupResources": [
+        "olympic-bar",
+        "rack"
+      ]
     },
     {
       "name": "Dumbbell bench press",
@@ -53,7 +62,12 @@
       "type": "strength",
       "warmupProtocol": "ramp2",
       "id": "dumbbell-bench-press",
-      "primaryEligible": true
+      "primaryEligible": true,
+      "movementPattern": "horizontal-push",
+      "secondaryWarmupEligible": true,
+      "setupResources": [
+        "bench-flat"
+      ]
     },
     {
       "name": "Dumbbell incline press",
@@ -73,7 +87,12 @@
       "type": "strength",
       "warmupProtocol": "ramp2",
       "id": "dumbbell-incline-chest-press",
-      "primaryEligible": true
+      "primaryEligible": true,
+      "movementPattern": "horizontal-push",
+      "secondaryWarmupEligible": true,
+      "setupResources": [
+        "bench-incline"
+      ]
     },
     {
       "name": "Dumbbell bench fly",
@@ -92,7 +111,12 @@
       "type": "strength",
       "warmupProtocol": "none",
       "id": "dumbbell-bench-fly",
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "horizontal-push",
+      "secondaryWarmupEligible": true,
+      "setupResources": [
+        "bench-flat"
+      ]
     },
     {
       "name": "Barbell bench press",
@@ -100,7 +124,8 @@
         "bar"
       ],
       "requires": [
-        "bench"
+        "bench",
+        "rack"
       ],
       "setup": "barbell-bench",
       "sets": 3,
@@ -108,11 +133,18 @@
       "primaryMuscle": "chest",
       "restPeriod": 90,
       "setTime": 60,
-      "setupTime": 45,
+      "setupTime": 60,
       "type": "strength",
       "warmupProtocol": "ramp2",
       "id": "barbell-bench-press",
-      "primaryEligible": true
+      "primaryEligible": true,
+      "movementPattern": "horizontal-push",
+      "secondaryWarmupEligible": true,
+      "setupResources": [
+        "olympic-bar",
+        "bench-flat",
+        "rack"
+      ]
     },
     {
       "name": "Barbell incline bench press",
@@ -120,7 +152,8 @@
         "bar"
       ],
       "requires": [
-        "bench"
+        "bench",
+        "rack"
       ],
       "setup": "barbell-incline",
       "sets": 3,
@@ -128,11 +161,18 @@
       "primaryMuscle": "chest",
       "restPeriod": 90,
       "setTime": 60,
-      "setupTime": 45,
+      "setupTime": 60,
       "type": "strength",
       "warmupProtocol": "ramp2",
       "id": "barbell-incline-bench-press",
-      "primaryEligible": true
+      "primaryEligible": true,
+      "movementPattern": "horizontal-push",
+      "secondaryWarmupEligible": true,
+      "setupResources": [
+        "olympic-bar",
+        "bench-incline",
+        "rack"
+      ]
     },
     {
       "name": "Medicine ball chest pass",
@@ -149,23 +189,29 @@
       "warmupProtocol": "powerPrep",
       "id": "medicine-ball-chest-pass",
       "conditioning": true,
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "conditioning",
+      "secondaryWarmupEligible": false,
+      "setupResources": []
     },
-  {
-    "name": "Kettlebell floor press",
-    "equipment": [
-      "kettlebells"
-    ],
-    "sets": 3,
-    "repRange": "6–10",
-    "primaryMuscle": "chest",
-    "restPeriod": 90,
+    {
+      "name": "Kettlebell floor press",
+      "equipment": [
+        "kettlebells"
+      ],
+      "sets": 3,
+      "repRange": "6–10",
+      "primaryMuscle": "chest",
+      "restPeriod": 90,
       "setTime": 45,
       "setupTime": 15,
       "type": "strength",
       "warmupProtocol": "ramp2",
       "id": "kettlebell-floor-press",
-      "primaryEligible": true
+      "primaryEligible": true,
+      "movementPattern": "horizontal-push",
+      "secondaryWarmupEligible": true,
+      "setupResources": []
     },
     {
       "name": "Tube band chest press",
@@ -184,7 +230,12 @@
       "requires": [
         "bandanchor"
       ],
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "horizontal-push",
+      "secondaryWarmupEligible": true,
+      "setupResources": [
+        "band-anchor"
+      ]
     },
     {
       "name": "Bodyweight push-up",
@@ -200,7 +251,10 @@
       "type": "strength",
       "warmupProtocol": "none",
       "id": "bodyweight-push-ups",
-      "primaryEligible": true
+      "primaryEligible": false,
+      "movementPattern": "horizontal-push",
+      "secondaryWarmupEligible": false,
+      "setupResources": []
     },
     {
       "name": "Bodyweight incline push-up",
@@ -219,7 +273,12 @@
       "requires": [
         "bench"
       ],
-      "primaryEligible": true
+      "primaryEligible": false,
+      "movementPattern": "horizontal-push",
+      "secondaryWarmupEligible": false,
+      "setupResources": [
+        "bench-flat"
+      ]
     },
     {
       "name": "Dumbbell bent-over row",
@@ -235,7 +294,10 @@
       "type": "strength",
       "warmupProtocol": "ramp2",
       "id": "dumbbell-row",
-      "primaryEligible": true
+      "primaryEligible": true,
+      "movementPattern": "horizontal-pull",
+      "secondaryWarmupEligible": true,
+      "setupResources": []
     },
     {
       "name": "Dumbbell one-arm bench-supported row",
@@ -252,11 +314,16 @@
       "setTime": 35,
       "setupTime": 30,
       "type": "strength",
-      "warmupProtocol": "easy1",
+      "warmupProtocol": "ramp2",
       "id": "dumbbell-bench-supported-row",
       "unilateral": true,
       "repUnit": "per side",
-      "primaryEligible": true
+      "primaryEligible": true,
+      "movementPattern": "horizontal-pull",
+      "secondaryWarmupEligible": true,
+      "setupResources": [
+        "bench-flat"
+      ]
     },
     {
       "name": "Dumbbell chest-supported row",
@@ -276,7 +343,12 @@
       "type": "strength",
       "warmupProtocol": "ramp2",
       "id": "dumbbell-chest-supported-row",
-      "primaryEligible": true
+      "primaryEligible": true,
+      "movementPattern": "horizontal-pull",
+      "secondaryWarmupEligible": true,
+      "setupResources": [
+        "bench-incline"
+      ]
     },
     {
       "name": "Kettlebell single-arm row",
@@ -290,11 +362,14 @@
       "setTime": 35,
       "setupTime": 15,
       "type": "strength",
-      "warmupProtocol": "easy1",
+      "warmupProtocol": "ramp2",
       "id": "kettlebell-row",
       "unilateral": true,
       "repUnit": "per side",
-      "primaryEligible": true
+      "primaryEligible": true,
+      "movementPattern": "horizontal-pull",
+      "secondaryWarmupEligible": true,
+      "setupResources": []
     },
     {
       "name": "Seated tube-band row around the feet",
@@ -310,7 +385,10 @@
       "type": "strength",
       "warmupProtocol": "none",
       "id": "tube-band-row",
-      "primaryEligible": true
+      "primaryEligible": false,
+      "movementPattern": "horizontal-pull",
+      "secondaryWarmupEligible": true,
+      "setupResources": []
     },
     {
       "name": "Pull-up bar pull-up",
@@ -326,7 +404,10 @@
       "type": "strength",
       "warmupProtocol": "easy1",
       "id": "pull-up-bar-pull-ups",
-      "primaryEligible": true
+      "primaryEligible": false,
+      "movementPattern": "vertical-pull",
+      "secondaryWarmupEligible": true,
+      "setupResources": []
     },
     {
       "name": "Barbell bent-over row",
@@ -343,7 +424,12 @@
       "type": "strength",
       "warmupProtocol": "ramp2",
       "id": "barbell-bent-over-row",
-      "primaryEligible": true
+      "primaryEligible": true,
+      "movementPattern": "horizontal-pull",
+      "secondaryWarmupEligible": true,
+      "setupResources": [
+        "olympic-bar"
+      ]
     },
     {
       "name": "EZ-bar bent-over row",
@@ -360,10 +446,15 @@
       "type": "strength",
       "warmupProtocol": "ramp2",
       "id": "ez-bar-bent-over-row",
-      "primaryEligible": true
+      "primaryEligible": true,
+      "movementPattern": "horizontal-pull",
+      "secondaryWarmupEligible": true,
+      "setupResources": [
+        "ez-bar"
+      ]
     },
     {
-      "name": "Landmine T-bar row",
+      "name": "Landmine single-arm row",
       "equipment": [
         "landmine",
         "bar"
@@ -373,15 +464,23 @@
       ],
       "setup": "landmine-floor",
       "sets": 3,
-      "repRange": "6–10",
+      "repRange": "10–15",
       "primaryMuscle": "back",
       "restPeriod": 90,
-      "setTime": 60,
+      "setTime": 35,
       "setupTime": 45,
       "type": "strength",
-      "warmupProtocol": "none",
-      "id": "landmine-row",
-      "primaryEligible": true
+      "warmupProtocol": "ramp2",
+      "id": "landmine-single-arm-row",
+      "primaryEligible": true,
+      "unilateral": true,
+      "repUnit": "per side",
+      "movementPattern": "horizontal-pull",
+      "secondaryWarmupEligible": true,
+      "setupResources": [
+        "olympic-bar",
+        "landmine"
+      ]
     },
     {
       "name": "Bodyweight prone Y-T raises",
@@ -422,7 +521,10 @@
       "type": "strength",
       "warmupProtocol": "ramp2",
       "id": "dumbbell-goblet-squat",
-      "primaryEligible": true
+      "primaryEligible": true,
+      "movementPattern": "squat",
+      "secondaryWarmupEligible": true,
+      "setupResources": []
     },
     {
       "name": "Box jump",
@@ -440,7 +542,10 @@
       "type": "strength",
       "warmupProtocol": "powerPrep",
       "id": "plyo-box-jump",
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "conditioning",
+      "secondaryWarmupEligible": false,
+      "setupResources": []
     },
     {
       "name": "Dumbbell Bulgarian split squat",
@@ -455,13 +560,18 @@
       "setupTime": 30,
       "unilateral": true,
       "type": "strength",
-      "warmupProtocol": "easy1",
+      "warmupProtocol": "ramp2",
       "id": "dumbbell-bench-bulgarian-split-squat",
       "requires": [
         "bench"
       ],
       "repUnit": "per side",
-      "primaryEligible": true
+      "primaryEligible": true,
+      "movementPattern": "squat",
+      "secondaryWarmupEligible": true,
+      "setupResources": [
+        "bench-flat"
+      ]
     },
     {
       "name": "Kettlebell goblet squat",
@@ -477,7 +587,10 @@
       "type": "strength",
       "warmupProtocol": "ramp2",
       "id": "kettlebell-front-squat",
-      "primaryEligible": true
+      "primaryEligible": true,
+      "movementPattern": "squat",
+      "secondaryWarmupEligible": true,
+      "setupResources": []
     },
     {
       "name": "Barbell back squat",
@@ -497,7 +610,13 @@
       "type": "strength",
       "warmupProtocol": "ramp2",
       "id": "barbell-back-squat",
-      "primaryEligible": true
+      "primaryEligible": true,
+      "movementPattern": "squat",
+      "secondaryWarmupEligible": true,
+      "setupResources": [
+        "olympic-bar",
+        "rack"
+      ]
     },
     {
       "name": "Landmine squat",
@@ -518,7 +637,13 @@
       "type": "strength",
       "warmupProtocol": "ramp2",
       "id": "landmine-squat",
-      "primaryEligible": true
+      "primaryEligible": true,
+      "movementPattern": "squat",
+      "secondaryWarmupEligible": true,
+      "setupResources": [
+        "olympic-bar",
+        "landmine"
+      ]
     },
     {
       "name": "Medicine ball goblet squat",
@@ -534,7 +659,10 @@
       "type": "strength",
       "warmupProtocol": "none",
       "id": "medicine-ball-goblet-squat",
-      "primaryEligible": true
+      "primaryEligible": false,
+      "movementPattern": "squat",
+      "secondaryWarmupEligible": true,
+      "setupResources": []
     },
     {
       "name": "Tube band squat",
@@ -550,7 +678,10 @@
       "type": "strength",
       "warmupProtocol": "none",
       "id": "tube-band-squat",
-      "primaryEligible": true
+      "primaryEligible": false,
+      "movementPattern": "squat",
+      "secondaryWarmupEligible": true,
+      "setupResources": []
     },
     {
       "name": "Tempo bodyweight squat",
@@ -566,7 +697,10 @@
       "type": "strength",
       "warmupProtocol": "none",
       "id": "tempo-bodyweight-squat",
-      "primaryEligible": true
+      "primaryEligible": false,
+      "movementPattern": "squat",
+      "secondaryWarmupEligible": false,
+      "setupResources": []
     },
     {
       "name": "Plyo box step-up",
@@ -582,11 +716,14 @@
       "setupTime": 15,
       "unilateral": true,
       "type": "strength",
-      "warmupProtocol": "easy1",
+      "warmupProtocol": "ramp2",
       "id": "bodyweight-bench-step-up",
       "requires": [],
       "repUnit": "per side",
-      "primaryEligible": true
+      "primaryEligible": true,
+      "movementPattern": "squat",
+      "secondaryWarmupEligible": true,
+      "setupResources": []
     },
     {
       "name": "Dumbbell Romanian deadlift",
@@ -602,7 +739,10 @@
       "type": "strength",
       "warmupProtocol": "ramp2",
       "id": "dumbbell-romanian-deadlift",
-      "primaryEligible": true
+      "primaryEligible": true,
+      "movementPattern": "hinge",
+      "secondaryWarmupEligible": true,
+      "setupResources": []
     },
     {
       "name": "Dumbbell single-leg RDL",
@@ -617,10 +757,13 @@
       "setupTime": 15,
       "unilateral": true,
       "type": "strength",
-      "warmupProtocol": "easy1",
+      "warmupProtocol": "ramp2",
       "id": "dumbbell-single-leg-rdl",
       "repUnit": "per side",
-      "primaryEligible": true
+      "primaryEligible": true,
+      "movementPattern": "hinge",
+      "secondaryWarmupEligible": true,
+      "setupResources": []
     },
     {
       "name": "Kettlebell deadlift",
@@ -636,7 +779,10 @@
       "type": "strength",
       "warmupProtocol": "ramp2",
       "id": "kettlebell-deadlift",
-      "primaryEligible": true
+      "primaryEligible": true,
+      "movementPattern": "hinge",
+      "secondaryWarmupEligible": true,
+      "setupResources": []
     },
     {
       "name": "Barbell Romanian deadlift",
@@ -653,7 +799,12 @@
       "type": "strength",
       "warmupProtocol": "ramp2",
       "id": "barbell-romanian-deadlift",
-      "primaryEligible": true
+      "primaryEligible": true,
+      "movementPattern": "hinge",
+      "secondaryWarmupEligible": true,
+      "setupResources": [
+        "olympic-bar"
+      ]
     },
     {
       "name": "Trap bar deadlift",
@@ -663,7 +814,7 @@
       "setup": "trapbar-floor",
       "sets": 3,
       "repRange": "6–10",
-      "primaryMuscle": "hamstrings",
+      "primaryMuscle": "quads",
       "restPeriod": 90,
       "setTime": 60,
       "setupTime": 45,
@@ -672,7 +823,13 @@
       "id": "trap-bar-deadlift",
       "primaryEligible": true,
       "secondaryMuscles": [
+        "hamstrings",
         "glutes"
+      ],
+      "movementPattern": "squat",
+      "secondaryWarmupEligible": true,
+      "setupResources": [
+        "trap-bar"
       ]
     },
     {
@@ -694,7 +851,13 @@
       "type": "strength",
       "warmupProtocol": "ramp2",
       "id": "landmine-romanian-deadlift",
-      "primaryEligible": true
+      "primaryEligible": true,
+      "movementPattern": "hinge",
+      "secondaryWarmupEligible": true,
+      "setupResources": [
+        "olympic-bar",
+        "landmine"
+      ]
     },
     {
       "name": "Tube band good morning",
@@ -710,7 +873,10 @@
       "type": "strength",
       "warmupProtocol": "none",
       "id": "tube-band-good-morning-strength",
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "hinge",
+      "secondaryWarmupEligible": true,
+      "setupResources": []
     },
     {
       "name": "Bodyweight hamstring walkout",
@@ -726,7 +892,10 @@
       "type": "strength",
       "warmupProtocol": "none",
       "id": "bodyweight-hamstring-walkout",
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "hinge",
+      "secondaryWarmupEligible": false,
+      "setupResources": []
     },
     {
       "name": "Bodyweight dead bug",
@@ -743,7 +912,10 @@
       "warmupProtocol": "none",
       "id": "bodyweight-dead-bug-strength",
       "repUnit": "per side",
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "core",
+      "secondaryWarmupEligible": false,
+      "setupResources": []
     },
     {
       "name": "Barbell rollout",
@@ -760,7 +932,12 @@
       "type": "strength",
       "warmupProtocol": "none",
       "id": "barbell-rollout",
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "core",
+      "secondaryWarmupEligible": false,
+      "setupResources": [
+        "olympic-bar"
+      ]
     },
     {
       "name": "Trap bar farmer carry",
@@ -778,7 +955,12 @@
       "warmupProtocol": "none",
       "id": "trap-bar-farmer-carry",
       "durationRange": "30–45 sec",
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "conditioning",
+      "secondaryWarmupEligible": false,
+      "setupResources": [
+        "trap-bar"
+      ]
     },
     {
       "name": "Bodyweight plank shoulder tap",
@@ -789,14 +971,17 @@
       "repRange": "6–10",
       "primaryMuscle": "core",
       "restPeriod": 60,
-      "setTime": 35,
+      "setTime": 20,
       "setupTime": 0,
       "type": "strength",
       "warmupProtocol": "none",
       "id": "bodyweight-plank-shoulder-tap",
       "repUnit": "per side",
       "unilateral": true,
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "core",
+      "secondaryWarmupEligible": false,
+      "setupResources": []
     },
     {
       "name": "Dumbbell suitcase march",
@@ -814,7 +999,10 @@
       "id": "dumbbell-suitcase-march",
       "durationRange": "20–40 sec",
       "repUnit": "per side",
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "carry",
+      "secondaryWarmupEligible": false,
+      "setupResources": []
     },
     {
       "name": "Kettlebell suitcase march",
@@ -832,7 +1020,10 @@
       "id": "kettlebell-suitcase-march",
       "durationRange": "20–40 sec",
       "repUnit": "per side",
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "carry",
+      "secondaryWarmupEligible": false,
+      "setupResources": []
     },
     {
       "name": "Tube band Pallof press",
@@ -853,7 +1044,12 @@
       "requires": [
         "bandanchor"
       ],
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "core",
+      "secondaryWarmupEligible": false,
+      "setupResources": [
+        "band-anchor"
+      ]
     },
     {
       "name": "Slam ball sit-up",
@@ -869,7 +1065,10 @@
       "type": "strength",
       "warmupProtocol": "none",
       "id": "slam-ball-sit-up",
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "core",
+      "secondaryWarmupEligible": false,
+      "setupResources": []
     },
     {
       "name": "Bodyweight bench knee tuck",
@@ -886,7 +1085,10 @@
       "type": "strength",
       "warmupProtocol": "none",
       "id": "bodyweight-bench-knee-tuck",
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "core",
+      "secondaryWarmupEligible": false,
+      "setupResources": []
     },
     {
       "name": "Landmine rotation",
@@ -909,7 +1111,13 @@
       "id": "landmine-rotation",
       "repUnit": "per side",
       "unilateral": true,
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "core",
+      "secondaryWarmupEligible": false,
+      "setupResources": [
+        "olympic-bar",
+        "landmine"
+      ]
     },
     {
       "name": "Medicine ball Russian twist",
@@ -926,7 +1134,10 @@
       "warmupProtocol": "none",
       "id": "medicine-ball-russian-twist",
       "repUnit": "per side",
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "core",
+      "secondaryWarmupEligible": false,
+      "setupResources": []
     },
     {
       "name": "Dumbbell shoulder press",
@@ -942,7 +1153,10 @@
       "type": "strength",
       "warmupProtocol": "ramp2",
       "id": "dumbbell-shoulder-press",
-      "primaryEligible": true
+      "primaryEligible": true,
+      "movementPattern": "vertical-push",
+      "secondaryWarmupEligible": true,
+      "setupResources": []
     },
     {
       "name": "Dumbbell Arnold press",
@@ -958,7 +1172,10 @@
       "type": "strength",
       "warmupProtocol": "none",
       "id": "dumbbell-arnold-press",
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "isolation",
+      "secondaryWarmupEligible": false,
+      "setupResources": []
     },
     {
       "name": "Barbell push press",
@@ -975,7 +1192,13 @@
       "type": "strength",
       "warmupProtocol": "powerPrep",
       "id": "barbell-push-press",
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "vertical-push",
+      "secondaryWarmupEligible": true,
+      "setupResources": [
+        "olympic-bar"
+      ],
+      "conditioning": true
     },
     {
       "name": "Dumbbell chest-supported rear delt fly",
@@ -995,7 +1218,12 @@
       "type": "strength",
       "warmupProtocol": "none",
       "id": "dumbbell-chest-supported-rear-delt-fly",
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "isolation",
+      "secondaryWarmupEligible": false,
+      "setupResources": [
+        "bench-incline"
+      ]
     },
     {
       "name": "Kettlebell single-arm shoulder press",
@@ -1009,11 +1237,14 @@
       "setTime": 35,
       "setupTime": 15,
       "type": "strength",
-      "warmupProtocol": "easy1",
+      "warmupProtocol": "ramp2",
       "id": "kettlebell-shoulder-press",
       "unilateral": true,
       "repUnit": "per side",
-      "primaryEligible": true
+      "primaryEligible": true,
+      "movementPattern": "vertical-push",
+      "secondaryWarmupEligible": true,
+      "setupResources": []
     },
     {
       "name": "Barbell overhead press",
@@ -1033,7 +1264,13 @@
       "type": "strength",
       "warmupProtocol": "ramp2",
       "id": "barbell-overhead-press",
-      "primaryEligible": true
+      "primaryEligible": true,
+      "movementPattern": "vertical-push",
+      "secondaryWarmupEligible": true,
+      "setupResources": [
+        "olympic-bar",
+        "rack"
+      ]
     },
     {
       "name": "Landmine single-arm press",
@@ -1052,11 +1289,17 @@
       "setTime": 35,
       "setupTime": 45,
       "type": "strength",
-      "warmupProtocol": "easy1",
+      "warmupProtocol": "ramp2",
       "id": "landmine-shoulder-press",
       "unilateral": true,
       "repUnit": "per side",
-      "primaryEligible": true
+      "primaryEligible": true,
+      "movementPattern": "vertical-push",
+      "secondaryWarmupEligible": true,
+      "setupResources": [
+        "olympic-bar",
+        "landmine"
+      ]
     },
     {
       "name": "Medicine ball push press",
@@ -1073,7 +1316,10 @@
       "warmupProtocol": "powerPrep",
       "id": "medicine-ball-push-press",
       "conditioning": true,
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "conditioning",
+      "secondaryWarmupEligible": false,
+      "setupResources": []
     },
     {
       "name": "Tube band face pull",
@@ -1092,7 +1338,12 @@
       "requires": [
         "bandanchor"
       ],
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "isolation",
+      "secondaryWarmupEligible": false,
+      "setupResources": [
+        "band-anchor"
+      ]
     },
     {
       "name": "Bodyweight pike push-up",
@@ -1108,7 +1359,10 @@
       "type": "strength",
       "warmupProtocol": "none",
       "id": "bodyweight-pike-push-up",
-      "primaryEligible": true
+      "primaryEligible": false,
+      "movementPattern": "vertical-push",
+      "secondaryWarmupEligible": false,
+      "setupResources": []
     },
     {
       "name": "Dumbbell lean-away lateral raise",
@@ -1126,7 +1380,10 @@
       "warmupProtocol": "none",
       "id": "dumbbell-lean-away-lateral-raise",
       "repUnit": "per side",
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "isolation",
+      "secondaryWarmupEligible": false,
+      "setupResources": []
     },
     {
       "name": "Dumbbell alternating curl",
@@ -1144,7 +1401,10 @@
       "warmupProtocol": "none",
       "id": "dumbbell-alternating-curl",
       "repUnit": "per side",
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "isolation",
+      "secondaryWarmupEligible": false,
+      "setupResources": []
     },
     {
       "name": "Dumbbell hammer curl",
@@ -1160,7 +1420,10 @@
       "type": "strength",
       "warmupProtocol": "none",
       "id": "dumbbell-hammer-curl",
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "isolation",
+      "secondaryWarmupEligible": false,
+      "setupResources": []
     },
     {
       "name": "Dumbbell incline curl",
@@ -1180,7 +1443,12 @@
       "type": "strength",
       "warmupProtocol": "none",
       "id": "dumbbell-incline-curl",
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "isolation",
+      "secondaryWarmupEligible": false,
+      "setupResources": [
+        "bench-incline"
+      ]
     },
     {
       "name": "Tube band curl",
@@ -1196,7 +1464,10 @@
       "type": "strength",
       "warmupProtocol": "none",
       "id": "tube-band-curl",
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "isolation",
+      "secondaryWarmupEligible": false,
+      "setupResources": []
     },
     {
       "name": "Barbell curl",
@@ -1213,7 +1484,12 @@
       "type": "strength",
       "warmupProtocol": "none",
       "id": "barbell-curl",
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "isolation",
+      "secondaryWarmupEligible": false,
+      "setupResources": [
+        "olympic-bar"
+      ]
     },
     {
       "name": "EZ-bar curl",
@@ -1230,7 +1506,12 @@
       "type": "strength",
       "warmupProtocol": "none",
       "id": "ez-bar-curl",
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "isolation",
+      "secondaryWarmupEligible": false,
+      "setupResources": [
+        "ez-bar"
+      ]
     },
     {
       "name": "Dumbbell overhead triceps extension",
@@ -1246,7 +1527,10 @@
       "type": "strength",
       "warmupProtocol": "none",
       "id": "dumbbell-overhead-triceps-extension",
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "isolation",
+      "secondaryWarmupEligible": false,
+      "setupResources": []
     },
     {
       "name": "Barbell close-grip floor press",
@@ -1266,7 +1550,13 @@
       "requires": [
         "rack"
       ],
-      "primaryEligible": true
+      "primaryEligible": true,
+      "movementPattern": "horizontal-push",
+      "secondaryWarmupEligible": true,
+      "setupResources": [
+        "olympic-bar",
+        "rack"
+      ]
     },
     {
       "name": "Kettlebell triceps extension",
@@ -1282,7 +1572,10 @@
       "type": "strength",
       "warmupProtocol": "none",
       "id": "kettlebell-triceps-extension",
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "isolation",
+      "secondaryWarmupEligible": false,
+      "setupResources": []
     },
     {
       "name": "Tube band pressdown",
@@ -1301,7 +1594,12 @@
       "requires": [
         "bandanchor"
       ],
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "isolation",
+      "secondaryWarmupEligible": false,
+      "setupResources": [
+        "band-anchor"
+      ]
     },
     {
       "name": "Barbell close-grip bench press",
@@ -1309,7 +1607,8 @@
         "bar"
       ],
       "requires": [
-        "bench"
+        "bench",
+        "rack"
       ],
       "setup": "barbell-bench",
       "sets": 3,
@@ -1317,11 +1616,18 @@
       "primaryMuscle": "triceps",
       "restPeriod": 90,
       "setTime": 60,
-      "setupTime": 45,
+      "setupTime": 60,
       "type": "strength",
-      "warmupProtocol": "none",
+      "warmupProtocol": "ramp2",
       "id": "close-grip-barbell-press",
-      "primaryEligible": true
+      "primaryEligible": true,
+      "movementPattern": "horizontal-push",
+      "secondaryWarmupEligible": true,
+      "setupResources": [
+        "olympic-bar",
+        "bench-flat",
+        "rack"
+      ]
     },
     {
       "name": "EZ-bar lying triceps extension",
@@ -1341,7 +1647,13 @@
       "type": "strength",
       "warmupProtocol": "none",
       "id": "ez-bar-lying-triceps-extension",
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "isolation",
+      "secondaryWarmupEligible": false,
+      "setupResources": [
+        "ez-bar",
+        "bench-flat"
+      ]
     },
     {
       "name": "Bodyweight close-grip push-up",
@@ -1357,7 +1669,10 @@
       "type": "strength",
       "warmupProtocol": "none",
       "id": "bodyweight-close-grip-push-up",
-      "primaryEligible": true
+      "primaryEligible": false,
+      "movementPattern": "isolation",
+      "secondaryWarmupEligible": false,
+      "setupResources": []
     },
     {
       "name": "Dumbbell hip thrust",
@@ -1369,14 +1684,22 @@
       ],
       "sets": 3,
       "repRange": "10–15",
-      "primaryMuscle": "glutes",
+      "primaryMuscle": "hamstrings",
       "restPeriod": 90,
       "setTime": 45,
       "setupTime": 30,
       "type": "strength",
       "warmupProtocol": "ramp2",
       "id": "dumbbell-bench-hip-thrust",
-      "primaryEligible": true
+      "primaryEligible": true,
+      "secondaryMuscles": [
+        "glutes"
+      ],
+      "movementPattern": "hinge",
+      "secondaryWarmupEligible": true,
+      "setupResources": [
+        "bench-flat"
+      ]
     },
     {
       "name": "Kettlebell swing",
@@ -1385,7 +1708,7 @@
       ],
       "sets": 3,
       "repRange": "10–15",
-      "primaryMuscle": "glutes",
+      "primaryMuscle": "quads",
       "restPeriod": 90,
       "setTime": 25,
       "setupTime": 15,
@@ -1393,7 +1716,13 @@
       "warmupProtocol": "powerPrep",
       "id": "kettlebell-swing",
       "conditioning": true,
-      "primaryEligible": false
+      "primaryEligible": false,
+      "secondaryMuscles": [
+        "glutes"
+      ],
+      "movementPattern": "conditioning",
+      "secondaryWarmupEligible": false,
+      "setupResources": []
     },
     {
       "name": "Barbell hip thrust",
@@ -1406,14 +1735,23 @@
       "setup": "barbell-bench",
       "sets": 3,
       "repRange": "6–10",
-      "primaryMuscle": "glutes",
+      "primaryMuscle": "hamstrings",
       "restPeriod": 90,
       "setTime": 60,
       "setupTime": 45,
       "type": "strength",
       "warmupProtocol": "ramp2",
       "id": "barbell-bench-hip-thrust",
-      "primaryEligible": true
+      "primaryEligible": true,
+      "secondaryMuscles": [
+        "glutes"
+      ],
+      "movementPattern": "hinge",
+      "secondaryWarmupEligible": true,
+      "setupResources": [
+        "olympic-bar",
+        "bench-flat"
+      ]
     },
     {
       "name": "Landmine reverse lunge",
@@ -1427,16 +1765,25 @@
       "setup": "landmine-standing",
       "sets": 3,
       "repRange": "10–15",
-      "primaryMuscle": "glutes",
+      "primaryMuscle": "quads",
       "restPeriod": 90,
       "setTime": 35,
       "setupTime": 45,
       "unilateral": true,
       "type": "strength",
-      "warmupProtocol": "easy1",
+      "warmupProtocol": "ramp2",
       "id": "landmine-reverse-lunge",
       "repUnit": "per side",
-      "primaryEligible": true
+      "primaryEligible": true,
+      "secondaryMuscles": [
+        "glutes"
+      ],
+      "movementPattern": "squat",
+      "secondaryWarmupEligible": true,
+      "setupResources": [
+        "olympic-bar",
+        "landmine"
+      ]
     },
     {
       "name": "Medicine ball reverse lunge",
@@ -1445,16 +1792,22 @@
       ],
       "sets": 3,
       "repRange": "10–15",
-      "primaryMuscle": "glutes",
+      "primaryMuscle": "quads",
       "restPeriod": 90,
       "setTime": 35,
       "setupTime": 15,
       "unilateral": true,
       "type": "strength",
-      "warmupProtocol": "easy1",
+      "warmupProtocol": "ramp2",
       "id": "medicine-ball-reverse-lunge",
       "repUnit": "per side",
-      "primaryEligible": true
+      "primaryEligible": true,
+      "secondaryMuscles": [
+        "glutes"
+      ],
+      "movementPattern": "squat",
+      "secondaryWarmupEligible": true,
+      "setupResources": []
     },
     {
       "name": "Loop band lateral walk",
@@ -1463,7 +1816,7 @@
       ],
       "sets": 3,
       "repRange": "10–15",
-      "primaryMuscle": "glutes",
+      "primaryMuscle": "full body",
       "restPeriod": 90,
       "setTime": 35,
       "setupTime": 15,
@@ -1473,7 +1826,11 @@
       "requires": [],
       "repUnit": "per side",
       "unilateral": true,
-      "primaryEligible": false
+      "primaryEligible": false,
+      "conditioning": true,
+      "movementPattern": "conditioning",
+      "secondaryWarmupEligible": false,
+      "setupResources": []
     },
     {
       "name": "Bodyweight single-leg glute bridge",
@@ -1482,7 +1839,7 @@
       ],
       "sets": 3,
       "repRange": "10–15",
-      "primaryMuscle": "glutes",
+      "primaryMuscle": "hamstrings",
       "restPeriod": 90,
       "setTime": 35,
       "setupTime": 0,
@@ -1491,7 +1848,13 @@
       "warmupProtocol": "easy1",
       "id": "bodyweight-single-leg-glute-bridge",
       "repUnit": "per side",
-      "primaryEligible": false
+      "primaryEligible": false,
+      "secondaryMuscles": [
+        "glutes"
+      ],
+      "movementPattern": "hinge",
+      "secondaryWarmupEligible": false,
+      "setupResources": []
     },
     {
       "name": "Bodyweight reverse lunge",
@@ -1500,16 +1863,22 @@
       ],
       "sets": 3,
       "repRange": "10–15",
-      "primaryMuscle": "glutes",
+      "primaryMuscle": "quads",
       "restPeriod": 90,
       "setTime": 35,
       "setupTime": 0,
       "unilateral": true,
       "type": "strength",
-      "warmupProtocol": "easy1",
+      "warmupProtocol": "ramp2",
       "id": "bodyweight-reverse-lunge-strength",
       "repUnit": "per side",
-      "primaryEligible": true
+      "primaryEligible": true,
+      "secondaryMuscles": [
+        "glutes"
+      ],
+      "movementPattern": "squat",
+      "secondaryWarmupEligible": false,
+      "setupResources": []
     },
     {
       "name": "Dumbbell sumo squat",
@@ -1518,14 +1887,20 @@
       ],
       "sets": 3,
       "repRange": "10–15",
-      "primaryMuscle": "glutes",
+      "primaryMuscle": "quads",
       "restPeriod": 90,
       "setTime": 45,
       "setupTime": 15,
       "type": "strength",
       "warmupProtocol": "ramp2",
       "id": "dumbbell-sumo-squat",
-      "primaryEligible": true
+      "primaryEligible": true,
+      "secondaryMuscles": [
+        "glutes"
+      ],
+      "movementPattern": "squat",
+      "secondaryWarmupEligible": true,
+      "setupResources": []
     },
     {
       "name": "Barbell reverse lunge",
@@ -1535,19 +1910,28 @@
       "setup": "barbell-standing",
       "sets": 3,
       "repRange": "10–15",
-      "primaryMuscle": "glutes",
+      "primaryMuscle": "quads",
       "restPeriod": 90,
       "setTime": 35,
       "setupTime": 45,
       "unilateral": true,
       "type": "strength",
-      "warmupProtocol": "easy1",
+      "warmupProtocol": "ramp2",
       "id": "barbell-reverse-lunge",
       "requires": [
         "rack"
       ],
       "repUnit": "per side",
-      "primaryEligible": true
+      "primaryEligible": true,
+      "secondaryMuscles": [
+        "glutes"
+      ],
+      "movementPattern": "squat",
+      "secondaryWarmupEligible": true,
+      "setupResources": [
+        "olympic-bar",
+        "rack"
+      ]
     },
     {
       "name": "Dumbbell reverse lunge",
@@ -1556,16 +1940,22 @@
       ],
       "sets": 3,
       "repRange": "10–15",
-      "primaryMuscle": "glutes",
+      "primaryMuscle": "quads",
       "restPeriod": 90,
       "setTime": 35,
       "setupTime": 15,
       "unilateral": true,
       "type": "strength",
-      "warmupProtocol": "easy1",
+      "warmupProtocol": "ramp2",
       "id": "dumbbell-reverse-lunge",
       "repUnit": "per side",
-      "primaryEligible": true
+      "primaryEligible": true,
+      "secondaryMuscles": [
+        "glutes"
+      ],
+      "movementPattern": "squat",
+      "secondaryWarmupEligible": true,
+      "setupResources": []
     },
     {
       "name": "Dumbbell glute bridge",
@@ -1574,14 +1964,20 @@
       ],
       "sets": 3,
       "repRange": "10–15",
-      "primaryMuscle": "glutes",
+      "primaryMuscle": "hamstrings",
       "restPeriod": 90,
       "setTime": 45,
       "setupTime": 15,
       "type": "strength",
       "warmupProtocol": "none",
       "id": "dumbbell-glute-bridge",
-      "primaryEligible": false
+      "primaryEligible": false,
+      "secondaryMuscles": [
+        "glutes"
+      ],
+      "movementPattern": "hinge",
+      "secondaryWarmupEligible": true,
+      "setupResources": []
     },
     {
       "name": "Steady incline walk",
@@ -1797,7 +2193,10 @@
       "type": "strength",
       "warmupProtocol": "none",
       "id": "dumbbell-standing-calf-raise",
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "calves",
+      "secondaryWarmupEligible": false,
+      "setupResources": []
     },
     {
       "name": "Dumbbell seated calf raise",
@@ -1814,7 +2213,10 @@
       "type": "strength",
       "warmupProtocol": "none",
       "id": "dumbbell-seated-calf-raise",
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "calves",
+      "secondaryWarmupEligible": false,
+      "setupResources": []
     },
     {
       "name": "Kettlebell standing calf raise",
@@ -1830,7 +2232,10 @@
       "type": "strength",
       "warmupProtocol": "none",
       "id": "kettlebell-standing-calf-raise",
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "calves",
+      "secondaryWarmupEligible": false,
+      "setupResources": []
     },
     {
       "name": "Tube band calf raise",
@@ -1846,7 +2251,10 @@
       "type": "strength",
       "warmupProtocol": "none",
       "id": "tube-band-calf-raise",
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "calves",
+      "secondaryWarmupEligible": false,
+      "setupResources": []
     },
     {
       "name": "Bodyweight single-leg calf raise",
@@ -1864,7 +2272,10 @@
       "warmupProtocol": "none",
       "id": "bodyweight-single-leg-calf-raise",
       "repUnit": "per side",
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "calves",
+      "secondaryWarmupEligible": false,
+      "setupResources": []
     },
     {
       "name": "Bodyweight scapular push-up",
@@ -2208,9 +2619,9 @@
       "id": "bodyweight-glute-bridge"
     },
     {
-      "name": "Tube band lateral walk",
+      "name": "Loop band lateral walk",
       "equipment": [
-        "tubebands"
+        "loopbands"
       ],
       "dose": "8 / side",
       "primaryMuscle": "glutes",
@@ -2218,7 +2629,8 @@
       "setTime": 30,
       "setupTime": 15,
       "unilateral": true,
-      "id": "tube-band-lateral-walk-warmup"
+      "id": "loop-band-lateral-walk-warmup",
+      "requires": []
     },
     {
       "name": "Bodyweight hip airplane",
@@ -2428,7 +2840,13 @@
       "warmupProtocol": "ramp2",
       "type": "strength",
       "id": "barbell-front-squat",
-      "primaryEligible": true
+      "primaryEligible": true,
+      "movementPattern": "squat",
+      "secondaryWarmupEligible": true,
+      "setupResources": [
+        "olympic-bar",
+        "rack"
+      ]
     },
     {
       "name": "Tube-band anchored leg curl",
@@ -2451,7 +2869,12 @@
       "warmupProtocol": "none",
       "type": "strength",
       "id": "tube-band-anchored-leg-curl",
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "hinge",
+      "secondaryWarmupEligible": true,
+      "setupResources": [
+        "band-anchor"
+      ]
     },
     {
       "name": "Bodyweight reverse crunch",
@@ -2467,7 +2890,10 @@
       "warmupProtocol": "none",
       "type": "strength",
       "id": "bodyweight-reverse-crunch",
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "core",
+      "secondaryWarmupEligible": false,
+      "setupResources": []
     },
     {
       "name": "Bodyweight side plank",
@@ -2485,7 +2911,10 @@
       "warmupProtocol": "none",
       "type": "strength",
       "id": "bodyweight-side-plank",
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "core",
+      "secondaryWarmupEligible": false,
+      "setupResources": []
     },
     {
       "name": "Bodyweight hollow-body hold",
@@ -2501,7 +2930,10 @@
       "warmupProtocol": "none",
       "type": "strength",
       "id": "bodyweight-hollow-body-hold",
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "carry",
+      "secondaryWarmupEligible": false,
+      "setupResources": []
     },
     {
       "name": "Dumbbell farmer carry",
@@ -2517,7 +2949,10 @@
       "warmupProtocol": "none",
       "type": "strength",
       "id": "dumbbell-farmer-carry",
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "carry",
+      "secondaryWarmupEligible": false,
+      "setupResources": []
     },
     {
       "name": "Dumbbell lateral raise",
@@ -2533,7 +2968,10 @@
       "warmupProtocol": "none",
       "type": "strength",
       "id": "dumbbell-lateral-raise",
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "isolation",
+      "secondaryWarmupEligible": false,
+      "setupResources": []
     },
     {
       "name": "Dumbbell concentration curl",
@@ -2554,7 +2992,12 @@
       "warmupProtocol": "none",
       "type": "strength",
       "id": "dumbbell-concentration-curl",
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "isolation",
+      "secondaryWarmupEligible": false,
+      "setupResources": [
+        "bench-flat"
+      ]
     },
     {
       "name": "Dumbbell rolling triceps extension",
@@ -2573,7 +3016,12 @@
       "warmupProtocol": "none",
       "type": "strength",
       "id": "dumbbell-rolling-triceps-extension",
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "isolation",
+      "secondaryWarmupEligible": false,
+      "setupResources": [
+        "bench-flat"
+      ]
     },
     {
       "name": "Slam ball slam",
@@ -2590,7 +3038,10 @@
       "warmupProtocol": "powerPrep",
       "type": "strength",
       "id": "slam-ball-slam",
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "conditioning",
+      "secondaryWarmupEligible": false,
+      "setupResources": []
     },
     {
       "name": "Jump rope intervals",
@@ -2607,7 +3058,10 @@
       "warmupProtocol": "none",
       "type": "strength",
       "id": "jump-rope-intervals",
-      "primaryEligible": false
+      "primaryEligible": false,
+      "movementPattern": "conditioning",
+      "secondaryWarmupEligible": false,
+      "setupResources": []
     },
     {
       "name": "Dumbbell one-arm row",
@@ -2622,10 +3076,13 @@
       "restPeriod": 90,
       "setTime": 30,
       "setupTime": 15,
-      "warmupProtocol": "easy1",
+      "warmupProtocol": "ramp2",
       "primaryEligible": true,
       "type": "strength",
-      "id": "dumbbell-one-arm-row"
+      "id": "dumbbell-one-arm-row",
+      "movementPattern": "horizontal-pull",
+      "secondaryWarmupEligible": true,
+      "setupResources": []
     },
     {
       "name": "Chin-up",
@@ -2639,9 +3096,12 @@
       "setTime": 45,
       "setupTime": 15,
       "warmupProtocol": "easy1",
-      "primaryEligible": true,
+      "primaryEligible": false,
       "type": "strength",
-      "id": "chin-up"
+      "id": "chin-up",
+      "movementPattern": "vertical-pull",
+      "secondaryWarmupEligible": true,
+      "setupResources": []
     },
     {
       "name": "Dumbbell single-leg calf raise",
@@ -2659,7 +3119,29 @@
       "warmupProtocol": "none",
       "primaryEligible": false,
       "type": "strength",
-      "id": "dumbbell-single-leg-calf-raise"
+      "id": "dumbbell-single-leg-calf-raise",
+      "movementPattern": "calves",
+      "secondaryWarmupEligible": false,
+      "setupResources": []
+    },
+    {
+      "name": "Kettlebell hammer curl",
+      "equipment": [
+        "kettlebells"
+      ],
+      "sets": 3,
+      "repRange": "10–15",
+      "primaryMuscle": "biceps",
+      "restPeriod": 60,
+      "setTime": 45,
+      "setupTime": 15,
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "kettlebell-hammer-curl",
+      "primaryEligible": false,
+      "movementPattern": "isolation",
+      "secondaryWarmupEligible": false,
+      "setupResources": []
     }
   ]
 }

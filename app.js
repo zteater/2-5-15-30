@@ -1,5 +1,5 @@
 async function startApp() {
-  const loadJson = (file) => fetch(`./${file}?v=20260971`).then((response) => {
+  const loadJson = (file) => fetch(`./${file}?v=20260973`).then((response) => {
     if (!response.ok) throw new Error(`Unable to load workout data (${response.status})`);
     return response.json();
   });
@@ -37,13 +37,16 @@ const menuClose = document.querySelector("#menu-close");
 const menuBackdrop = document.querySelector("#menu-backdrop");
 const themeToggles = [...document.querySelectorAll("[data-theme-toggle]")];
 const legalButton = document.querySelector("#legal-button");
-const legalFooterButton = document.querySelector("#legal-footer-button");
 const legalModal = document.querySelector("#legal-modal");
 const legalClose = document.querySelector("#legal-close");
 const sessionOptions = [4, 8, 12, 16];
 const FIXED_REST_PERIODS = [90, 60];
 const PRIMARY_REST_PERIOD = 120;
 const ROUTINE_TRANSITION_SECONDS = 120;
+const MAX_UNILATERAL_EXERCISES = 2;
+const SECONDARY_WARMUP_RECOVERY_SECONDS = 30;
+const SECONDARY_WARMUP_DOSE = "W × 5–8 × 50–60%";
+const SECONDARY_PULL_WARMUP_DOSE = "W × 3–5 assisted";
 const COVERAGE_MUSCLES = ["shoulders", "biceps", "triceps", "back", "chest", "quads", "hamstrings", "calves"];
 const PRIMARY_COVERAGE_MUSCLES = ["shoulders", "back", "chest", "quads", "hamstrings"];
 const equipmentLabels = new Map(equipmentCatalog.flatMap((item) => [
@@ -55,13 +58,34 @@ const cardioEquipment = new Set(equipmentCatalog.filter((item) => item.group ===
 const conditioningEquipment = new Set(equipmentCatalog.filter((item) => item.group === "conditioning").map((item) => item.key));
 const strengthExercises = exercises.filter((exercise) => exercise.type === "strength");
 const cardioExercises = exercises.filter((exercise) => exercise.type === "cardio");
-const universalWarmups = exercises.filter((exercise) => exercise.type === "warmup" && exercise.isUniversal && exercise.universalSet === 0);
+const universalWarmupSets = new Map();
+exercises.filter((exercise) => exercise.type === "warmup" && exercise.isUniversal)
+  .forEach((exercise) => {
+    const set = universalWarmupSets.get(exercise.universalSet) || [];
+    set.push(exercise);
+    universalWarmupSets.set(exercise.universalSet, set);
+  });
 const equipmentDependencies = new Map(equipmentCatalog.map((item) => [item.key, item.dependencies || []]));
 const defaultEquipment = equipmentCatalog.filter((item) => item.isDefault).map((item) => item.key);
 const planParams = new URLSearchParams(window.location.search);
 const loadedFromSeed = Boolean(planParams.get("seed"));
 const equipmentKeys = equipmentCatalog.map((item) => item.key);
 const equipmentIndexes = new Map(equipmentKeys.map((equipment, index) => [equipment, index]));
+
+function resolveEquipmentDependencies(equipment) {
+  const resolved = new Set(equipment);
+  let changed = true;
+  while (changed) {
+    changed = false;
+    equipmentCatalog.forEach((item) => {
+      if (resolved.has(item.key) && item.dependencies.some((dependency) => !resolved.has(dependency))) {
+        resolved.delete(item.key);
+        changed = true;
+      }
+    });
+  }
+  return [...resolved];
+}
 
 function parseSessionCount(value) {
   const parsed = Number(value);
@@ -74,12 +98,7 @@ function decodePlanSeed(token) {
   if (parts[7] !== "7" || !["0", "1"].includes(parts[5]) || !["0", "1"].includes(parts[6]) || !["d", "l"].includes(parts[4])) return null;
   const equipmentMask = Number.parseInt(parts[3], 36);
   if (!Number.isInteger(equipmentMask)) return null;
-  const equipment = equipmentKeys.filter((key, index) => (equipmentMask & (1 << index)) !== 0);
-  if (!equipment.length) return null;
-  if (!equipment.includes("bar")) {
-    const landmineIndex = equipment.indexOf("landmine");
-    if (landmineIndex !== -1) equipment.splice(landmineIndex, 1);
-  }
+  const equipment = resolveEquipmentDependencies(equipmentKeys.filter((key, index) => (equipmentMask & (1 << index)) !== 0));
   if (!equipment.length) return null;
   return {
     seed: parts[0],
@@ -93,11 +112,7 @@ function decodePlanSeed(token) {
 }
 
 const decodedPlan = decodePlanSeed(planParams.get("seed"));
-let selectedEquipment = new Set(decodedPlan?.equipment || defaultEquipment);
-if (!selectedEquipment.has("bar")) {
-  selectedEquipment.delete("landmine");
-  selectedEquipment.delete("rack");
-}
+let selectedEquipment = new Set(resolveEquipmentDependencies(decodedPlan?.equipment || defaultEquipment));
 let sessionCount = decodedPlan?.sessions || 4;
 let dynamicWarmups = decodedPlan?.dynamicWarmups ?? true;
 let dynamicRest = decodedPlan?.dynamicRest ?? true;
@@ -173,7 +188,6 @@ const showLegal = (event) => {
   legalModal.showModal();
 };
 legalButton.addEventListener("click", showLegal);
-legalFooterButton.addEventListener("click", showLegal);
 legalClose.addEventListener("click", () => legalModal.close());
 legalModal.addEventListener("click", (event) => {
   if (event.target === legalModal) legalModal.close();
@@ -282,7 +296,16 @@ function setupsConflict(exercise, supersetExercises) {
   return supersetExercises.some((partner) => {
     const usesLoadedBar = (setup) => ["barbell-", "ezbar-", "landmine-", "trapbar-"]
       .some((barSetup) => setup?.startsWith(barSetup));
-    return usesLoadedBar(exercise.setup) && usesLoadedBar(partner.setup);
+    if (usesLoadedBar(exercise.setup) && usesLoadedBar(partner.setup)) return true;
+    const exerciseResources = exercise.setupResources || [];
+    const partnerResources = partner.setupResources || [];
+    return exerciseResources.some((resource) => partnerResources.some((partnerResource) => {
+      if (resource.startsWith("bench-") && partnerResource.startsWith("bench-")) {
+        return resource !== partnerResource;
+      }
+      return ["rack", "landmine", "band-anchor", "olympic-bar", "ez-bar", "trap-bar"].includes(resource)
+        && resource === partnerResource;
+    }));
   });
 }
 
@@ -290,21 +313,35 @@ function isBodyweightOnly(exercise) {
   return exercise.equipment.includes("bodyweight") && exercise.equipment.every((item) => item === "bodyweight" || item === "bench");
 }
 
-function chooseExercise(muscle, supersetExercises = [], exerciseIndex, recentExerciseIds = []) {
+function selectedEquipmentSupportsMuscle(muscle) {
+  return strengthExercises.some((exercise) => exercise.primaryMuscle === muscle
+    && matchesSelectedEquipment(exercise)
+    && !isBodyweightOnly(exercise)
+    && !exercise.conditioning);
+}
+
+function unsupportedCoverageMuscles() {
+  return COVERAGE_MUSCLES.filter((muscle) => !selectedEquipmentSupportsMuscle(muscle));
+}
+
+function chooseExercise(muscle, supersetExercises = [], exerciseIndex, recentExerciseIds = [], routineExercises = []) {
   const muscleExercises = strengthExercises.filter((exercise) => exercise.primaryMuscle === muscle);
   const matchingExercises = muscleExercises.filter(matchesSelectedEquipment);
   const weightedExercises = matchingExercises.filter((exercise) => !isBodyweightOnly(exercise) && !exercise.conditioning);
   const bodyweightFallback = matchingExercises.filter((exercise) => isBodyweightOnly(exercise));
-  const primaryExercises = weightedExercises.filter((exercise) => exercise.primaryEligible);
-  const pools = exerciseIndex === 0 && primaryExercises.length
-    ? [primaryExercises, weightedExercises]
+  const primaryExercises = matchingExercises.filter((exercise) => exercise.primaryEligible && !exercise.conditioning);
+  const pools = exerciseIndex === 0
+    ? [primaryExercises]
     : exerciseIndex === 4
       ? [weightedExercises, bodyweightFallback]
       : [weightedExercises];
   const recentIds = new Set(recentExerciseIds);
 
   const compatibleExercises = (pool, avoidRecent) => shuffle(pool).filter((exercise) =>
-    (!avoidRecent || !recentIds.has(exercise.id)) && !setupsConflict(exercise, supersetExercises),
+    (!avoidRecent || !recentIds.has(exercise.id))
+      && !setupsConflict(exercise, supersetExercises)
+      && (!exercise.unilateral
+        || routineExercises.filter((routineExercise) => routineExercise.unilateral).length < MAX_UNILATERAL_EXERCISES),
   );
 
   for (const pool of pools) {
@@ -320,7 +357,7 @@ function chooseExercise(muscle, supersetExercises = [], exerciseIndex, recentExe
   return null;
 }
 
-function chooseFinalExercise(preferredMuscle, supersetExercises = [], recentExerciseIds = []) {
+function chooseFinalExercise(preferredMuscle, supersetExercises = [], recentExerciseIds = [], routineExercises = []) {
   const candidates = strengthExercises
     .filter(matchesSelectedEquipment)
     .filter((exercise) => exercise.primaryMuscle === "core"
@@ -331,10 +368,21 @@ function chooseFinalExercise(preferredMuscle, supersetExercises = [], recentExer
   const preferred = preferredMuscle === "core"
     ? candidates.filter((exercise) => exercise.muscle === "core")
     : [];
-  const pools = preferred.length ? [preferred, candidates] : [candidates];
+  const coreCandidates = candidates.filter((exercise) => exercise.muscle === "core");
+  const conditioningCandidates = candidates.filter((exercise) => exercise.conditioning);
+  const bodyweightCandidates = candidates.filter((exercise) => isBodyweightOnly(exercise));
+  const useConditioning = conditioningCandidates.length > 0 && seededRandom() < 0.35;
+  const pools = useConditioning
+    ? [conditioningCandidates, coreCandidates, bodyweightCandidates, candidates]
+    : preferred.length
+      ? [preferred, conditioningCandidates, bodyweightCandidates, candidates]
+      : [coreCandidates, conditioningCandidates, bodyweightCandidates, candidates];
   const recentIds = new Set(recentExerciseIds);
   const compatibleExercises = (pool, avoidRecent) => shuffle(pool).filter((exercise) =>
-    (!avoidRecent || !recentIds.has(exercise.id)) && !setupsConflict(exercise, supersetExercises),
+    (!avoidRecent || !recentIds.has(exercise.id))
+      && !setupsConflict(exercise, supersetExercises)
+      && (!exercise.unilateral
+        || routineExercises.filter((routineExercise) => routineExercise.unilateral).length < MAX_UNILATERAL_EXERCISES),
   );
 
   for (const pool of pools) {
@@ -348,6 +396,36 @@ function chooseFinalExercise(preferredMuscle, supersetExercises = [], recentExer
   }
 
   return null;
+}
+
+function movementPatternsMatch(firstPattern, secondPattern) {
+  if (!firstPattern || !secondPattern) return false;
+  if (firstPattern === secondPattern) return true;
+  return firstPattern.endsWith("-push") && secondPattern.endsWith("-push");
+}
+
+function secondaryWarmupScore(exercise) {
+  const name = exercise.name.toLowerCase();
+  let score = 0;
+  if (["quads", "hamstrings"].includes(exercise.primaryMuscle)) score += 100;
+  if (["bar", "trapbar", "landmine"].some((item) => exercise.equipment.includes(item))) score += 40;
+  if (exercise.setupResources?.some((resource) => ["rack", "landmine", "trap-bar"].includes(resource))) score += 20;
+  if (/pull-up|chin-up/.test(name)) score += 15;
+  if (exercise.equipment.includes("dumbbells")) score += 10;
+  return score;
+}
+
+function chooseSecondaryWarmup(exercises) {
+  const preparedPatterns = exercises.slice(0, 2).map((exercise) => exercise.movementPattern);
+  const candidates = exercises.slice(2)
+    .filter((exercise) => exercise.secondaryWarmupEligible)
+    .filter((exercise) => !preparedPatterns.some((pattern) => movementPatternsMatch(pattern, exercise.movementPattern)))
+    .sort((first, second) => secondaryWarmupScore(second) - secondaryWarmupScore(first));
+  return candidates[0] || null;
+}
+
+function universalWarmupsForRoutine(sequenceNumber) {
+  return universalWarmupSets.get((sequenceNumber - 1) % 4) || [];
 }
 
 function buildRoutine(blueprint, sequenceNumber, recentExerciseIds = [], targetExerciseCount = blueprint.muscles.length, targetMuscles = null) {
@@ -359,7 +437,7 @@ function buildRoutine(blueprint, sequenceNumber, recentExerciseIds = [], targetE
   const exercises = liftingMuscles.reduce((built, muscle, index) => {
     const supersetStart = index < 2 ? 0 : 2;
     const supersetExercises = built.slice(supersetStart);
-    const selectedExercise = chooseExercise(muscle, supersetExercises, index, recentExerciseIds);
+    const selectedExercise = chooseExercise(muscle, supersetExercises, index, recentExerciseIds, built);
     if (!selectedExercise) return built;
     built.push({ ...selectedExercise, muscle, sets: 3, primary: index === 0 });
     return built;
@@ -369,8 +447,16 @@ function buildRoutine(blueprint, sequenceNumber, recentExerciseIds = [], targetE
       targetMuscles?.includes("core") || blueprint.muscles.includes("core") ? "core" : null,
       exercises.slice(2),
       recentExerciseIds,
+      exercises,
     );
     if (finalExercise) exercises.push({ ...finalExercise, sets: 3, primary: false });
+  }
+  if (exercises.length !== targetExerciseCount) return null;
+  const secondaryWarmup = chooseSecondaryWarmup(exercises);
+  if (secondaryWarmup) {
+    secondaryWarmup.secondaryWarmupSets = [
+      /pull-up|chin-up/i.test(secondaryWarmup.name) ? SECONDARY_PULL_WARMUP_DOSE : SECONDARY_WARMUP_DOSE,
+    ];
   }
   const warmupTargets = shuffle(exercises.slice(0, 4)).slice(0, Math.min(3, exercises.length));
   const matchedWarmups = dynamicWarmups ? chooseWarmups(warmupTargets) : [];
@@ -378,7 +464,7 @@ function buildRoutine(blueprint, sequenceNumber, recentExerciseIds = [], targetE
     ? matchedWarmups.flatMap((warmup, index) => warmup
       ? [{ ...warmup, muscle: warmupTargets[index].muscle }]
       : [])
-    : universalWarmups.map((warmup) => ({ ...warmup, muscle: "full body" }));
+    : universalWarmupsForRoutine(sequenceNumber).map((warmup) => ({ ...warmup, muscle: "full body" }));
   if (exercises.length > 4) {
     const optionalExercise = shuffle(exercises)[0];
     const optionalWarmup = chooseWarmups([optionalExercise], warmups.map((warmup) => warmup.id))[0];
@@ -389,11 +475,16 @@ function buildRoutine(blueprint, sequenceNumber, recentExerciseIds = [], targetE
   const workingSetSeconds = exercises.reduce((total, exercise) => total
     + (exercise.sets * exercise.setTime * exerciseTimeMultiplier(exercise)), 0);
   const exerciseWarmupSeconds = exercises.reduce((total, exercise) => total
-    + (exercise.primary
-      ? exerciseWarmupSets(exercise).length * exercise.setTime * exerciseTimeMultiplier(exercise)
-      : 0), 0);
+    + (((exercise.primary || (exercise.conditioning && exercise.warmupProtocol === "powerPrep"))
+      ? exerciseWarmupSets(exercise).length
+      : 0)
+      + (exercise.secondaryWarmupSets?.length || 0))
+      * exercise.setTime * exerciseTimeMultiplier(exercise), 0);
+  const secondaryWarmupRecoverySeconds = secondaryWarmup ? SECONDARY_WARMUP_RECOVERY_SECONDS : 0;
   const warmupSeconds = warmups.reduce((total, warmup) => total
-    + ((warmup.setTime || 30) * exerciseTimeMultiplier(warmup)), 0) + exerciseWarmupSeconds;
+    + ((warmup.setTime || 30) * exerciseTimeMultiplier(warmup)), 0)
+    + exerciseWarmupSeconds
+    + secondaryWarmupRecoverySeconds;
   const setupTearDownSeconds = [...exercises, ...warmups]
     .reduce((total, exercise) => total + (exercise.setupTime || 0), 0);
   // Three rounds have two between-round rest intervals. The separate
@@ -413,24 +504,45 @@ function buildRoutine(blueprint, sequenceNumber, recentExerciseIds = [], targetE
 }
 
 function buildCoverageMusclePlan(routineExerciseCounts) {
-  const firstRoutineSet = shuffle(PRIMARY_COVERAGE_MUSCLES).slice(0, 4);
-  const secondRoutinePrimary = shuffle(PRIMARY_COVERAGE_MUSCLES
-    .filter((muscle) => !firstRoutineSet.includes(muscle))).slice(0, 1);
-  const secondRoutineSet = [
-    ...secondRoutinePrimary,
-    ...shuffle(COVERAGE_MUSCLES.filter((muscle) => !firstRoutineSet.includes(muscle) && !secondRoutinePrimary.includes(muscle))),
+  const coverageCycle = [
+    ["chest", "back", "biceps", "calves"],
+    ["quads", "hamstrings", "shoulders", "triceps"],
+    ["shoulders", "chest", "triceps", "biceps"],
+    ["back", "hamstrings", "quads", "calves"],
   ];
-
-  return routineExerciseCounts.map((exerciseCount, index) => {
-    const muscleSet = index % 2 === 0 ? firstRoutineSet : secondRoutineSet;
-    const primaryMuscle = muscleSet.find((muscle) => PRIMARY_COVERAGE_MUSCLES.includes(muscle));
-    const muscles = [primaryMuscle, ...shuffle(muscleSet.filter((muscle) => muscle !== primaryMuscle))];
-    return exerciseCount === 5 ? [...muscles, "core"] : muscles;
+  const muscleSets = routineExerciseCounts.map((exerciseCount, index) => {
+    const cycleSet = shuffle(coverageCycle[index % coverageCycle.length]);
+    return exerciseCount === 5 ? [...cycleSet, "core"] : cycleSet;
+  });
+  const primaryMuscles = muscleSets.map((muscles) => {
+    const candidates = muscles.filter((muscle) => PRIMARY_COVERAGE_MUSCLES.includes(muscle));
+    return candidates.length ? shuffle(candidates)[0] : muscles[0];
+  });
+  for (let index = 1; index < primaryMuscles.length; index += 1) {
+    if (primaryMuscles[index] !== primaryMuscles[index - 1]) continue;
+    const replacement = muscleSets[index]
+      .filter((muscle) => PRIMARY_COVERAGE_MUSCLES.includes(muscle) && muscle !== primaryMuscles[index - 1])
+      .find((muscle) => muscle !== primaryMuscles[index - 2]);
+    if (replacement) primaryMuscles[index] = replacement;
+  }
+  if (primaryMuscles.length > 1 && primaryMuscles.at(-1) === primaryMuscles[0]) {
+    const lastCandidates = muscleSets.at(-1)
+      .filter((muscle) => PRIMARY_COVERAGE_MUSCLES.includes(muscle)
+        && muscle !== primaryMuscles.at(-2)
+        && muscle !== primaryMuscles[0]);
+    if (lastCandidates.length) primaryMuscles[primaryMuscles.length - 1] = lastCandidates[0];
+  }
+  return muscleSets.map((muscles, index) => {
+    const primaryMuscle = primaryMuscles[index];
+    return [primaryMuscle, ...muscles.filter((muscle) => muscle !== primaryMuscle)];
   });
 }
 
 function warmupCandidates(muscle) {
-  const candidates = exercises.filter((exercise) => exercise.type === "warmup" && exercise.primaryMuscle === muscle);
+  const candidates = exercises.filter((exercise) => exercise.type === "warmup"
+    && exercise.primaryMuscle === muscle
+    && !(exercise.equipment || []).includes("tubebands")
+    && !(exercise.requires || []).includes("tubebands"));
   const matchingEquipment = candidates.filter(matchesSelectedEquipment);
   const available = matchingEquipment.length
     ? matchingEquipment
@@ -501,13 +613,15 @@ function renderRoutine(routine) {
     const groupLabel = "Superset";
     const rest = formatRest(restPeriods[groupIndex]);
     const groupExercises = group.map((exercise) => {
-      const primarySets = exercise.primary
-        ? [...exerciseWarmupSets(exercise), `${exercise.sets} × ${exerciseRepRange(exercise)}`]
-        : [`${exercise.sets} × ${exerciseRepRange(exercise)}`];
+      const hasPowerPrep = exercise.conditioning && exercise.warmupProtocol === "powerPrep";
+      const preparationSets = exercise.primary || hasPowerPrep
+        ? exerciseWarmupSets(exercise)
+        : (exercise.secondaryWarmupSets || []);
+      const primarySets = [...preparationSets, `${exercise.sets} × ${exerciseRepRange(exercise)}`];
       return `
         <div class="exercise">
           <span><span class="exercise-name">${exerciseDisplayName(exercise)}</span><span class="exercise-muscle">${exerciseDescriptor(exercise, exercise.muscle)}</span></span>
-          <span class="exercise-sets${exercise.primary ? " primary-sets" : ""}">${primarySets.map((set) => `<span>${set}</span>`).join("")}</span>
+          <span class="exercise-sets${primarySets.length > 1 ? " stacked-sets" : ""}">${primarySets.map((set) => `<span>${set}</span>`).join("")}</span>
         </div>`;
     }).join("");
     const supersetName = `${groupLabel} ${String.fromCharCode(65 + groupIndex)}`;
@@ -550,6 +664,11 @@ function buildBlueprintQueue() {
 let lastPlanSignature = null;
 
 function generatePlan({ newSeed = false } = {}) {
+  const unsupportedMuscles = unsupportedCoverageMuscles();
+  if (unsupportedMuscles.length) {
+    output.innerHTML = `<p class="plan-error">Selected equipment cannot cover ${unsupportedMuscles.map(labelMuscle).join(", ")}. Add equipment or choose a different setup.</p>`;
+    return;
+  }
   let routines;
   let planSignature;
   let attempts = 0;
@@ -581,6 +700,7 @@ function generatePlan({ newSeed = false } = {}) {
         targetExerciseCount,
         coverageMusclePlan[index],
       );
+      if (!routine) return null;
       routine.cardio = hasCardio && targetExerciseCount === 4
         ? cardioName()
         : null;
@@ -589,6 +709,10 @@ function generatePlan({ newSeed = false } = {}) {
       previousExerciseIds = routine.exercises.map((exercise) => exercise.id);
       return routine;
     });
+    if (routines.some((routine) => !routine)) {
+      output.innerHTML = `<p class="plan-error">Selected equipment cannot build the requested routine sequence. Add equipment or choose a different setup.</p>`;
+      return;
+    }
     planSignature = routines.map((routine) => [
       routine.exercises.map((exercise) => exercise.id).join(","),
       routine.warmups.map((warmup) => warmup.id).join(","),
@@ -609,10 +733,15 @@ function updateEquipmentState(button) {
     if (primaryLiftingEquipment.has(equipment)
       && ![...selectedEquipment].some((item) => item !== equipment && primaryLiftingEquipment.has(item))) return false;
     selectedEquipment.delete(equipment);
-    if (equipment === "bar") {
-      selectedEquipment.delete("landmine");
-      selectedEquipment.delete("rack");
-    }
+    const removeDependents = (parent) => {
+      equipmentCatalog
+        .filter((item) => item.dependencies.includes(parent) && selectedEquipment.has(item.key))
+        .forEach((item) => {
+          selectedEquipment.delete(item.key);
+          removeDependents(item.key);
+        });
+    };
+    removeDependents(equipment);
   } else {
     const addWithDependencies = (item) => {
       selectedEquipment.add(item);

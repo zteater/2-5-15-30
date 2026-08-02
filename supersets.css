@@ -48,6 +48,14 @@
   color: #4a7fc1;
 }
 
+.superset-a .exercise-warmup-set {
+  color: #4f9d69;
+}
+
+.superset-b .exercise-warmup-set {
+  color: #4a7fc1;
+}
+
 .superset-a {
   background: rgba(91, 181, 111, .13);
 }
@@ -100,6 +108,10 @@
 .cardio-exercise .exercise-name,
 .cardio-exercise .exercise-sets {
   color: #7951a5;
+}
+
+.cardio-exercise .cardio-working-set {
+  color: var(--ink);
 }
 
 .cardio-sets {

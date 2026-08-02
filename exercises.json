@@ -725,7 +725,7 @@
       "setupTime": 30,
       "type": "warmup",
       "id": "bodyweight-prone-y-t-raises",
-      "dose": "8 reps",
+      "dose": "8 x",
       "instructions": [
         "Set up in a comfortable position with the listed equipment if needed.",
         "Move slowly through the assigned range and keep breathing steadily.",
@@ -747,7 +747,7 @@
       "setupTime": 0,
       "type": "warmup",
       "id": "bodyweight-reverse-snow-angels",
-      "dose": "8 reps",
+      "dose": "8 x",
       "instructions": [
         "Set up in a comfortable position with the listed equipment if needed.",
         "Move slowly through the assigned range and keep breathing steadily.",
@@ -1427,7 +1427,7 @@
       "type": "strength",
       "warmupProtocol": "none",
       "id": "trap-bar-farmer-carry",
-      "durationRange": "30–45 sec",
+      "durationRange": "0:30–0:45",
       "primaryEligible": false,
       "movementPattern": "conditioning",
       "secondaryWarmupEligible": false,
@@ -1493,7 +1493,7 @@
       "type": "strength",
       "warmupProtocol": "none",
       "id": "dumbbell-suitcase-march",
-      "durationRange": "20–40 sec",
+      "durationRange": "0:20–0:40",
       "repUnit": "per side",
       "primaryEligible": false,
       "movementPattern": "carry",
@@ -1525,7 +1525,7 @@
       "type": "strength",
       "warmupProtocol": "none",
       "id": "kettlebell-suitcase-march",
-      "durationRange": "20–40 sec",
+      "durationRange": "0:20–0:40",
       "repUnit": "per side",
       "primaryEligible": false,
       "movementPattern": "carry",
@@ -2962,15 +2962,15 @@
       "timing": [
         {
           "sets": "W",
-          "duration": "3 min"
+          "duration": "3:00"
         },
         {
           "sets": "1",
-          "duration": "25 min"
+          "duration": "25:00"
         },
         {
           "sets": "W",
-          "duration": "2 min"
+          "duration": "2:00"
         }
       ],
       "setTime": 1500,
@@ -2997,15 +2997,15 @@
       "timing": [
         {
           "sets": "W",
-          "duration": "3 min"
+          "duration": "3:00"
         },
         {
           "sets": "1",
-          "duration": "25 min"
+          "duration": "25:00"
         },
         {
           "sets": "W",
-          "duration": "2 min"
+          "duration": "2:00"
         }
       ],
       "setTime": 1500,
@@ -3032,15 +3032,15 @@
       "timing": [
         {
           "sets": "W",
-          "duration": "3 min"
+          "duration": "3:00"
         },
         {
           "sets": "1",
-          "duration": "25 min"
+          "duration": "25:00"
         },
         {
           "sets": "W",
-          "duration": "2 min"
+          "duration": "2:00"
         }
       ],
       "setTime": 1500,
@@ -3067,15 +3067,15 @@
       "timing": [
         {
           "sets": "W",
-          "duration": "3 min"
+          "duration": "3:00"
         },
         {
           "sets": "1",
-          "duration": "25 min"
+          "duration": "25:00"
         },
         {
           "sets": "W",
-          "duration": "2 min"
+          "duration": "2:00"
         }
       ],
       "setTime": 1500,
@@ -3102,15 +3102,15 @@
       "timing": [
         {
           "sets": "W",
-          "duration": "3 min"
+          "duration": "3:00"
         },
         {
           "sets": "1",
-          "duration": "25 min"
+          "duration": "25:00"
         },
         {
           "sets": "W",
-          "duration": "2 min"
+          "duration": "2:00"
         }
       ],
       "setTime": 1500,
@@ -3137,15 +3137,15 @@
       "timing": [
         {
           "sets": "W",
-          "duration": "3 min"
+          "duration": "3:00"
         },
         {
           "sets": "1",
-          "duration": "25 min"
+          "duration": "25:00"
         },
         {
           "sets": "W",
-          "duration": "2 min"
+          "duration": "2:00"
         }
       ],
       "setTime": 1500,
@@ -3172,15 +3172,15 @@
       "timing": [
         {
           "sets": "W",
-          "duration": "3 min"
+          "duration": "3:00"
         },
         {
           "sets": "1",
-          "duration": "25 min"
+          "duration": "25:00"
         },
         {
           "sets": "W",
-          "duration": "2 min"
+          "duration": "2:00"
         }
       ],
       "setTime": 1500,
@@ -3207,15 +3207,15 @@
       "timing": [
         {
           "sets": "W",
-          "duration": "3 min"
+          "duration": "3:00"
         },
         {
           "sets": "1",
-          "duration": "25 min"
+          "duration": "25:00"
         },
         {
           "sets": "W",
-          "duration": "2 min"
+          "duration": "2:00"
         }
       ],
       "setTime": 1500,
@@ -3390,7 +3390,7 @@
       "equipment": [
         "bodyweight"
       ],
-      "dose": "8 reps",
+      "dose": "8 x",
       "primaryMuscle": "chest",
       "type": "warmup",
       "setTime": 30,
@@ -3412,7 +3412,7 @@
       "equipment": [
         "bodyweight"
       ],
-      "dose": "20 sec",
+      "dose": "0:20",
       "primaryMuscle": "chest",
       "type": "warmup",
       "setTime": 30,
@@ -3434,7 +3434,7 @@
       "equipment": [
         "tubebands"
       ],
-      "dose": "12 reps",
+      "dose": "12 x",
       "primaryMuscle": "chest",
       "type": "warmup",
       "setTime": 30,
@@ -3456,7 +3456,7 @@
       "equipment": [
         "tubebands"
       ],
-      "dose": "12 reps",
+      "dose": "12 x",
       "primaryMuscle": "back",
       "type": "warmup",
       "setTime": 30,
@@ -3478,7 +3478,7 @@
       "equipment": [
         "pullupbar"
       ],
-      "dose": "5 reps",
+      "dose": "5 x",
       "primaryMuscle": "back",
       "type": "warmup",
       "setTime": 30,
@@ -3523,7 +3523,7 @@
       "equipment": [
         "bodyweight"
       ],
-      "dose": "10 reps",
+      "dose": "10 x",
       "primaryMuscle": "quads",
       "type": "warmup",
       "setTime": 30,
@@ -3545,7 +3545,7 @@
       "equipment": [
         "bodyweight"
       ],
-      "dose": "20 sec / side",
+      "dose": "0:20 / side",
       "primaryMuscle": "quads",
       "type": "warmup",
       "setTime": 30,
@@ -3614,7 +3614,7 @@
       "equipment": [
         "bodyweight"
       ],
-      "dose": "20 sec / side",
+      "dose": "0:20 / side",
       "primaryMuscle": "calves",
       "type": "warmup",
       "setTime": 30,
@@ -3637,7 +3637,7 @@
       "equipment": [
         "bodyweight"
       ],
-      "dose": "10 reps",
+      "dose": "10 x",
       "primaryMuscle": "hamstrings",
       "type": "warmup",
       "setTime": 30,
@@ -3682,7 +3682,7 @@
       "equipment": [
         "tubebands"
       ],
-      "dose": "10 reps",
+      "dose": "10 x",
       "primaryMuscle": "hamstrings",
       "type": "warmup",
       "setTime": 30,
@@ -3773,7 +3773,7 @@
       "equipment": [
         "bodyweight"
       ],
-      "dose": "8 reps",
+      "dose": "8 x",
       "primaryMuscle": "shoulders",
       "type": "warmup",
       "setTime": 30,
@@ -3795,7 +3795,7 @@
       "equipment": [
         "bodyweight"
       ],
-      "dose": "20 sec",
+      "dose": "0:20",
       "primaryMuscle": "shoulders",
       "type": "warmup",
       "setTime": 30,
@@ -3817,7 +3817,7 @@
       "equipment": [
         "tubebands"
       ],
-      "dose": "12 reps",
+      "dose": "12 x",
       "primaryMuscle": "shoulders",
       "type": "warmup",
       "setTime": 30,
@@ -3842,7 +3842,7 @@
       "equipment": [
         "bodyweight"
       ],
-      "dose": "20 sec",
+      "dose": "0:20",
       "primaryMuscle": "biceps",
       "type": "warmup",
       "setTime": 30,
@@ -3864,7 +3864,7 @@
       "equipment": [
         "tubebands"
       ],
-      "dose": "10 reps",
+      "dose": "10 x",
       "primaryMuscle": "biceps",
       "type": "warmup",
       "setTime": 30,
@@ -3886,7 +3886,7 @@
       "equipment": [
         "bodyweight"
       ],
-      "dose": "20 sec",
+      "dose": "0:20",
       "primaryMuscle": "biceps",
       "type": "warmup",
       "setTime": 30,
@@ -3909,7 +3909,7 @@
         "bodyweight",
         "bench"
       ],
-      "dose": "8 reps",
+      "dose": "8 x",
       "primaryMuscle": "triceps",
       "type": "warmup",
       "setTime": 30,
@@ -3931,7 +3931,7 @@
       "equipment": [
         "bodyweight"
       ],
-      "dose": "20 sec / side",
+      "dose": "0:20 / side",
       "primaryMuscle": "triceps",
       "type": "warmup",
       "setTime": 30,
@@ -3954,7 +3954,7 @@
       "equipment": [
         "tubebands"
       ],
-      "dose": "10 reps",
+      "dose": "10 x",
       "primaryMuscle": "triceps",
       "type": "warmup",
       "setTime": 30,
@@ -3979,7 +3979,7 @@
       "equipment": [
         "bodyweight"
       ],
-      "dose": "10 reps",
+      "dose": "10 x",
       "primaryMuscle": "glutes",
       "type": "warmup",
       "setTime": 30,
@@ -4048,7 +4048,7 @@
       "equipment": [
         "bodyweight"
       ],
-      "dose": "20 sec / side",
+      "dose": "0:20 / side",
       "setTime": 30,
       "primaryMuscle": "full body",
       "type": "warmup",
@@ -4098,7 +4098,7 @@
       "equipment": [
         "bodyweight"
       ],
-      "dose": "20–30 sec",
+      "dose": "0:20–0:30",
       "setTime": 30,
       "primaryMuscle": "full body",
       "type": "warmup",
@@ -4122,7 +4122,7 @@
       "equipment": [
         "bodyweight"
       ],
-      "dose": "20 sec / side",
+      "dose": "0:20 / side",
       "setTime": 30,
       "primaryMuscle": "full body",
       "type": "warmup",
@@ -4222,7 +4222,7 @@
       "equipment": [
         "bodyweight"
       ],
-      "dose": "8 reps",
+      "dose": "8 x",
       "setTime": 30,
       "primaryMuscle": "full body",
       "type": "warmup",
@@ -4246,7 +4246,7 @@
       "equipment": [
         "bodyweight"
       ],
-      "dose": "20 sec / side",
+      "dose": "0:20 / side",
       "setTime": 30,
       "primaryMuscle": "full body",
       "type": "warmup",
@@ -4296,7 +4296,7 @@
       "equipment": [
         "bodyweight"
       ],
-      "dose": "20 sec",
+      "dose": "0:20",
       "setTime": 30,
       "primaryMuscle": "full body",
       "type": "warmup",
@@ -4452,7 +4452,7 @@
         "bodyweight"
       ],
       "sets": 3,
-      "durationRange": "20–40 sec",
+      "durationRange": "0:20–0:40",
       "repUnit": "per side",
       "primaryMuscle": "core",
       "unilateral": true,
@@ -4484,7 +4484,7 @@
         "bodyweight"
       ],
       "sets": 3,
-      "durationRange": "15–30 sec",
+      "durationRange": "0:15–0:30",
       "primaryMuscle": "core",
       "restPeriod": 60,
       "setTime": 30,
@@ -4514,7 +4514,7 @@
         "dumbbells"
       ],
       "sets": 3,
-      "durationRange": "30–45 sec",
+      "durationRange": "0:30–0:45",
       "primaryMuscle": "core",
       "restPeriod": 60,
       "setTime": 35,
@@ -4679,7 +4679,7 @@
       ],
       "conditioning": true,
       "sets": 3,
-      "durationRange": "20–40 sec",
+      "durationRange": "0:20–0:40",
       "primaryMuscle": "full body",
       "restPeriod": 60,
       "setTime": 30,

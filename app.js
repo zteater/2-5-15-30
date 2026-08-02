@@ -1,5 +1,5 @@
 async function startApp() {
-  const loadJson = (file) => fetch(`./${file}?v=20260974`).then((response) => {
+  const loadJson = (file) => fetch(`./${file}?v=20260975`).then((response) => {
     if (!response.ok) throw new Error(`Unable to load workout data (${response.status})`);
     return response.json();
   });
@@ -289,7 +289,7 @@ function exerciseDescriptor(exercise, muscle) {
 
 function exerciseRepRange(exercise) {
   const range = exercise.durationRange || exercise.repRange || "10–15";
-  return exercise.repUnit ? `${range} ${exercise.repUnit}` : range;
+  return exercise.repUnit === "per side" ? `${range} / side` : range;
 }
 
 const WARMUP_PROTOCOLS = {
@@ -344,7 +344,7 @@ function detailPrescription(exercise) {
   if (exercise.type === "warmup") return `<p>${escapeHtml(exercise.dose || "Move through the assigned dose")}</p>`;
   const sets = exercise.sets || 3;
   const range = exerciseRepRange(exercise);
-  const rangeLabel = exercise.durationRange ? range : `${range} reps${exercise.repUnit ? ` ${exercise.repUnit}` : ""}`;
+  const rangeLabel = exercise.durationRange ? range : `${range} reps`;
   const prescription = `<p><strong>${sets} sets × ${escapeHtml(rangeLabel)}</strong></p>`;
   const rest = formatRestSeconds(exercise.detailRestSeconds ?? exercise.restPeriod);
   const restMarkup = rest ? `<p>Rest ${rest} after each superset round</p>` : "";
@@ -723,7 +723,7 @@ function renderRoutine(routine) {
       return `
         <div class="exercise exercise-row-interactive" ${interactiveAttributes(exercise)}>
           <span><span class="exercise-name">${exerciseDisplayName(exercise)}</span><span class="exercise-muscle">${exerciseDescriptor(exercise, exercise.muscle)}</span></span>
-          <span class="exercise-sets${primarySets.length > 1 ? " stacked-sets" : ""}">${primarySets.map((set) => `<span>${set}</span>`).join("")}</span>
+          <span class="exercise-sets${primarySets.length > 1 ? " stacked-sets" : ""}">${primarySets.map((set, index) => `<span class="${index < preparationSets.length ? "exercise-warmup-set" : "exercise-working-set"}">${set}</span>`).join("")}</span>
         </div>`;
     }).join("");
     const supersetName = `${groupLabel} ${String.fromCharCode(65 + groupIndex)}`;
@@ -736,7 +736,7 @@ function renderRoutine(routine) {
       <div class="routine-top">
         <div class="routine-title-row"><h4>Routine ${String(routine.sequenceNumber).padStart(2, "0")}</h4><span class="routine-duration${routine.liftingMinutes > 30 ? " is-over-target" : ""}"><span>${routine.liftingMinutes}′</span>${routine.cardio ? `<span class="routine-duration-divider" aria-hidden="true"><svg viewBox="0 0 4 32"><path d="M2 1v30" /></svg></span><span class="routine-cardio-duration">${routine.cardioMinutes}′</span>` : ""}</span></div>
       </div>
-      <div class="exercise-list">${warmupMarkup}${exerciseMarkup}${routine.cardio ? `<div class="superset cardio-block"><div class="superset-heading"><span>Cardio finisher</span></div><div class="exercise cardio-exercise exercise-row-interactive" ${interactiveAttributes(routine.cardio)}><span><span class="exercise-name">${routine.cardio.name}</span><span class="exercise-muscle">cardio - conditioning</span></span><span class="exercise-sets cardio-sets">${routine.cardio.timing.map((interval) => `<span>${interval.sets} × ${interval.duration}</span>`).join("")}</span></div></div>` : ""}</div>
+      <div class="exercise-list">${warmupMarkup}${exerciseMarkup}${routine.cardio ? `<div class="superset cardio-block"><div class="superset-heading"><span>Cardio finisher</span></div><div class="exercise cardio-exercise exercise-row-interactive" ${interactiveAttributes(routine.cardio)}><span><span class="exercise-name">${routine.cardio.name}</span><span class="exercise-muscle">cardio - conditioning</span></span><span class="exercise-sets cardio-sets">${routine.cardio.timing.map((interval) => `<span class="${interval.sets === "1" ? "cardio-working-set" : "cardio-warmup-set"}">${interval.sets} × ${interval.duration}</span>`).join("")}</span></div></div>` : ""}</div>
     </article>`;
 }
 

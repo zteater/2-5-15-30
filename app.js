@@ -388,11 +388,13 @@ function detailPrescription(exercise) {
 
 function detailProgression(exercise) {
   if (exercise.type === "warmup" || exercise.type === "cardio") return "";
-  if (exercise.repNotes) return exercise.repNotes;
-  if (exercise.warmupProtocol === "powerPrep") return "Perform each repetition explosively while maintaining control. Stop the set when speed or technique noticeably declines.";
-  if (exercise.durationRange) return "Maintain good position for the assigned duration. Increase the duration within the range before progressing resistance or difficulty.";
-  if (exercise.repUnit === "per side") return "Complete the assigned range on each side.";
-  return "Use one working weight for all three sets.\n\nComplete as many clean reps as possible within the assigned range without sacrificing form.\n\nKeep the weight until every set reaches the top of the range, then increase the weight the next time the exercise appears. Repetitions do not need to increase every workout; they increase as ability improves.";
+  const sideNote = exercise.repUnit === "per side" ? "Complete the assigned range on each side." : "";
+  const withSideNote = (text) => [text, sideNote].filter(Boolean).join("\n\n");
+  if (exercise.repNotes) return withSideNote(exercise.repNotes);
+  if (exercise.warmupProtocol === "powerPrep") return withSideNote("Perform each repetition explosively while maintaining control. Stop the set when speed or technique noticeably declines.");
+  if (exercise.durationRange) return withSideNote("Maintain good position for the assigned duration. Increase the duration within the range before progressing resistance or difficulty.");
+  const standardProgression = "Use one working weight for all three sets.\n\nComplete as many clean reps as possible within the assigned range without sacrificing form.\n\nKeep the weight until every set reaches the top of the range, then increase the weight the next time the exercise appears. Repetitions do not need to increase every workout; they increase as ability improves.";
+  return [standardProgression, sideNote].filter(Boolean).join("\n\n");
 }
 
 function renderExerciseDetails(exercise) {

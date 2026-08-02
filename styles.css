@@ -651,17 +651,26 @@ body {
  body.menu-is-open { overflow: hidden; }
  .plan-options .switch-row { width: auto; min-height: 0; padding: 0; border: 0; border-radius: 0; background: transparent; }
  .config-modal { width: min(960px, calc(100% - 32px)); }
- .config-modal,
+.config-modal,
+.config-modal .info-modal-card {
+   max-height: calc(100vh - 24px);
+   max-height: calc(100dvh - 24px);
+   overflow: hidden;
+ }
+
  .config-modal .info-modal-card {
-   max-height: none;
-   overflow: visible;
+   overflow-y: auto;
+   overscroll-behavior: contain;
+ }
+
+ .config-modal .equipment-card:hover {
+   transform: none;
+   box-shadow: 0 0 0 1px var(--ink);
  }
  @media (max-width: 620px) {
-   .config-modal {
-     max-height: calc(100vh - 24px);
-     max-height: calc(100dvh - 24px);
+  .config-modal {
      overflow: hidden;
-   }
+  }
    .config-modal .info-modal-card {
      max-height: calc(100vh - 24px);
      max-height: calc(100dvh - 24px);

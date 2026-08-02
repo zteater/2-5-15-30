@@ -1,5 +1,5 @@
 async function startApp() {
-  const loadJson = (file) => fetch(`./${file}?v=20260975`).then((response) => {
+  const loadJson = (file) => fetch(`./${file}?v=20260978`).then((response) => {
     if (!response.ok) throw new Error(`Unable to load workout data (${response.status})`);
     return response.json();
   });
@@ -57,7 +57,7 @@ const PRIMARY_REST_PERIOD = 120;
 const ROUTINE_TRANSITION_SECONDS = 120;
 const MAX_UNILATERAL_EXERCISES = 2;
 const SECONDARY_WARMUP_RECOVERY_SECONDS = 30;
-const SECONDARY_WARMUP_DOSE = "W × 5–8 × 50–60%";
+const SECONDARY_WARMUP_DOSE = "W × 5–8 × 50%";
 const SECONDARY_PULL_WARMUP_DOSE = "W × 3–5 assisted";
 const COVERAGE_MUSCLES = ["shoulders", "biceps", "triceps", "back", "chest", "quads", "hamstrings", "calves"];
 const PRIMARY_COVERAGE_MUSCLES = ["shoulders", "back", "chest", "quads", "hamstrings"];
@@ -71,10 +71,31 @@ const conditioningEquipment = new Set(equipmentCatalog.filter((item) => item.gro
 const planParams = new URLSearchParams(window.location.search);
 const exerciseIds = new Set(exercises.map((exercise) => exercise.id));
 const exerciseCatalogById = new Map(exercises.map((exercise) => [exercise.id, exercise]));
-const excludedExerciseIds = new Set((planParams.get("exclude") || "")
-  .split(",")
-  .map((id) => id.trim())
-  .filter((id) => exerciseIds.has(id)));
+const exerciseIndexes = new Map(exercises.map((exercise, index) => [exercise.id, index]));
+
+function decodeBase36BigInt(value) {
+  let result = 0n;
+  for (const character of value.toLowerCase()) {
+    const digit = "0123456789abcdefghijklmnopqrstuvwxyz".indexOf(character);
+    if (digit < 0) return null;
+    result = result * 36n + BigInt(digit);
+  }
+  return result;
+}
+
+function decodeExcludedExercises(value) {
+  if (!value) return [];
+  if (!value.startsWith("x")) {
+    return value.split(",").map((id) => id.trim()).filter((id) => exerciseIds.has(id));
+  }
+  const mask = decodeBase36BigInt(value.slice(1));
+  if (mask === null) return [];
+  return exercises
+    .filter((exercise, index) => (mask & (1n << BigInt(index))) !== 0n)
+    .map((exercise) => exercise.id);
+}
+
+const excludedExerciseIds = new Set(decodeExcludedExercises(planParams.get("exclude")));
 const isExcluded = (exercise) => excludedExerciseIds.has(exercise.id);
 const strengthExercises = exercises.filter((exercise) => exercise.type === "strength");
 const cardioExercises = exercises.filter((exercise) => exercise.type === "cardio");
@@ -168,12 +189,18 @@ function encodePlanSeed() {
 function updatePlanUrl() {
   const url = new URL(window.location.href);
   url.searchParams.set("seed", encodePlanSeed());
-  const encodedExclusions = [...excludedExerciseIds].sort().join(",");
+  let exclusionMask = 0n;
+  excludedExerciseIds.forEach((id) => {
+    const index = exerciseIndexes.get(id);
+    if (index !== undefined) exclusionMask |= 1n << BigInt(index);
+  });
+  const encodedExclusions = exclusionMask ? `x${exclusionMask.toString(36)}` : "";
   if (encodedExclusions) url.searchParams.set("exclude", encodedExclusions);
   else url.searchParams.delete("exclude");
   url.searchParams.delete("sessions");
   url.searchParams.delete("equipment");
   url.searchParams.delete("cardio");
+  url.hash = "";
   window.history.replaceState({}, "", url);
 }
 
@@ -229,8 +256,9 @@ function syncEquipmentButtons() {
   if (countLabel) countLabel.textContent = `${selectedEquipment.size} selected`;
 }
 
-function resetRandom() {
-  randomState = hashSeed(planSeedMaterial());
+function resetRandom(attempt = 0) {
+  const material = attempt ? `${planSeedMaterial()}:${attempt}` : planSeedMaterial();
+  randomState = hashSeed(material);
 }
 
 function seededRandom() {
@@ -774,12 +802,13 @@ function generatePlan({ newSeed = false } = {}) {
   let routines;
   let planSignature;
   let attempts = 0;
+  const maxAttempts = 8;
   do {
-    if (newSeed || attempts > 0) {
+    if (newSeed) {
       activeSeed = createSeed();
       updatePlanUrl();
     }
-    resetRandom();
+    resetRandom(attempts);
     const availableCardio = cardioExercises.filter((option) =>
       !isExcluded(option) && option.equipment.some((item) => selectedEquipment.has(item)),
     );
@@ -812,8 +841,8 @@ function generatePlan({ newSeed = false } = {}) {
       return routine;
     });
     if (routines.some((routine) => !routine)) {
-      output.innerHTML = `<p class="plan-error">Selected equipment cannot build the requested routine sequence. Add equipment or choose a different setup.</p>`;
-      return false;
+      attempts += 1;
+      continue;
     }
     planSignature = routines.map((routine) => [
       routine.exercises.map((exercise) => exercise.id).join(","),
@@ -821,7 +850,12 @@ function generatePlan({ newSeed = false } = {}) {
       routine.cardio?.name || "",
     ].join("|")).join(";");
     attempts += 1;
-  } while (newSeed && planSignature === lastPlanSignature && attempts < 8);
+  } while (attempts < maxAttempts && (planSignature === null || (newSeed && planSignature === lastPlanSignature)));
+
+  if (!routines || routines.some((routine) => !routine)) {
+    output.innerHTML = `<p class="plan-error">Selected equipment cannot build the requested routine sequence. Add equipment or choose a different setup.</p>`;
+    return false;
+  }
 
   lastPlanSignature = planSignature;
   currentExerciseDetails = new Map();
@@ -1055,9 +1089,22 @@ dynamicRestToggle.addEventListener("change", () => {
   generatePlan();
 });
 
+function generateInitialPlan() {
+  const requestedExclusions = [...excludedExerciseIds].sort();
+  let generated = generatePlan();
+  while (!generated && requestedExclusions.length) {
+    excludedExerciseIds.delete(requestedExclusions.pop());
+    generated = generatePlan();
+  }
+  updatePlanUrl();
+  if (requestedExclusions.length < [...decodeExcludedExercises(planParams.get("exclude"))].length) {
+    showPlanToast("Some exclusions were restored so the plan could be completed.");
+  }
+}
+
 syncEquipmentButtons();
 updateSessionControls();
-generatePlan();
+generateInitialPlan();
 window.addEventListener("load", () => {
   if (!loadedFromSeed) document.querySelector(".cards-actions").scrollIntoView({ behavior: "auto", block: "start" });
 });

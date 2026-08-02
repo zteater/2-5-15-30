@@ -133,6 +133,31 @@
       "group": "cardio",
       "isDefault": false,
       "dependencies": []
+    },
+    {
+      "key": "loopbands",
+      "label": "Loop bands",
+      "group": "primary",
+      "isDefault": false,
+      "dependencies": []
+    },
+    {
+      "key": "bandanchor",
+      "label": "Band anchor",
+      "group": "secondary",
+      "isDefault": false,
+      "dependencies": [
+        "tubebands"
+      ]
+    },
+    {
+      "key": "anklestrap",
+      "label": "Ankle strap",
+      "group": "secondary",
+      "isDefault": false,
+      "dependencies": [
+        "tubebands"
+      ]
     }
   ]
 }

@@ -87,10 +87,10 @@
     },
     {
       "title": "Mixed strength",
-      "primaryMuscle": "biceps",
+      "primaryMuscle": "back",
       "muscles": [
-        "biceps",
         "back",
+        "biceps",
         "hamstrings",
         "shoulders",
         "core"
@@ -98,15 +98,14 @@
     },
     {
       "title": "Mixed strength",
-      "primaryMuscle": "triceps",
+      "primaryMuscle": "chest",
       "muscles": [
-        "triceps",
         "chest",
+        "triceps",
         "shoulders",
         "back",
         "core"
       ]
     }
-  ],
-  "muscleLabels": {}
+  ]
 }

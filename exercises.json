@@ -3,36 +3,38 @@
     {
       "name": "Dumbbell floor press",
       "equipment": [
-        "dumbbells",
-        "bodyweight"
+        "dumbbells"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "10–15",
+      "repRange": "6–10",
       "primaryMuscle": "chest",
-      "restPeriod": 60,
+      "restPeriod": 90,
       "setTime": 45,
-      "setupTime": 15
+      "setupTime": 15,
+      "type": "strength",
+      "warmupProtocol": "ramp2",
+      "id": "dumbbell-floor-press",
+      "primaryEligible": true
     },
     {
       "name": "Barbell floor press",
       "equipment": [
-        "barbell"
+        "bar"
       ],
       "setup": "barbell-floor",
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "6–10",
       "primaryMuscle": "chest",
       "restPeriod": 90,
       "setTime": 60,
-      "setupTime": 45
+      "setupTime": 45,
+      "type": "strength",
+      "warmupProtocol": "ramp2",
+      "id": "barbell-floor-press",
+      "requires": [
+        "rack"
+      ],
+      "primaryEligible": true
     },
     {
       "name": "Dumbbell bench press",
@@ -43,18 +45,18 @@
         "bench"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "10–15",
+      "repRange": "6–10",
       "primaryMuscle": "chest",
-      "restPeriod": 60,
+      "restPeriod": 90,
       "setTime": 45,
-      "setupTime": 30
+      "setupTime": 30,
+      "type": "strength",
+      "warmupProtocol": "ramp2",
+      "id": "dumbbell-bench-press",
+      "primaryEligible": true
     },
     {
-      "name": "Dumbbell incline chest press",
+      "name": "Dumbbell incline press",
       "equipment": [
         "dumbbells"
       ],
@@ -63,15 +65,15 @@
       ],
       "setup": "dumbbell-incline",
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "10–15",
+      "repRange": "6–10",
       "primaryMuscle": "chest",
-      "restPeriod": 60,
+      "restPeriod": 90,
       "setTime": 45,
-      "setupTime": 30
+      "setupTime": 30,
+      "type": "strength",
+      "warmupProtocol": "ramp2",
+      "id": "dumbbell-incline-chest-press",
+      "primaryEligible": true
     },
     {
       "name": "Dumbbell bench fly",
@@ -82,116 +84,55 @@
         "bench"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "10–15",
+      "repRange": "12–20",
       "primaryMuscle": "chest",
       "restPeriod": 60,
       "setTime": 45,
-      "setupTime": 30
-    },
-    {
-      "name": "Dumbbell incline chest fly",
-      "equipment": [
-        "dumbbells"
-      ],
-      "requires": [
-        "bench"
-      ],
-      "setup": "dumbbell-incline",
-      "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "10–15",
-      "primaryMuscle": "chest",
-      "restPeriod": 60,
-      "setTime": 45,
-      "setupTime": 30
+      "setupTime": 30,
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "dumbbell-bench-fly",
+      "primaryEligible": false
     },
     {
       "name": "Barbell bench press",
       "equipment": [
-        "barbell"
+        "bar"
       ],
       "requires": [
         "bench"
       ],
       "setup": "barbell-bench",
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "6–10",
       "primaryMuscle": "chest",
       "restPeriod": 90,
       "setTime": 60,
-      "setupTime": 45
+      "setupTime": 45,
+      "type": "strength",
+      "warmupProtocol": "ramp2",
+      "id": "barbell-bench-press",
+      "primaryEligible": true
     },
     {
       "name": "Barbell incline bench press",
       "equipment": [
-        "barbell"
+        "bar"
       ],
       "requires": [
         "bench"
       ],
       "setup": "barbell-incline",
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "6–10",
       "primaryMuscle": "chest",
       "restPeriod": 90,
       "setTime": 60,
-      "setupTime": 45
-    },
-    {
-      "name": "EZ-bar bench press",
-      "equipment": [
-        "ezbar"
-      ],
-      "requires": [
-        "bench"
-      ],
-      "setup": "ezbar-bench",
-      "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "6–10",
-      "primaryMuscle": "chest",
-      "restPeriod": 90,
-      "setTime": 60,
-      "setupTime": 45
-    },
-    {
-      "name": "Landmine chest press",
-      "equipment": [
-        "landmine",
-        "barbell"
-      ],
-      "requires": [
-        "barbell"
-      ],
-      "setup": "landmine-standing",
-      "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "6–10",
-      "primaryMuscle": "chest",
-      "restPeriod": 90,
-      "setTime": 60,
-      "setupTime": 45
+      "setupTime": 45,
+      "type": "strength",
+      "warmupProtocol": "ramp2",
+      "id": "barbell-incline-bench-press",
+      "primaryEligible": true
     },
     {
       "name": "Medicine ball chest pass",
@@ -199,31 +140,32 @@
         "medicineball"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "10–15",
+      "repRange": "6–10",
       "primaryMuscle": "chest",
-      "restPeriod": 60,
-      "setTime": 45,
-      "setupTime": 15
+      "restPeriod": 90,
+      "setTime": 25,
+      "setupTime": 15,
+      "type": "strength",
+      "warmupProtocol": "powerPrep",
+      "id": "medicine-ball-chest-pass",
+      "conditioning": true,
+      "primaryEligible": false
     },
-    {
-      "name": "Kettlebell floor press",
-      "equipment": [
-        "kettlebells"
-      ],
-      "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "10–15",
-      "primaryMuscle": "chest",
-      "restPeriod": 60,
+  {
+    "name": "Kettlebell floor press",
+    "equipment": [
+      "kettlebells"
+    ],
+    "sets": 3,
+    "repRange": "6–10",
+    "primaryMuscle": "chest",
+    "restPeriod": 90,
       "setTime": 45,
-      "setupTime": 15
+      "setupTime": 15,
+      "type": "strength",
+      "warmupProtocol": "ramp2",
+      "id": "kettlebell-floor-press",
+      "primaryEligible": true
     },
     {
       "name": "Tube band chest press",
@@ -231,67 +173,72 @@
         "tubebands"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "10–15",
       "primaryMuscle": "chest",
       "restPeriod": 60,
       "setTime": 45,
-      "setupTime": 15
+      "setupTime": 30,
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "tube-band-chest-press",
+      "requires": [
+        "bandanchor"
+      ],
+      "primaryEligible": false
     },
     {
-      "name": "Bodyweight push-ups",
+      "name": "Bodyweight push-up",
       "equipment": [
         "bodyweight"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "10–15",
       "primaryMuscle": "chest",
       "restPeriod": 60,
       "setTime": 45,
-      "setupTime": 0
+      "setupTime": 0,
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "bodyweight-push-ups",
+      "primaryEligible": true
     },
     {
-      "name": "Bodyweight bench incline push-ups",
+      "name": "Bodyweight incline push-up",
       "equipment": [
-        "bodyweight",
-        "bench"
+        "bodyweight"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "10–15",
       "primaryMuscle": "chest",
       "restPeriod": 60,
       "setTime": 45,
-      "setupTime": 30
+      "setupTime": 30,
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "bodyweight-bench-incline-push-ups",
+      "requires": [
+        "bench"
+      ],
+      "primaryEligible": true
     },
     {
-      "name": "Dumbbell row",
+      "name": "Dumbbell bent-over row",
       "equipment": [
         "dumbbells"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "10–15",
+      "repRange": "6–10",
       "primaryMuscle": "back",
-      "restPeriod": 60,
+      "restPeriod": 90,
       "setTime": 45,
-      "setupTime": 15
+      "setupTime": 15,
+      "type": "strength",
+      "warmupProtocol": "ramp2",
+      "id": "dumbbell-row",
+      "primaryEligible": true
     },
     {
-      "name": "Dumbbell bench-supported row",
+      "name": "Dumbbell one-arm bench-supported row",
       "equipment": [
         "dumbbells"
       ],
@@ -299,15 +246,17 @@
         "bench"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "10–15",
+      "repRange": "6–10",
       "primaryMuscle": "back",
-      "restPeriod": 60,
-      "setTime": 45,
-      "setupTime": 30
+      "restPeriod": 90,
+      "setTime": 35,
+      "setupTime": 30,
+      "type": "strength",
+      "warmupProtocol": "easy1",
+      "id": "dumbbell-bench-supported-row",
+      "unilateral": true,
+      "repUnit": "per side",
+      "primaryEligible": true
     },
     {
       "name": "Dumbbell chest-supported row",
@@ -319,80 +268,82 @@
       ],
       "setup": "dumbbell-incline",
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "10–15",
       "primaryMuscle": "back",
-      "restPeriod": 60,
+      "restPeriod": 90,
       "setTime": 45,
-      "setupTime": 30
+      "setupTime": 30,
+      "type": "strength",
+      "warmupProtocol": "ramp2",
+      "id": "dumbbell-chest-supported-row",
+      "primaryEligible": true
     },
     {
-      "name": "Kettlebell row",
+      "name": "Kettlebell single-arm row",
       "equipment": [
         "kettlebells"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "10–15",
+      "repRange": "6–10",
       "primaryMuscle": "back",
-      "restPeriod": 60,
-      "setTime": 45,
-      "setupTime": 15
+      "restPeriod": 90,
+      "setTime": 35,
+      "setupTime": 15,
+      "type": "strength",
+      "warmupProtocol": "easy1",
+      "id": "kettlebell-row",
+      "unilateral": true,
+      "repUnit": "per side",
+      "primaryEligible": true
     },
     {
-      "name": "Tube band row",
+      "name": "Seated tube-band row around the feet",
       "equipment": [
         "tubebands"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "10–15",
       "primaryMuscle": "back",
       "restPeriod": 60,
       "setTime": 45,
-      "setupTime": 15
+      "setupTime": 15,
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "tube-band-row",
+      "primaryEligible": true
     },
     {
-      "name": "Pull-up bar pull-ups",
+      "name": "Pull-up bar pull-up",
       "equipment": [
         "pullupbar"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "10–15",
+      "repRange": "6–10",
       "primaryMuscle": "back",
-      "restPeriod": 60,
+      "restPeriod": 90,
       "setTime": 45,
-      "setupTime": 15
+      "setupTime": 15,
+      "type": "strength",
+      "warmupProtocol": "easy1",
+      "id": "pull-up-bar-pull-ups",
+      "primaryEligible": true
     },
     {
       "name": "Barbell bent-over row",
       "equipment": [
-        "barbell"
+        "bar"
       ],
       "setup": "barbell-floor",
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "6–10",
       "primaryMuscle": "back",
       "restPeriod": 90,
       "setTime": 60,
-      "setupTime": 45
+      "setupTime": 45,
+      "type": "strength",
+      "warmupProtocol": "ramp2",
+      "id": "barbell-bent-over-row",
+      "primaryEligible": true
     },
     {
       "name": "EZ-bar bent-over row",
@@ -401,55 +352,36 @@
       ],
       "setup": "ezbar-floor",
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "6–10",
       "primaryMuscle": "back",
       "restPeriod": 90,
       "setTime": 60,
-      "setupTime": 45
+      "setupTime": 45,
+      "type": "strength",
+      "warmupProtocol": "ramp2",
+      "id": "ez-bar-bent-over-row",
+      "primaryEligible": true
     },
     {
-      "name": "Landmine row",
+      "name": "Landmine T-bar row",
       "equipment": [
         "landmine",
-        "barbell"
+        "bar"
       ],
       "requires": [
-        "barbell"
+        "bar"
       ],
       "setup": "landmine-floor",
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "6–10",
       "primaryMuscle": "back",
       "restPeriod": 90,
       "setTime": 60,
-      "setupTime": 45
-    },
-    {
-      "name": "Medicine ball pullover",
-      "equipment": [
-        "medicineball"
-      ],
-      "requires": [
-        "bench"
-      ],
-      "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "10–15",
-      "primaryMuscle": "back",
-      "restPeriod": 60,
-      "setTime": 45,
-      "setupTime": 30
+      "setupTime": 45,
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "landmine-row",
+      "primaryEligible": true
     },
     {
       "name": "Bodyweight prone Y-T raises",
@@ -457,32 +389,24 @@
         "bodyweight",
         "bench"
       ],
-      "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "10–15",
       "primaryMuscle": "back",
-      "restPeriod": 60,
       "setTime": 45,
-      "setupTime": 30
+      "setupTime": 30,
+      "type": "warmup",
+      "id": "bodyweight-prone-y-t-raises",
+      "dose": "8 reps"
     },
     {
       "name": "Bodyweight reverse snow angels",
       "equipment": [
         "bodyweight"
       ],
-      "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "10–15",
       "primaryMuscle": "back",
-      "restPeriod": 60,
       "setTime": 45,
-      "setupTime": 0
+      "setupTime": 0,
+      "type": "warmup",
+      "id": "bodyweight-reverse-snow-angels",
+      "dose": "8 reps"
     },
     {
       "name": "Dumbbell goblet squat",
@@ -490,162 +414,111 @@
         "dumbbells"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "10–15",
       "primaryMuscle": "quads",
       "restPeriod": 60,
       "setTime": 45,
-      "setupTime": 15
+      "setupTime": 15,
+      "type": "strength",
+      "warmupProtocol": "ramp2",
+      "id": "dumbbell-goblet-squat",
+      "primaryEligible": true
     },
     {
-      "name": "Barbell Zercher squat",
-      "equipment": [
-        "barbell"
-      ],
-      "setup": "barbell-floor",
-      "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "6–10",
-      "primaryMuscle": "quads",
-      "restPeriod": 90,
-      "setTime": 60,
-      "setupTime": 45
-    },
-    {
-      "name": "Trap bar squat",
-      "equipment": [
-        "trapbar"
-      ],
-      "setup": "trapbar-floor",
-      "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "6–10",
-      "primaryMuscle": "quads",
-      "restPeriod": 90,
-      "setTime": 60,
-      "setupTime": 45
-    },
-    {
-      "name": "Plyo box jump",
+      "name": "Box jump",
       "equipment": [
         "bodyweight",
         "plyobox"
       ],
       "conditioning": true,
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "10–15",
+      "repRange": "6–10",
       "primaryMuscle": "quads",
-      "restPeriod": 60,
-      "setTime": 45,
-      "setupTime": 15
+      "restPeriod": 90,
+      "setTime": 25,
+      "setupTime": 15,
+      "type": "strength",
+      "warmupProtocol": "powerPrep",
+      "id": "plyo-box-jump",
+      "primaryEligible": false
     },
     {
-      "name": "Dumbbell bench Bulgarian split squat",
+      "name": "Dumbbell Bulgarian split squat",
       "equipment": [
-        "dumbbells",
-        "bench"
+        "dumbbells"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "10–15",
       "primaryMuscle": "quads",
-      "restPeriod": 60,
-      "setTime": 45,
+      "restPeriod": 90,
+      "setTime": 35,
       "setupTime": 30,
-      "unilateral": true
+      "unilateral": true,
+      "type": "strength",
+      "warmupProtocol": "easy1",
+      "id": "dumbbell-bench-bulgarian-split-squat",
+      "requires": [
+        "bench"
+      ],
+      "repUnit": "per side",
+      "primaryEligible": true
     },
     {
-      "name": "Kettlebell front squat",
+      "name": "Kettlebell goblet squat",
       "equipment": [
         "kettlebells"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "10–15",
       "primaryMuscle": "quads",
       "restPeriod": 60,
       "setTime": 45,
-      "setupTime": 15
+      "setupTime": 15,
+      "type": "strength",
+      "warmupProtocol": "ramp2",
+      "id": "kettlebell-front-squat",
+      "primaryEligible": true
     },
     {
       "name": "Barbell back squat",
       "equipment": [
-        "barbell"
+        "bar"
       ],
       "requires": [
         "rack"
       ],
       "setup": "barbell-rack",
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "6–10",
       "primaryMuscle": "quads",
       "restPeriod": 90,
       "setTime": 60,
-      "setupTime": 45
-    },
-    {
-      "name": "EZ-bar front squat",
-      "equipment": [
-        "ezbar"
-      ],
-      "requires": [
-        "rack"
-      ],
-      "setup": "ezbar-rack",
-      "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "6–10",
-      "primaryMuscle": "quads",
-      "restPeriod": 90,
-      "setTime": 60,
-      "setupTime": 45
+      "setupTime": 45,
+      "type": "strength",
+      "warmupProtocol": "ramp2",
+      "id": "barbell-back-squat",
+      "primaryEligible": true
     },
     {
       "name": "Landmine squat",
       "equipment": [
         "landmine",
-        "barbell"
+        "bar"
       ],
       "requires": [
-        "barbell"
+        "bar"
       ],
       "setup": "landmine-standing",
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "6–10",
       "primaryMuscle": "quads",
       "restPeriod": 90,
       "setTime": 60,
-      "setupTime": 45
+      "setupTime": 45,
+      "type": "strength",
+      "warmupProtocol": "ramp2",
+      "id": "landmine-squat",
+      "primaryEligible": true
     },
     {
       "name": "Medicine ball goblet squat",
@@ -653,15 +526,15 @@
         "medicineball"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "10–15",
       "primaryMuscle": "quads",
       "restPeriod": 60,
       "setTime": 45,
-      "setupTime": 15
+      "setupTime": 15,
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "medicine-ball-goblet-squat",
+      "primaryEligible": true
     },
     {
       "name": "Tube band squat",
@@ -669,15 +542,15 @@
         "tubebands"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "10–15",
       "primaryMuscle": "quads",
       "restPeriod": 60,
       "setTime": 45,
-      "setupTime": 15
+      "setupTime": 15,
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "tube-band-squat",
+      "primaryEligible": true
     },
     {
       "name": "Tempo bodyweight squat",
@@ -685,209 +558,35 @@
         "bodyweight"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "10–15",
       "primaryMuscle": "quads",
       "restPeriod": 60,
       "setTime": 45,
-      "setupTime": 0
+      "setupTime": 0,
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "tempo-bodyweight-squat",
+      "primaryEligible": true
     },
     {
-      "name": "Bodyweight bench step-up",
-      "equipment": [
-        "bodyweight",
-        "bench"
-      ],
-      "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "10–15",
-      "primaryMuscle": "quads",
-      "restPeriod": 60,
-      "setTime": 45,
-      "setupTime": 30,
-      "unilateral": true
-    },
-    {
-      "name": "Dumbbell squat to calf raise",
-      "equipment": [
-        "dumbbells"
-      ],
-      "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "6–10",
-      "primaryMuscle": "quads",
-      "restPeriod": 90,
-      "setTime": 60,
-      "setupTime": 15
-    },
-    {
-      "name": "Barbell reverse lunge to calf raise",
-      "equipment": [
-        "barbell"
-      ],
-      "setup": "barbell-standing",
-      "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "6–10",
-      "primaryMuscle": "quads",
-      "restPeriod": 90,
-      "setTime": 60,
-      "setupTime": 45,
-      "unilateral": true
-    },
-    {
-      "name": "Plyo box lateral step-up",
+      "name": "Plyo box step-up",
       "equipment": [
         "bodyweight",
         "plyobox"
       ],
-      "conditioning": true,
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "6–10",
+      "repRange": "10–15",
       "primaryMuscle": "quads",
       "restPeriod": 90,
-      "setTime": 60,
+      "setTime": 35,
       "setupTime": 15,
-      "unilateral": true
-    },
-    {
-      "name": "Kettlebell squat to calf raise",
-      "equipment": [
-        "kettlebells"
-      ],
-      "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "6–10",
-      "primaryMuscle": "quads",
-      "restPeriod": 90,
-      "setTime": 60,
-      "setupTime": 15
-    },
-    {
-      "name": "Tube band squat to calf raise",
-      "equipment": [
-        "tubebands"
-      ],
-      "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "6–10",
-      "primaryMuscle": "quads",
-      "restPeriod": 90,
-      "setTime": 60,
-      "setupTime": 15
-    },
-    {
-      "name": "Bodyweight squat to calf raise",
-      "equipment": [
-        "bodyweight"
-      ],
-      "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "6–10",
-      "primaryMuscle": "quads",
-      "restPeriod": 90,
-      "setTime": 60,
-      "setupTime": 0
-    },
-    {
-      "name": "Bodyweight step-up to calf raise",
-      "equipment": [
-        "bodyweight",
-        "bench"
-      ],
-      "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "6–10",
-      "primaryMuscle": "quads",
-      "restPeriod": 90,
-      "setTime": 60,
-      "setupTime": 30,
-      "unilateral": true
-    },
-    {
-      "name": "EZ-bar squat to calf raise",
-      "equipment": [
-        "ezbar"
-      ],
-      "requires": [
-        "rack"
-      ],
-      "setup": "ezbar-rack",
-      "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "6–10",
-      "primaryMuscle": "quads",
-      "restPeriod": 90,
-      "setTime": 60,
-      "setupTime": 45
-    },
-    {
-      "name": "Landmine squat to calf raise",
-      "equipment": [
-        "landmine",
-        "barbell"
-      ],
-      "requires": [
-        "barbell"
-      ],
-      "setup": "landmine-standing",
-      "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "6–10",
-      "primaryMuscle": "quads",
-      "restPeriod": 90,
-      "setTime": 60,
-      "setupTime": 45
-    },
-    {
-      "name": "Medicine ball squat to calf raise",
-      "equipment": [
-        "medicineball"
-      ],
-      "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "6–10",
-      "primaryMuscle": "quads",
-      "restPeriod": 90,
-      "setTime": 60,
-      "setupTime": 15
+      "unilateral": true,
+      "type": "strength",
+      "warmupProtocol": "easy1",
+      "id": "bodyweight-bench-step-up",
+      "requires": [],
+      "repUnit": "per side",
+      "primaryEligible": true
     },
     {
       "name": "Dumbbell Romanian deadlift",
@@ -895,15 +594,15 @@
         "dumbbells"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "6–10",
       "primaryMuscle": "hamstrings",
       "restPeriod": 90,
       "setTime": 60,
-      "setupTime": 15
+      "setupTime": 15,
+      "type": "strength",
+      "warmupProtocol": "ramp2",
+      "id": "dumbbell-romanian-deadlift",
+      "primaryEligible": true
     },
     {
       "name": "Dumbbell single-leg RDL",
@@ -911,16 +610,17 @@
         "dumbbells"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "6–10",
+      "repRange": "10–15",
       "primaryMuscle": "hamstrings",
       "restPeriod": 90,
-      "setTime": 60,
+      "setTime": 35,
       "setupTime": 15,
-      "unilateral": true
+      "unilateral": true,
+      "type": "strength",
+      "warmupProtocol": "easy1",
+      "id": "dumbbell-single-leg-rdl",
+      "repUnit": "per side",
+      "primaryEligible": true
     },
     {
       "name": "Kettlebell deadlift",
@@ -928,32 +628,32 @@
         "kettlebells"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "6–10",
       "primaryMuscle": "hamstrings",
       "restPeriod": 90,
       "setTime": 60,
-      "setupTime": 15
+      "setupTime": 15,
+      "type": "strength",
+      "warmupProtocol": "ramp2",
+      "id": "kettlebell-deadlift",
+      "primaryEligible": true
     },
     {
       "name": "Barbell Romanian deadlift",
       "equipment": [
-        "barbell"
+        "bar"
       ],
       "setup": "barbell-floor",
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "6–10",
       "primaryMuscle": "hamstrings",
       "restPeriod": 90,
       "setTime": 60,
-      "setupTime": 45
+      "setupTime": 45,
+      "type": "strength",
+      "warmupProtocol": "ramp2",
+      "id": "barbell-romanian-deadlift",
+      "primaryEligible": true
     },
     {
       "name": "Trap bar deadlift",
@@ -962,69 +662,39 @@
       ],
       "setup": "trapbar-floor",
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "6–10",
       "primaryMuscle": "hamstrings",
       "restPeriod": 90,
       "setTime": 60,
-      "setupTime": 45
-    },
-    {
-      "name": "EZ-bar good morning",
-      "equipment": [
-        "ezbar"
-      ],
-      "setup": "ezbar-standing",
-      "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "6–10",
-      "primaryMuscle": "hamstrings",
-      "restPeriod": 90,
-      "setTime": 60,
-      "setupTime": 45
+      "setupTime": 45,
+      "type": "strength",
+      "warmupProtocol": "ramp2",
+      "id": "trap-bar-deadlift",
+      "primaryEligible": true,
+      "secondaryMuscles": [
+        "glutes"
+      ]
     },
     {
       "name": "Landmine Romanian deadlift",
       "equipment": [
         "landmine",
-        "barbell"
+        "bar"
       ],
       "requires": [
-        "barbell"
+        "bar"
       ],
       "setup": "landmine-floor",
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "6–10",
+      "repRange": "10–15",
       "primaryMuscle": "hamstrings",
       "restPeriod": 90,
       "setTime": 60,
-      "setupTime": 45
-    },
-    {
-      "name": "Medicine ball good morning",
-      "equipment": [
-        "medicineball"
-      ],
-      "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "6–10",
-      "primaryMuscle": "hamstrings",
-      "restPeriod": 90,
-      "setTime": 60,
-      "setupTime": 15
+      "setupTime": 45,
+      "type": "strength",
+      "warmupProtocol": "ramp2",
+      "id": "landmine-romanian-deadlift",
+      "primaryEligible": true
     },
     {
       "name": "Tube band good morning",
@@ -1032,15 +702,15 @@
         "tubebands"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "6–10",
+      "repRange": "12–20",
       "primaryMuscle": "hamstrings",
-      "restPeriod": 90,
+      "restPeriod": 60,
       "setTime": 60,
-      "setupTime": 15
+      "setupTime": 15,
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "tube-band-good-morning-strength",
+      "primaryEligible": false
     },
     {
       "name": "Bodyweight hamstring walkout",
@@ -1048,32 +718,15 @@
         "bodyweight"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "6–10",
+      "repRange": "10–15",
       "primaryMuscle": "hamstrings",
-      "restPeriod": 90,
+      "restPeriod": 60,
       "setTime": 60,
-      "setupTime": 0
-    },
-    {
-      "name": "Bodyweight bench leg curl",
-      "equipment": [
-        "bodyweight",
-        "bench"
-      ],
-      "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "6–10",
-      "primaryMuscle": "hamstrings",
-      "restPeriod": 90,
-      "setTime": 60,
-      "setupTime": 30
+      "setupTime": 0,
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "bodyweight-hamstring-walkout",
+      "primaryEligible": false
     },
     {
       "name": "Bodyweight dead bug",
@@ -1081,32 +734,33 @@
         "bodyweight"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "12–20",
+      "repRange": "6–10",
       "primaryMuscle": "core",
       "restPeriod": 60,
       "setTime": 30,
-      "setupTime": 0
+      "setupTime": 0,
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "bodyweight-dead-bug-strength",
+      "repUnit": "per side",
+      "primaryEligible": false
     },
     {
       "name": "Barbell rollout",
       "equipment": [
-        "barbell"
+        "bar"
       ],
       "setup": "barbell-floor",
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "12–20",
+      "repRange": "6–10",
       "primaryMuscle": "core",
-      "restPeriod": 90,
+      "restPeriod": 60,
       "setTime": 30,
-      "setupTime": 45
+      "setupTime": 45,
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "barbell-rollout",
+      "primaryEligible": false
     },
     {
       "name": "Trap bar farmer carry",
@@ -1116,15 +770,15 @@
       "conditioning": true,
       "setup": "trapbar-standing",
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "12–20",
       "primaryMuscle": "core",
-      "restPeriod": 90,
+      "restPeriod": 60,
       "setTime": 30,
-      "setupTime": 45
+      "setupTime": 45,
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "trap-bar-farmer-carry",
+      "durationRange": "30–45 sec",
+      "primaryEligible": false
     },
     {
       "name": "Bodyweight plank shoulder tap",
@@ -1132,15 +786,17 @@
         "bodyweight"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "12–20",
+      "repRange": "6–10",
       "primaryMuscle": "core",
       "restPeriod": 60,
-      "setTime": 30,
-      "setupTime": 0
+      "setTime": 35,
+      "setupTime": 0,
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "bodyweight-plank-shoulder-tap",
+      "repUnit": "per side",
+      "unilateral": true,
+      "primaryEligible": false
     },
     {
       "name": "Dumbbell suitcase march",
@@ -1148,16 +804,17 @@
         "dumbbells"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "12–20",
       "primaryMuscle": "core",
       "restPeriod": 60,
       "setTime": 30,
       "setupTime": 15,
-      "unilateral": true
+      "unilateral": true,
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "dumbbell-suitcase-march",
+      "durationRange": "20–40 sec",
+      "repUnit": "per side",
+      "primaryEligible": false
     },
     {
       "name": "Kettlebell suitcase march",
@@ -1165,16 +822,17 @@
         "kettlebells"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "12–20",
       "primaryMuscle": "core",
       "restPeriod": 60,
       "setTime": 30,
       "setupTime": 15,
-      "unilateral": true
+      "unilateral": true,
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "kettlebell-suitcase-march",
+      "durationRange": "20–40 sec",
+      "repUnit": "per side",
+      "primaryEligible": false
     },
     {
       "name": "Tube band Pallof press",
@@ -1182,16 +840,20 @@
         "tubebands"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "12–20",
       "primaryMuscle": "core",
       "restPeriod": 60,
       "setTime": 30,
-      "setupTime": 15,
-      "unilateral": true
+      "setupTime": 30,
+      "unilateral": true,
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "tube-band-pallof-press",
+      "repUnit": "per side",
+      "requires": [
+        "bandanchor"
+      ],
+      "primaryEligible": false
     },
     {
       "name": "Slam ball sit-up",
@@ -1199,15 +861,15 @@
         "slamball"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "12–20",
       "primaryMuscle": "core",
       "restPeriod": 60,
       "setTime": 30,
-      "setupTime": 15
+      "setupTime": 15,
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "slam-ball-sit-up",
+      "primaryEligible": false
     },
     {
       "name": "Bodyweight bench knee tuck",
@@ -1216,36 +878,38 @@
         "bench"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "12–20",
       "primaryMuscle": "core",
       "restPeriod": 60,
       "setTime": 30,
-      "setupTime": 30
+      "setupTime": 30,
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "bodyweight-bench-knee-tuck",
+      "primaryEligible": false
     },
     {
       "name": "Landmine rotation",
       "equipment": [
         "landmine",
-        "barbell"
+        "bar"
       ],
       "requires": [
-        "barbell"
+        "bar"
       ],
       "setup": "landmine-standing",
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "12–20",
+      "repRange": "10–15",
       "primaryMuscle": "core",
-      "restPeriod": 90,
-      "setTime": 30,
-      "setupTime": 45
+      "restPeriod": 60,
+      "setTime": 35,
+      "setupTime": 45,
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "landmine-rotation",
+      "repUnit": "per side",
+      "unilateral": true,
+      "primaryEligible": false
     },
     {
       "name": "Medicine ball Russian twist",
@@ -1253,31 +917,16 @@
         "medicineball"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "12–20",
+      "repRange": "10–15",
       "primaryMuscle": "core",
       "restPeriod": 60,
       "setTime": 30,
-      "setupTime": 15
-    },
-    {
-      "name": "Medicine ball sit-up",
-      "equipment": [
-        "medicineball"
-      ],
-      "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "12–20",
-      "primaryMuscle": "core",
-      "restPeriod": 60,
-      "setTime": 30,
-      "setupTime": 15
+      "setupTime": 15,
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "medicine-ball-russian-twist",
+      "repUnit": "per side",
+      "primaryEligible": false
     },
     {
       "name": "Dumbbell shoulder press",
@@ -1285,15 +934,15 @@
         "dumbbells"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "10–15",
+      "repRange": "6–10",
       "primaryMuscle": "shoulders",
-      "restPeriod": 60,
+      "restPeriod": 90,
       "setTime": 45,
-      "setupTime": 15
+      "setupTime": 15,
+      "type": "strength",
+      "warmupProtocol": "ramp2",
+      "id": "dumbbell-shoulder-press",
+      "primaryEligible": true
     },
     {
       "name": "Dumbbell Arnold press",
@@ -1301,32 +950,32 @@
         "dumbbells"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "10–15",
       "primaryMuscle": "shoulders",
       "restPeriod": 60,
       "setTime": 45,
-      "setupTime": 15
+      "setupTime": 15,
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "dumbbell-arnold-press",
+      "primaryEligible": false
     },
     {
       "name": "Barbell push press",
       "equipment": [
-        "barbell"
+        "bar"
       ],
       "setup": "barbell-standing",
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "6–10",
       "primaryMuscle": "shoulders",
       "restPeriod": 90,
       "setTime": 60,
-      "setupTime": 45
+      "setupTime": 45,
+      "type": "strength",
+      "warmupProtocol": "powerPrep",
+      "id": "barbell-push-press",
+      "primaryEligible": false
     },
     {
       "name": "Dumbbell chest-supported rear delt fly",
@@ -1338,92 +987,76 @@
       ],
       "setup": "dumbbell-incline",
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "10–15",
+      "repRange": "12–20",
       "primaryMuscle": "shoulders",
       "restPeriod": 60,
       "setTime": 45,
-      "setupTime": 30
+      "setupTime": 30,
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "dumbbell-chest-supported-rear-delt-fly",
+      "primaryEligible": false
     },
     {
-      "name": "Kettlebell shoulder press",
+      "name": "Kettlebell single-arm shoulder press",
       "equipment": [
         "kettlebells"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "10–15",
       "primaryMuscle": "shoulders",
-      "restPeriod": 60,
-      "setTime": 45,
-      "setupTime": 15
+      "restPeriod": 90,
+      "setTime": 35,
+      "setupTime": 15,
+      "type": "strength",
+      "warmupProtocol": "easy1",
+      "id": "kettlebell-shoulder-press",
+      "unilateral": true,
+      "repUnit": "per side",
+      "primaryEligible": true
     },
     {
       "name": "Barbell overhead press",
       "equipment": [
-        "barbell"
+        "bar"
       ],
       "requires": [
         "rack"
       ],
       "setup": "barbell-rack",
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "6–10",
       "primaryMuscle": "shoulders",
       "restPeriod": 90,
       "setTime": 60,
-      "setupTime": 45
+      "setupTime": 45,
+      "type": "strength",
+      "warmupProtocol": "ramp2",
+      "id": "barbell-overhead-press",
+      "primaryEligible": true
     },
     {
-      "name": "EZ-bar overhead press",
-      "equipment": [
-        "ezbar"
-      ],
-      "requires": [
-        "rack"
-      ],
-      "setup": "ezbar-rack",
-      "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "6–10",
-      "primaryMuscle": "shoulders",
-      "restPeriod": 90,
-      "setTime": 60,
-      "setupTime": 45
-    },
-    {
-      "name": "Landmine shoulder press",
+      "name": "Landmine single-arm press",
       "equipment": [
         "landmine",
-        "barbell"
+        "bar"
       ],
       "requires": [
-        "barbell"
+        "bar"
       ],
       "setup": "landmine-standing",
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "6–10",
+      "repRange": "10–15",
       "primaryMuscle": "shoulders",
       "restPeriod": 90,
-      "setTime": 60,
-      "setupTime": 45
+      "setTime": 35,
+      "setupTime": 45,
+      "type": "strength",
+      "warmupProtocol": "easy1",
+      "id": "landmine-shoulder-press",
+      "unilateral": true,
+      "repUnit": "per side",
+      "primaryEligible": true
     },
     {
       "name": "Medicine ball push press",
@@ -1431,15 +1064,16 @@
         "medicineball"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "10–15",
+      "repRange": "6–10",
       "primaryMuscle": "shoulders",
-      "restPeriod": 60,
-      "setTime": 45,
-      "setupTime": 15
+      "restPeriod": 90,
+      "setTime": 25,
+      "setupTime": 15,
+      "type": "strength",
+      "warmupProtocol": "powerPrep",
+      "id": "medicine-ball-push-press",
+      "conditioning": true,
+      "primaryEligible": false
     },
     {
       "name": "Tube band face pull",
@@ -1447,15 +1081,18 @@
         "tubebands"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "10–15",
+      "repRange": "12–20",
       "primaryMuscle": "shoulders",
       "restPeriod": 60,
       "setTime": 45,
-      "setupTime": 15
+      "setupTime": 30,
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "tube-band-face-pull-strength",
+      "requires": [
+        "bandanchor"
+      ],
+      "primaryEligible": false
     },
     {
       "name": "Bodyweight pike push-up",
@@ -1463,15 +1100,15 @@
         "bodyweight"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "10–15",
       "primaryMuscle": "shoulders",
       "restPeriod": 60,
       "setTime": 45,
-      "setupTime": 0
+      "setupTime": 0,
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "bodyweight-pike-push-up",
+      "primaryEligible": true
     },
     {
       "name": "Dumbbell lean-away lateral raise",
@@ -1479,16 +1116,17 @@
         "dumbbells"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "10–15",
+      "repRange": "12–20",
       "primaryMuscle": "shoulders",
       "restPeriod": 60,
-      "setTime": 45,
+      "setTime": 30,
       "setupTime": 15,
-      "unilateral": true
+      "unilateral": true,
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "dumbbell-lean-away-lateral-raise",
+      "repUnit": "per side",
+      "primaryEligible": false
     },
     {
       "name": "Dumbbell alternating curl",
@@ -1496,16 +1134,17 @@
         "dumbbells"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "10–15",
       "primaryMuscle": "biceps",
       "restPeriod": 60,
-      "setTime": 45,
+      "setTime": 35,
       "setupTime": 15,
-      "unilateral": true
+      "unilateral": true,
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "dumbbell-alternating-curl",
+      "repUnit": "per side",
+      "primaryEligible": false
     },
     {
       "name": "Dumbbell hammer curl",
@@ -1513,15 +1152,15 @@
         "dumbbells"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "10–15",
       "primaryMuscle": "biceps",
       "restPeriod": 60,
       "setTime": 45,
-      "setupTime": 15
+      "setupTime": 15,
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "dumbbell-hammer-curl",
+      "primaryEligible": false
     },
     {
       "name": "Dumbbell incline curl",
@@ -1533,31 +1172,15 @@
       ],
       "setup": "dumbbell-incline",
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "10–15",
       "primaryMuscle": "biceps",
       "restPeriod": 60,
       "setTime": 45,
-      "setupTime": 30
-    },
-    {
-      "name": "Kettlebell curl",
-      "equipment": [
-        "kettlebells"
-      ],
-      "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "10–15",
-      "primaryMuscle": "biceps",
-      "restPeriod": 60,
-      "setTime": 45,
-      "setupTime": 15
+      "setupTime": 30,
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "dumbbell-incline-curl",
+      "primaryEligible": false
     },
     {
       "name": "Tube band curl",
@@ -1565,32 +1188,32 @@
         "tubebands"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "10–15",
+      "repRange": "12–20",
       "primaryMuscle": "biceps",
       "restPeriod": 60,
       "setTime": 45,
-      "setupTime": 15
+      "setupTime": 15,
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "tube-band-curl",
+      "primaryEligible": false
     },
     {
       "name": "Barbell curl",
       "equipment": [
-        "barbell"
+        "bar"
       ],
       "setup": "barbell-standing",
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "6–10",
+      "repRange": "10–15",
       "primaryMuscle": "biceps",
-      "restPeriod": 90,
+      "restPeriod": 60,
       "setTime": 60,
-      "setupTime": 45
+      "setupTime": 45,
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "barbell-curl",
+      "primaryEligible": false
     },
     {
       "name": "EZ-bar curl",
@@ -1599,31 +1222,15 @@
       ],
       "setup": "ezbar-standing",
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "6–10",
-      "primaryMuscle": "biceps",
-      "restPeriod": 90,
-      "setTime": 60,
-      "setupTime": 45
-    },
-    {
-      "name": "Bodyweight plank to low push-up",
-      "equipment": [
-        "bodyweight"
-      ],
-      "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "10–15",
       "primaryMuscle": "biceps",
       "restPeriod": 60,
-      "setTime": 45,
-      "setupTime": 0
+      "setTime": 60,
+      "setupTime": 45,
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "ez-bar-curl",
+      "primaryEligible": false
     },
     {
       "name": "Dumbbell overhead triceps extension",
@@ -1631,32 +1238,35 @@
         "dumbbells"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "10–15",
       "primaryMuscle": "triceps",
       "restPeriod": 60,
       "setTime": 45,
-      "setupTime": 15
+      "setupTime": 15,
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "dumbbell-overhead-triceps-extension",
+      "primaryEligible": false
     },
     {
-      "name": "Close-grip barbell floor press",
+      "name": "Barbell close-grip floor press",
       "equipment": [
-        "barbell"
+        "bar"
       ],
       "setup": "barbell-floor",
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "6–10",
       "primaryMuscle": "triceps",
       "restPeriod": 90,
       "setTime": 60,
-      "setupTime": 45
+      "setupTime": 45,
+      "type": "strength",
+      "warmupProtocol": "ramp2",
+      "id": "close-grip-barbell-floor-press",
+      "requires": [
+        "rack"
+      ],
+      "primaryEligible": true
     },
     {
       "name": "Kettlebell triceps extension",
@@ -1664,15 +1274,15 @@
         "kettlebells"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "10–15",
       "primaryMuscle": "triceps",
       "restPeriod": 60,
       "setTime": 45,
-      "setupTime": 15
+      "setupTime": 15,
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "kettlebell-triceps-extension",
+      "primaryEligible": false
     },
     {
       "name": "Tube band pressdown",
@@ -1680,35 +1290,38 @@
         "tubebands"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "10–15",
+      "repRange": "12–20",
       "primaryMuscle": "triceps",
       "restPeriod": 60,
       "setTime": 45,
-      "setupTime": 15
+      "setupTime": 30,
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "tube-band-pressdown-strength",
+      "requires": [
+        "bandanchor"
+      ],
+      "primaryEligible": false
     },
     {
-      "name": "Close-grip barbell press",
+      "name": "Barbell close-grip bench press",
       "equipment": [
-        "barbell"
+        "bar"
       ],
       "requires": [
         "bench"
       ],
       "setup": "barbell-bench",
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "6–10",
       "primaryMuscle": "triceps",
       "restPeriod": 90,
       "setTime": 60,
-      "setupTime": 45
+      "setupTime": 45,
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "close-grip-barbell-press",
+      "primaryEligible": true
     },
     {
       "name": "EZ-bar lying triceps extension",
@@ -1720,36 +1333,15 @@
       ],
       "setup": "ezbar-bench",
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "6–10",
+      "repRange": "10–15",
       "primaryMuscle": "triceps",
-      "restPeriod": 90,
+      "restPeriod": 60,
       "setTime": 60,
-      "setupTime": 45
-    },
-    {
-      "name": "Landmine close-grip press",
-      "equipment": [
-        "landmine",
-        "barbell"
-      ],
-      "requires": [
-        "barbell"
-      ],
-      "setup": "landmine-standing",
-      "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "6–10",
-      "primaryMuscle": "triceps",
-      "restPeriod": 90,
-      "setTime": 60,
-      "setupTime": 45
+      "setupTime": 45,
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "ez-bar-lying-triceps-extension",
+      "primaryEligible": false
     },
     {
       "name": "Bodyweight close-grip push-up",
@@ -1757,52 +1349,34 @@
         "bodyweight"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "10–15",
       "primaryMuscle": "triceps",
       "restPeriod": 60,
       "setTime": 45,
-      "setupTime": 0
+      "setupTime": 0,
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "bodyweight-close-grip-push-up",
+      "primaryEligible": true
     },
     {
-      "name": "Bodyweight bench triceps dip",
+      "name": "Dumbbell hip thrust",
       "equipment": [
-        "bodyweight",
-        "bench"
-      ],
-      "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "10–15",
-      "primaryMuscle": "triceps",
-      "restPeriod": 60,
-      "setTime": 45,
-      "setupTime": 30
-    },
-    {
-      "name": "Dumbbell bench hip thrust",
-      "equipment": [
-        "dumbbells",
-        "bench"
+        "dumbbells"
       ],
       "requires": [
         "bench"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "10–15",
       "primaryMuscle": "glutes",
       "restPeriod": 90,
       "setTime": 45,
-      "setupTime": 30
+      "setupTime": 30,
+      "type": "strength",
+      "warmupProtocol": "ramp2",
+      "id": "dumbbell-bench-hip-thrust",
+      "primaryEligible": true
     },
     {
       "name": "Kettlebell swing",
@@ -1810,77 +1384,59 @@
         "kettlebells"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "10–15",
       "primaryMuscle": "glutes",
       "restPeriod": 90,
-      "setTime": 45,
-      "setupTime": 15
+      "setTime": 25,
+      "setupTime": 15,
+      "type": "strength",
+      "warmupProtocol": "powerPrep",
+      "id": "kettlebell-swing",
+      "conditioning": true,
+      "primaryEligible": false
     },
     {
-      "name": "Barbell bench hip thrust",
+      "name": "Barbell hip thrust",
       "equipment": [
-        "barbell"
+        "bar"
       ],
       "requires": [
         "bench"
       ],
       "setup": "barbell-bench",
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "6–10",
-      "primaryMuscle": "glutes",
-      "restPeriod": 90,
-      "setTime": 60,
-      "setupTime": 45
-    },
-    {
-      "name": "EZ-bar bench hip thrust",
-      "equipment": [
-        "ezbar"
-      ],
-      "requires": [
-        "bench"
-      ],
-      "setup": "ezbar-bench",
-      "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "6–10",
-      "primaryMuscle": "glutes",
-      "restPeriod": 90,
-      "setTime": 60,
-      "setupTime": 45
-    },
-    {
-      "name": "Landmine reverse lunge",
-      "equipment": [
-        "landmine",
-        "barbell"
-      ],
-      "requires": [
-        "barbell"
-      ],
-      "setup": "landmine-standing",
-      "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "6–10",
       "primaryMuscle": "glutes",
       "restPeriod": 90,
       "setTime": 60,
       "setupTime": 45,
-      "unilateral": true
+      "type": "strength",
+      "warmupProtocol": "ramp2",
+      "id": "barbell-bench-hip-thrust",
+      "primaryEligible": true
+    },
+    {
+      "name": "Landmine reverse lunge",
+      "equipment": [
+        "landmine",
+        "bar"
+      ],
+      "requires": [
+        "bar"
+      ],
+      "setup": "landmine-standing",
+      "sets": 3,
+      "repRange": "10–15",
+      "primaryMuscle": "glutes",
+      "restPeriod": 90,
+      "setTime": 35,
+      "setupTime": 45,
+      "unilateral": true,
+      "type": "strength",
+      "warmupProtocol": "easy1",
+      "id": "landmine-reverse-lunge",
+      "repUnit": "per side",
+      "primaryEligible": true
     },
     {
       "name": "Medicine ball reverse lunge",
@@ -1888,32 +1444,36 @@
         "medicineball"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "10–15",
       "primaryMuscle": "glutes",
       "restPeriod": 90,
-      "setTime": 45,
+      "setTime": 35,
       "setupTime": 15,
-      "unilateral": true
+      "unilateral": true,
+      "type": "strength",
+      "warmupProtocol": "easy1",
+      "id": "medicine-ball-reverse-lunge",
+      "repUnit": "per side",
+      "primaryEligible": true
     },
     {
-      "name": "Tube band lateral walk",
+      "name": "Loop band lateral walk",
       "equipment": [
-        "tubebands"
+        "loopbands"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "10–15",
       "primaryMuscle": "glutes",
       "restPeriod": 90,
-      "setTime": 45,
-      "setupTime": 15
+      "setTime": 35,
+      "setupTime": 15,
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "tube-band-lateral-walk-strength",
+      "requires": [],
+      "repUnit": "per side",
+      "unilateral": true,
+      "primaryEligible": false
     },
     {
       "name": "Bodyweight single-leg glute bridge",
@@ -1921,16 +1481,17 @@
         "bodyweight"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "10–15",
       "primaryMuscle": "glutes",
       "restPeriod": 90,
-      "setTime": 45,
+      "setTime": 35,
       "setupTime": 0,
-      "unilateral": true
+      "unilateral": true,
+      "type": "strength",
+      "warmupProtocol": "easy1",
+      "id": "bodyweight-single-leg-glute-bridge",
+      "repUnit": "per side",
+      "primaryEligible": false
     },
     {
       "name": "Bodyweight reverse lunge",
@@ -1938,16 +1499,17 @@
         "bodyweight"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "10–15",
       "primaryMuscle": "glutes",
       "restPeriod": 90,
-      "setTime": 45,
+      "setTime": 35,
       "setupTime": 0,
-      "unilateral": true
+      "unilateral": true,
+      "type": "strength",
+      "warmupProtocol": "easy1",
+      "id": "bodyweight-reverse-lunge-strength",
+      "repUnit": "per side",
+      "primaryEligible": true
     },
     {
       "name": "Dumbbell sumo squat",
@@ -1955,51 +1517,37 @@
         "dumbbells"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "10–15",
       "primaryMuscle": "glutes",
       "restPeriod": 90,
       "setTime": 45,
-      "setupTime": 15
+      "setupTime": 15,
+      "type": "strength",
+      "warmupProtocol": "ramp2",
+      "id": "dumbbell-sumo-squat",
+      "primaryEligible": true
     },
     {
       "name": "Barbell reverse lunge",
       "equipment": [
-        "barbell"
+        "bar"
       ],
       "setup": "barbell-standing",
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "6–10",
+      "repRange": "10–15",
       "primaryMuscle": "glutes",
       "restPeriod": 90,
-      "setTime": 60,
+      "setTime": 35,
       "setupTime": 45,
-      "unilateral": true
-    },
-    {
-      "name": "Trap bar reverse lunge",
-      "equipment": [
-        "trapbar"
+      "unilateral": true,
+      "type": "strength",
+      "warmupProtocol": "easy1",
+      "id": "barbell-reverse-lunge",
+      "requires": [
+        "rack"
       ],
-      "setup": "trapbar-standing",
-      "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
-      "repRange": "6–10",
-      "primaryMuscle": "glutes",
-      "restPeriod": 90,
-      "setTime": 60,
-      "setupTime": 45,
-      "unilateral": true
+      "repUnit": "per side",
+      "primaryEligible": true
     },
     {
       "name": "Dumbbell reverse lunge",
@@ -2007,16 +1555,17 @@
         "dumbbells"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "10–15",
       "primaryMuscle": "glutes",
       "restPeriod": 90,
-      "setTime": 45,
+      "setTime": 35,
       "setupTime": 15,
-      "unilateral": true
+      "unilateral": true,
+      "type": "strength",
+      "warmupProtocol": "easy1",
+      "id": "dumbbell-reverse-lunge",
+      "repUnit": "per side",
+      "primaryEligible": true
     },
     {
       "name": "Dumbbell glute bridge",
@@ -2024,15 +1573,15 @@
         "dumbbells"
       ],
       "sets": 3,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ],
       "repRange": "10–15",
       "primaryMuscle": "glutes",
       "restPeriod": 90,
       "setTime": 45,
-      "setupTime": 15
+      "setupTime": 15,
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "dumbbell-glute-bridge",
+      "primaryEligible": false
     },
     {
       "name": "Steady incline walk",
@@ -2056,7 +1605,8 @@
         }
       ],
       "setTime": 1500,
-      "setupTime": 60
+      "setupTime": 60,
+      "id": "steady-incline-walk"
     },
     {
       "name": "Treadmill intervals",
@@ -2080,7 +1630,8 @@
         }
       ],
       "setTime": 1500,
-      "setupTime": 60
+      "setupTime": 60,
+      "id": "treadmill-intervals"
     },
     {
       "name": "Zone 2 bike ride",
@@ -2104,7 +1655,8 @@
         }
       ],
       "setTime": 1500,
-      "setupTime": 60
+      "setupTime": 60,
+      "id": "zone-2-bike-ride"
     },
     {
       "name": "Stationary bike intervals",
@@ -2128,7 +1680,8 @@
         }
       ],
       "setTime": 1500,
-      "setupTime": 60
+      "setupTime": 60,
+      "id": "stationary-bike-intervals"
     },
     {
       "name": "Easy rowing",
@@ -2152,7 +1705,8 @@
         }
       ],
       "setTime": 1500,
-      "setupTime": 60
+      "setupTime": 60,
+      "id": "easy-rowing"
     },
     {
       "name": "Rowing machine intervals",
@@ -2176,7 +1730,8 @@
         }
       ],
       "setTime": 1500,
-      "setupTime": 60
+      "setupTime": 60,
+      "id": "rowing-machine-intervals"
     },
     {
       "name": "Easy elliptical",
@@ -2200,7 +1755,8 @@
         }
       ],
       "setTime": 1500,
-      "setupTime": 60
+      "setupTime": 60,
+      "id": "easy-elliptical"
     },
     {
       "name": "Elliptical intervals",
@@ -2224,7 +1780,8 @@
         }
       ],
       "setTime": 1500,
-      "setupTime": 60
+      "setupTime": 60,
+      "id": "elliptical-intervals"
     },
     {
       "name": "Dumbbell standing calf raise",
@@ -2232,15 +1789,15 @@
         "dumbbells"
       ],
       "sets": 3,
-      "repRange": "10–15",
+      "repRange": "12–20",
       "primaryMuscle": "calves",
       "restPeriod": 60,
       "setTime": 45,
       "setupTime": 15,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ]
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "dumbbell-standing-calf-raise",
+      "primaryEligible": false
     },
     {
       "name": "Dumbbell seated calf raise",
@@ -2249,55 +1806,15 @@
         "bench"
       ],
       "sets": 3,
-      "repRange": "10–15",
+      "repRange": "12–20",
       "primaryMuscle": "calves",
       "restPeriod": 60,
       "setTime": 45,
       "setupTime": 30,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ]
-    },
-    {
-      "name": "Barbell standing calf raise",
-      "equipment": [
-        "barbell"
-      ],
-      "requires": [
-        "rack"
-      ],
-      "setup": "barbell-rack",
-      "sets": 3,
-      "repRange": "6–10",
-      "primaryMuscle": "calves",
-      "restPeriod": 90,
-      "setTime": 60,
-      "setupTime": 45,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ]
-    },
-    {
-      "name": "EZ-bar standing calf raise",
-      "equipment": [
-        "ezbar"
-      ],
-      "requires": [
-        "rack"
-      ],
-      "setup": "ezbar-rack",
-      "sets": 3,
-      "repRange": "10–15",
-      "primaryMuscle": "calves",
-      "restPeriod": 60,
-      "setTime": 45,
-      "setupTime": 45,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ]
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "dumbbell-seated-calf-raise",
+      "primaryEligible": false
     },
     {
       "name": "Kettlebell standing calf raise",
@@ -2305,15 +1822,15 @@
         "kettlebells"
       ],
       "sets": 3,
-      "repRange": "10–15",
+      "repRange": "12–20",
       "primaryMuscle": "calves",
       "restPeriod": 60,
       "setTime": 45,
       "setupTime": 15,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ]
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "kettlebell-standing-calf-raise",
+      "primaryEligible": false
     },
     {
       "name": "Tube band calf raise",
@@ -2326,10 +1843,10 @@
       "restPeriod": 60,
       "setTime": 45,
       "setupTime": 15,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ]
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "tube-band-calf-raise",
+      "primaryEligible": false
     },
     {
       "name": "Bodyweight single-leg calf raise",
@@ -2340,13 +1857,14 @@
       "repRange": "12–20",
       "primaryMuscle": "calves",
       "restPeriod": 60,
-      "setTime": 45,
+      "setTime": 30,
       "setupTime": 0,
       "unilateral": true,
-      "warmupSets": [
-        "W × 8 × 50%",
-        "W × 4 × 75%"
-      ]
+      "type": "strength",
+      "warmupProtocol": "none",
+      "id": "bodyweight-single-leg-calf-raise",
+      "repUnit": "per side",
+      "primaryEligible": false
     },
     {
       "name": "Bodyweight scapular push-up",
@@ -2357,7 +1875,8 @@
       "primaryMuscle": "chest",
       "type": "warmup",
       "setTime": 30,
-      "setupTime": 0
+      "setupTime": 0,
+      "id": "bodyweight-scapular-push-up"
     },
     {
       "name": "Bodyweight wall chest opener",
@@ -2368,7 +1887,8 @@
       "primaryMuscle": "chest",
       "type": "warmup",
       "setTime": 30,
-      "setupTime": 0
+      "setupTime": 0,
+      "id": "bodyweight-wall-chest-opener"
     },
     {
       "name": "Tube band chest opener",
@@ -2379,7 +1899,8 @@
       "primaryMuscle": "chest",
       "type": "warmup",
       "setTime": 30,
-      "setupTime": 15
+      "setupTime": 15,
+      "id": "tube-band-chest-opener"
     },
     {
       "name": "Tube band pull-apart",
@@ -2390,7 +1911,8 @@
       "primaryMuscle": "back",
       "type": "warmup",
       "setTime": 30,
-      "setupTime": 15
+      "setupTime": 15,
+      "id": "tube-band-pull-apart"
     },
     {
       "name": "Scapular pull-up",
@@ -2401,7 +1923,8 @@
       "primaryMuscle": "back",
       "type": "warmup",
       "setTime": 30,
-      "setupTime": 15
+      "setupTime": 15,
+      "id": "scapular-pull-up"
     },
     {
       "name": "Bodyweight thread-the-needle",
@@ -2413,7 +1936,8 @@
       "type": "warmup",
       "setTime": 30,
       "setupTime": 0,
-      "unilateral": true
+      "unilateral": true,
+      "id": "bodyweight-thread-the-needle-warmup"
     },
     {
       "name": "Bodyweight squat",
@@ -2424,7 +1948,8 @@
       "primaryMuscle": "quads",
       "type": "warmup",
       "setTime": 30,
-      "setupTime": 0
+      "setupTime": 0,
+      "id": "bodyweight-squat"
     },
     {
       "name": "Bodyweight half-kneeling hip flexor stretch",
@@ -2436,7 +1961,8 @@
       "type": "warmup",
       "setTime": 30,
       "setupTime": 0,
-      "unilateral": true
+      "unilateral": true,
+      "id": "bodyweight-half-kneeling-hip-flexor-stretch"
     },
     {
       "name": "Bodyweight reverse lunge",
@@ -2448,18 +1974,8 @@
       "type": "warmup",
       "setTime": 30,
       "setupTime": 0,
-      "unilateral": true
-    },
-    {
-      "name": "Bodyweight squat to calf raise",
-      "equipment": [
-        "bodyweight"
-      ],
-      "dose": "8 reps",
-      "primaryMuscle": "quads",
-      "type": "warmup",
-      "setTime": 30,
-      "setupTime": 0
+      "unilateral": true,
+      "id": "bodyweight-reverse-lunge-warmup"
     },
     {
       "name": "Bodyweight ankle rocks",
@@ -2471,7 +1987,8 @@
       "type": "warmup",
       "setTime": 30,
       "setupTime": 0,
-      "unilateral": true
+      "unilateral": true,
+      "id": "bodyweight-ankle-rocks"
     },
     {
       "name": "Bodyweight calf stretch + reach",
@@ -2483,7 +2000,8 @@
       "type": "warmup",
       "setTime": 30,
       "setupTime": 0,
-      "unilateral": true
+      "unilateral": true,
+      "id": "bodyweight-calf-stretch-reach"
     },
     {
       "name": "Bodyweight hip hinge drill",
@@ -2494,7 +2012,8 @@
       "primaryMuscle": "hamstrings",
       "type": "warmup",
       "setTime": 30,
-      "setupTime": 0
+      "setupTime": 0,
+      "id": "bodyweight-hip-hinge-drill"
     },
     {
       "name": "Bodyweight world's greatest stretch",
@@ -2506,7 +2025,8 @@
       "type": "warmup",
       "setTime": 30,
       "setupTime": 0,
-      "unilateral": true
+      "unilateral": true,
+      "id": "bodyweight-world-s-greatest-stretch-warmup"
     },
     {
       "name": "Tube band good morning",
@@ -2517,7 +2037,8 @@
       "primaryMuscle": "hamstrings",
       "type": "warmup",
       "setTime": 30,
-      "setupTime": 15
+      "setupTime": 15,
+      "id": "tube-band-good-morning-warmup"
     },
     {
       "name": "Bodyweight dead bug",
@@ -2529,7 +2050,8 @@
       "type": "warmup",
       "setTime": 30,
       "setupTime": 0,
-      "unilateral": true
+      "unilateral": true,
+      "id": "bodyweight-dead-bug-warmup"
     },
     {
       "name": "Bodyweight bird dog",
@@ -2541,7 +2063,8 @@
       "type": "warmup",
       "setTime": 30,
       "setupTime": 0,
-      "unilateral": true
+      "unilateral": true,
+      "id": "bodyweight-bird-dog"
     },
     {
       "name": "Bodyweight open book rotation",
@@ -2553,7 +2076,8 @@
       "type": "warmup",
       "setTime": 30,
       "setupTime": 0,
-      "unilateral": true
+      "unilateral": true,
+      "id": "bodyweight-open-book-rotation-warmup"
     },
     {
       "name": "Bodyweight wall slide",
@@ -2564,7 +2088,8 @@
       "primaryMuscle": "shoulders",
       "type": "warmup",
       "setTime": 30,
-      "setupTime": 0
+      "setupTime": 0,
+      "id": "bodyweight-wall-slide-warmup"
     },
     {
       "name": "Bodyweight arm circles",
@@ -2575,7 +2100,8 @@
       "primaryMuscle": "shoulders",
       "type": "warmup",
       "setTime": 30,
-      "setupTime": 0
+      "setupTime": 0,
+      "id": "bodyweight-arm-circles-warmup"
     },
     {
       "name": "Tube band face pull",
@@ -2586,7 +2112,11 @@
       "primaryMuscle": "shoulders",
       "type": "warmup",
       "setTime": 30,
-      "setupTime": 15
+      "setupTime": 15,
+      "id": "tube-band-face-pull-warmup",
+      "requires": [
+        "bandanchor"
+      ]
     },
     {
       "name": "Bodyweight arm swings",
@@ -2597,7 +2127,8 @@
       "primaryMuscle": "biceps",
       "type": "warmup",
       "setTime": 30,
-      "setupTime": 0
+      "setupTime": 0,
+      "id": "bodyweight-arm-swings"
     },
     {
       "name": "Tube band row to reach",
@@ -2608,7 +2139,8 @@
       "primaryMuscle": "biceps",
       "type": "warmup",
       "setTime": 30,
-      "setupTime": 15
+      "setupTime": 15,
+      "id": "tube-band-row-to-reach"
     },
     {
       "name": "Bodyweight wrist and elbow circles",
@@ -2619,7 +2151,8 @@
       "primaryMuscle": "biceps",
       "type": "warmup",
       "setTime": 30,
-      "setupTime": 0
+      "setupTime": 0,
+      "id": "bodyweight-wrist-and-elbow-circles"
     },
     {
       "name": "Bodyweight incline push-up",
@@ -2631,7 +2164,8 @@
       "primaryMuscle": "triceps",
       "type": "warmup",
       "setTime": 30,
-      "setupTime": 30
+      "setupTime": 30,
+      "id": "bodyweight-incline-push-up"
     },
     {
       "name": "Bodyweight overhead triceps stretch",
@@ -2643,7 +2177,8 @@
       "type": "warmup",
       "setTime": 30,
       "setupTime": 0,
-      "unilateral": true
+      "unilateral": true,
+      "id": "bodyweight-overhead-triceps-stretch"
     },
     {
       "name": "Tube band pressdown",
@@ -2654,7 +2189,11 @@
       "primaryMuscle": "triceps",
       "type": "warmup",
       "setTime": 30,
-      "setupTime": 15
+      "setupTime": 15,
+      "id": "tube-band-pressdown-warmup",
+      "requires": [
+        "bandanchor"
+      ]
     },
     {
       "name": "Bodyweight glute bridge",
@@ -2665,7 +2204,8 @@
       "primaryMuscle": "glutes",
       "type": "warmup",
       "setTime": 30,
-      "setupTime": 0
+      "setupTime": 0,
+      "id": "bodyweight-glute-bridge"
     },
     {
       "name": "Tube band lateral walk",
@@ -2677,7 +2217,8 @@
       "type": "warmup",
       "setTime": 30,
       "setupTime": 15,
-      "unilateral": true
+      "unilateral": true,
+      "id": "tube-band-lateral-walk-warmup"
     },
     {
       "name": "Bodyweight hip airplane",
@@ -2689,7 +2230,8 @@
       "type": "warmup",
       "setTime": 30,
       "setupTime": 0,
-      "unilateral": true
+      "unilateral": true,
+      "id": "bodyweight-hip-airplane-warmup"
     },
     {
       "name": "Bodyweight hip flexor stretch with reach",
@@ -2703,7 +2245,8 @@
       "isUniversal": true,
       "universalSet": 0,
       "setupTime": 0,
-      "unilateral": true
+      "unilateral": true,
+      "id": "bodyweight-hip-flexor-stretch-with-reach"
     },
     {
       "name": "Bodyweight open book rotation",
@@ -2717,7 +2260,8 @@
       "isUniversal": true,
       "universalSet": 0,
       "setupTime": 0,
-      "unilateral": true
+      "unilateral": true,
+      "id": "bodyweight-open-book-rotation-warmup-full-body"
     },
     {
       "name": "Bodyweight deep squat hold with breathing",
@@ -2730,7 +2274,8 @@
       "type": "warmup",
       "isUniversal": true,
       "universalSet": 0,
-      "setupTime": 0
+      "setupTime": 0,
+      "id": "bodyweight-deep-squat-hold-with-breathing"
     },
     {
       "name": "Bodyweight calf stretch with reach",
@@ -2744,7 +2289,8 @@
       "isUniversal": true,
       "universalSet": 1,
       "setupTime": 0,
-      "unilateral": true
+      "unilateral": true,
+      "id": "bodyweight-calf-stretch-with-reach"
     },
     {
       "name": "Bodyweight thread-the-needle",
@@ -2758,7 +2304,8 @@
       "isUniversal": true,
       "universalSet": 1,
       "setupTime": 0,
-      "unilateral": true
+      "unilateral": true,
+      "id": "bodyweight-thread-the-needle-warmup-full-body"
     },
     {
       "name": "Bodyweight world's greatest stretch",
@@ -2772,7 +2319,8 @@
       "isUniversal": true,
       "universalSet": 1,
       "setupTime": 0,
-      "unilateral": true
+      "unilateral": true,
+      "id": "bodyweight-world-s-greatest-stretch-warmup-full-body"
     },
     {
       "name": "Bodyweight 90/90 hip switch",
@@ -2786,7 +2334,8 @@
       "isUniversal": true,
       "universalSet": 2,
       "setupTime": 0,
-      "unilateral": true
+      "unilateral": true,
+      "id": "bodyweight-90-90-hip-switch"
     },
     {
       "name": "Bodyweight wall slide",
@@ -2799,7 +2348,8 @@
       "type": "warmup",
       "isUniversal": true,
       "universalSet": 2,
-      "setupTime": 0
+      "setupTime": 0,
+      "id": "bodyweight-wall-slide-warmup-full-body"
     },
     {
       "name": "Bodyweight child's pose with side reach",
@@ -2813,7 +2363,8 @@
       "isUniversal": true,
       "universalSet": 2,
       "setupTime": 0,
-      "unilateral": true
+      "unilateral": true,
+      "id": "bodyweight-child-s-pose-with-side-reach"
     },
     {
       "name": "Bodyweight hip airplane",
@@ -2827,7 +2378,8 @@
       "isUniversal": true,
       "universalSet": 3,
       "setupTime": 0,
-      "unilateral": true
+      "unilateral": true,
+      "id": "bodyweight-hip-airplane-warmup-full-body"
     },
     {
       "name": "Bodyweight arm circles",
@@ -2840,7 +2392,8 @@
       "type": "warmup",
       "isUniversal": true,
       "universalSet": 3,
-      "setupTime": 0
+      "setupTime": 0,
+      "id": "bodyweight-arm-circles-warmup-full-body"
     },
     {
       "name": "Bodyweight adductor rockback",
@@ -2854,7 +2407,259 @@
       "isUniversal": true,
       "universalSet": 3,
       "setupTime": 0,
-      "unilateral": true
+      "unilateral": true,
+      "id": "bodyweight-adductor-rockback"
+    },
+    {
+      "name": "Barbell front squat",
+      "equipment": [
+        "bar"
+      ],
+      "requires": [
+        "rack"
+      ],
+      "setup": "barbell-rack",
+      "sets": 3,
+      "repRange": "6–10",
+      "primaryMuscle": "quads",
+      "restPeriod": 90,
+      "setTime": 60,
+      "setupTime": 45,
+      "warmupProtocol": "ramp2",
+      "type": "strength",
+      "id": "barbell-front-squat",
+      "primaryEligible": true
+    },
+    {
+      "name": "Tube-band anchored leg curl",
+      "equipment": [
+        "tubebands"
+      ],
+      "requires": [
+        "bandanchor",
+        "anklestrap"
+      ],
+      "setup": "band-anchor",
+      "sets": 3,
+      "repRange": "12–20",
+      "repUnit": "per side",
+      "primaryMuscle": "hamstrings",
+      "unilateral": true,
+      "restPeriod": 60,
+      "setTime": 30,
+      "setupTime": 30,
+      "warmupProtocol": "none",
+      "type": "strength",
+      "id": "tube-band-anchored-leg-curl",
+      "primaryEligible": false
+    },
+    {
+      "name": "Bodyweight reverse crunch",
+      "equipment": [
+        "bodyweight"
+      ],
+      "sets": 3,
+      "repRange": "12–20",
+      "primaryMuscle": "core",
+      "restPeriod": 60,
+      "setTime": 30,
+      "setupTime": 0,
+      "warmupProtocol": "none",
+      "type": "strength",
+      "id": "bodyweight-reverse-crunch",
+      "primaryEligible": false
+    },
+    {
+      "name": "Bodyweight side plank",
+      "equipment": [
+        "bodyweight"
+      ],
+      "sets": 3,
+      "durationRange": "20–40 sec",
+      "repUnit": "per side",
+      "primaryMuscle": "core",
+      "unilateral": true,
+      "restPeriod": 60,
+      "setTime": 30,
+      "setupTime": 0,
+      "warmupProtocol": "none",
+      "type": "strength",
+      "id": "bodyweight-side-plank",
+      "primaryEligible": false
+    },
+    {
+      "name": "Bodyweight hollow-body hold",
+      "equipment": [
+        "bodyweight"
+      ],
+      "sets": 3,
+      "durationRange": "15–30 sec",
+      "primaryMuscle": "core",
+      "restPeriod": 60,
+      "setTime": 30,
+      "setupTime": 0,
+      "warmupProtocol": "none",
+      "type": "strength",
+      "id": "bodyweight-hollow-body-hold",
+      "primaryEligible": false
+    },
+    {
+      "name": "Dumbbell farmer carry",
+      "equipment": [
+        "dumbbells"
+      ],
+      "sets": 3,
+      "durationRange": "30–45 sec",
+      "primaryMuscle": "core",
+      "restPeriod": 60,
+      "setTime": 35,
+      "setupTime": 15,
+      "warmupProtocol": "none",
+      "type": "strength",
+      "id": "dumbbell-farmer-carry",
+      "primaryEligible": false
+    },
+    {
+      "name": "Dumbbell lateral raise",
+      "equipment": [
+        "dumbbells"
+      ],
+      "sets": 3,
+      "repRange": "12–20",
+      "primaryMuscle": "shoulders",
+      "restPeriod": 60,
+      "setTime": 45,
+      "setupTime": 15,
+      "warmupProtocol": "none",
+      "type": "strength",
+      "id": "dumbbell-lateral-raise",
+      "primaryEligible": false
+    },
+    {
+      "name": "Dumbbell concentration curl",
+      "equipment": [
+        "dumbbells"
+      ],
+      "requires": [
+        "bench"
+      ],
+      "sets": 3,
+      "repRange": "10–15",
+      "repUnit": "per side",
+      "primaryMuscle": "biceps",
+      "unilateral": true,
+      "restPeriod": 60,
+      "setTime": 35,
+      "setupTime": 30,
+      "warmupProtocol": "none",
+      "type": "strength",
+      "id": "dumbbell-concentration-curl",
+      "primaryEligible": false
+    },
+    {
+      "name": "Dumbbell rolling triceps extension",
+      "equipment": [
+        "dumbbells"
+      ],
+      "requires": [
+        "bench"
+      ],
+      "sets": 3,
+      "repRange": "10–15",
+      "primaryMuscle": "triceps",
+      "restPeriod": 60,
+      "setTime": 45,
+      "setupTime": 30,
+      "warmupProtocol": "none",
+      "type": "strength",
+      "id": "dumbbell-rolling-triceps-extension",
+      "primaryEligible": false
+    },
+    {
+      "name": "Slam ball slam",
+      "equipment": [
+        "slamball"
+      ],
+      "conditioning": true,
+      "sets": 3,
+      "repRange": "10–15",
+      "primaryMuscle": "full body",
+      "restPeriod": 90,
+      "setTime": 30,
+      "setupTime": 15,
+      "warmupProtocol": "powerPrep",
+      "type": "strength",
+      "id": "slam-ball-slam",
+      "primaryEligible": false
+    },
+    {
+      "name": "Jump rope intervals",
+      "equipment": [
+        "jumprope"
+      ],
+      "conditioning": true,
+      "sets": 3,
+      "durationRange": "20–40 sec",
+      "primaryMuscle": "full body",
+      "restPeriod": 60,
+      "setTime": 30,
+      "setupTime": 30,
+      "warmupProtocol": "none",
+      "type": "strength",
+      "id": "jump-rope-intervals",
+      "primaryEligible": false
+    },
+    {
+      "name": "Dumbbell one-arm row",
+      "equipment": [
+        "dumbbells"
+      ],
+      "sets": 3,
+      "repRange": "6–10",
+      "repUnit": "per side",
+      "primaryMuscle": "back",
+      "unilateral": true,
+      "restPeriod": 90,
+      "setTime": 30,
+      "setupTime": 15,
+      "warmupProtocol": "easy1",
+      "primaryEligible": true,
+      "type": "strength",
+      "id": "dumbbell-one-arm-row"
+    },
+    {
+      "name": "Chin-up",
+      "equipment": [
+        "pullupbar"
+      ],
+      "sets": 3,
+      "repRange": "6–10",
+      "primaryMuscle": "back",
+      "restPeriod": 90,
+      "setTime": 45,
+      "setupTime": 15,
+      "warmupProtocol": "easy1",
+      "primaryEligible": true,
+      "type": "strength",
+      "id": "chin-up"
+    },
+    {
+      "name": "Dumbbell single-leg calf raise",
+      "equipment": [
+        "dumbbells"
+      ],
+      "sets": 3,
+      "repRange": "12–20",
+      "repUnit": "per side",
+      "primaryMuscle": "calves",
+      "unilateral": true,
+      "restPeriod": 60,
+      "setTime": 30,
+      "setupTime": 15,
+      "warmupProtocol": "none",
+      "primaryEligible": false,
+      "type": "strength",
+      "id": "dumbbell-single-leg-calf-raise"
     }
   ]
 }

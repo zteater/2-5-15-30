@@ -3,3 +3,5 @@
 *.swp
 *.swo
 .plan/
+hevy-template-review.json
+npm-debug.log*

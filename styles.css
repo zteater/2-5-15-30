@@ -367,6 +367,27 @@ html[data-theme="dark"] .primary-button:hover {
   border: 0;
 }
 
+.hevy-form,
+.hevy-confirmation,
+.hevy-progress,
+.hevy-result { margin-top: 24px; }
+.hevy-field { display: block; color: var(--ink); font-size: 12px; }
+.hevy-field strong { display: block; margin-bottom: 8px; }
+.hevy-field input { width: 100%; border: 1px solid var(--line); border-radius: 5px; padding: 12px; background: var(--paper); color: var(--ink); }
+.hevy-help, .hevy-pro-note { color: var(--muted); font-size: 12px; line-height: 1.5; }
+.hevy-help a { color: var(--ink); font-weight: 700; }
+.hevy-summary { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 20px 0; color: var(--muted); font-size: 12px; }
+.hevy-summary strong { color: var(--ink); }
+.hevy-dialog-actions { display: flex; justify-content: flex-end; align-items: center; gap: 14px; margin-top: 24px; }
+.hevy-dialog-actions .primary-button { padding: 11px 16px; }
+.hevy-error { margin: 16px 0; padding: 12px; border: 1px solid var(--coral); border-radius: 5px; color: var(--coral); font-size: 12px; line-height: 1.5; }
+.hevy-error p { margin: 8px 0 0; }
+.hevy-error ul { margin: 8px 0 0; padding-left: 18px; }
+.hevy-status { color: var(--muted); font-size: 12px; }
+.hevy-progress-bar { height: 6px; overflow: hidden; border-radius: 999px; background: var(--line); }
+.hevy-progress-bar span { display: block; height: 100%; border-radius: inherit; background: var(--lime-dark); transition: width .2s ease; }
+html[data-theme="dark"] .hevy-field input { background: #20252a; }
+
 .action-icon,
 .share-icon {
   display: block;

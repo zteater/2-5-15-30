@@ -1,5 +1,5 @@
 async function startApp() {
-  const loadJson = (file) => fetch(`./${file}?v=20260978`).then((response) => {
+  const loadJson = (file) => fetch(`./${file}?v=20260980`).then((response) => {
     if (!response.ok) throw new Error(`Unable to load workout data (${response.status})`);
     return response.json();
   });
@@ -41,8 +41,10 @@ const clearExclusionsButton = document.querySelector("#clear-exclusions");
 const planToast = document.querySelector("#plan-toast");
 const planToastMessage = document.querySelector("#plan-toast-message");
 const planToastUndo = document.querySelector("#plan-toast-undo");
-const shareButton = document.querySelector("#share-button");
-const sharePopover = document.querySelector("#share-popover");
+const planActionsButton = document.querySelector("#plan-actions-button");
+const planActionsMenu = document.querySelector("#plan-actions-menu");
+const planActionsBackdrop = document.querySelector("#plan-actions-backdrop");
+const planActionStatus = document.querySelector("#plan-action-status");
 const menuButton = document.querySelector("#menu-button");
 const mobileMenu = document.querySelector("#mobile-menu");
 const menuClose = document.querySelector("#menu-close");
@@ -794,10 +796,12 @@ function buildBlueprintQueue() {
 }
 
 let lastPlanSignature = null;
+let currentRoutines = [];
 
 function generatePlan({ newSeed = false } = {}) {
   const unsupportedMuscles = unsupportedCoverageMuscles();
   if (unsupportedMuscles.length) {
+    currentRoutines = [];
     output.innerHTML = `<p class="plan-error">Selected equipment cannot cover ${unsupportedMuscles.map(labelMuscle).join(", ")}. Add equipment or choose a different setup.</p>`;
     return false;
   }
@@ -855,11 +859,13 @@ function generatePlan({ newSeed = false } = {}) {
   } while (attempts < maxAttempts && (planSignature === null || (newSeed && planSignature === lastPlanSignature)));
 
   if (!routines || routines.some((routine) => !routine)) {
+    currentRoutines = [];
     output.innerHTML = `<p class="plan-error">Selected equipment cannot build the requested routine sequence. Add equipment or choose a different setup.</p>`;
     return false;
   }
 
   lastPlanSignature = planSignature;
+  currentRoutines = routines;
   currentExerciseDetails = new Map();
   routines.forEach((routine) => {
     const restPeriods = supersetRestPeriods(routine.exercises);
@@ -940,6 +946,186 @@ function openExerciseDetails(id) {
   exerciseDetailContent.innerHTML = renderExerciseDetails(exercise);
   exerciseDetailExclude.checked = excludedExerciseIds.has(id);
   exerciseDetailModal.showModal();
+}
+
+const HEVY_CSV_HEADERS = ["Date", "Workout Name", "Duration", "Exercise Name", "Set Order", "Weight", "Reps", "Distance", "Seconds", "Notes", "Workout Notes", "RPE"];
+
+function csvEscape(value) {
+  const text = String(value ?? "");
+  return /[",\n]/.test(text) ? `"${text.replaceAll('"', '""')}"` : text;
+}
+
+function parseDurationSeconds(value) {
+  const text = String(value ?? "");
+  const clock = text.match(/(\d+):(\d+)/);
+  if (clock) return Number(clock[1]) * 60 + Number(clock[2]);
+  const amount = Number.parseFloat(text);
+  if (!Number.isFinite(amount)) return "";
+  if (/min/i.test(text)) return Math.round(amount * 60);
+  return Math.round(amount);
+}
+
+function parseDose(dose) {
+  const text = String(dose ?? "");
+  const seconds = /:|sec|min/i.test(text) ? parseDurationSeconds(text) : "";
+  const reps = seconds === "" ? (text.match(/\b(\d+)\b/)?.[1] || "") : "";
+  return { reps, seconds };
+}
+
+function hevyTargetRange(exercise) {
+  const range = exercise.durationRange || exercise.repRange || "";
+  return exercise.repUnit === "per side" ? `${range} / side` : range;
+}
+
+function hevyExerciseName(exercise) {
+  return exercise.hevyName || exercise.name;
+}
+
+function buildHevyExport(routines) {
+  if (!Array.isArray(routines) || !routines.length) throw new Error("No generated routines are available.");
+  const date = new Date().toISOString().slice(0, 10);
+  const rows = [HEVY_CSV_HEADERS];
+  const addRow = (routine, exercise, setOrder, values = {}) => {
+    if (!exercise?.id || !exercise?.name) throw new Error("A generated exercise is missing its export mapping.");
+    rows.push([
+      date,
+      `Routine ${String(routine.sequenceNumber).padStart(2, "0")}`,
+      routine.minutes * 60,
+      hevyExerciseName(exercise),
+      setOrder,
+      values.weight || "",
+      values.reps || "",
+      values.distance || "",
+      values.seconds ?? "",
+      values.notes || "",
+      values.workoutNotes || "2–5–15–30 routine sequence",
+      values.rpe || "",
+    ]);
+  };
+
+  routines.forEach((routine) => {
+    const groupForExercise = new Map(routine.exercises.map((exercise, index) => [exercise.id, index < 2 ? "Superset A" : "Superset B"]));
+    const restForGroup = supersetRestPeriods(routine.exercises);
+    const groupNote = (exercise) => {
+      const group = groupForExercise.get(exercise.id);
+      if (!group) return "";
+      const rest = group === "Superset A" ? restForGroup[0] : restForGroup[1];
+      return `${group} · Rest ${formatRestSeconds(rest)}`;
+    };
+    routine.warmups.forEach((warmup, index) => {
+      const dose = parseDose(warmup.dose);
+      addRow(routine, warmup, `W${index + 1}`, {
+        reps: dose.reps,
+        seconds: dose.seconds,
+        notes: `Warm-up · ${warmup.dose}`,
+      });
+    });
+    routine.exercises.forEach((exercise) => {
+      const hasPowerPrep = exercise.conditioning && exercise.warmupProtocol === "powerPrep";
+      const preparationSets = exercise.primary || hasPowerPrep
+        ? exerciseWarmupSets(exercise)
+        : (exercise.secondaryWarmupSets || []);
+      preparationSets.forEach((preparationSet, index) => {
+        const dose = parseDose(preparationSet);
+        addRow(routine, exercise, `W${index + 1}`, {
+          reps: dose.reps,
+          seconds: dose.seconds,
+          notes: `Warm-up · ${preparationSet} · ${groupNote(exercise)}`,
+        });
+      });
+      const target = hevyTargetRange(exercise);
+      for (let set = 1; set <= (exercise.sets || 3); set += 1) {
+        addRow(routine, exercise, set, {
+          reps: exercise.durationRange ? "" : target.replace("–", "-"),
+          notes: `${groupNote(exercise)} · Target ${target}`.replace(/^ · /, ""),
+        });
+      }
+    });
+    if (routine.cardio) {
+      routine.cardio.timing.forEach((interval, index) => {
+        addRow(routine, routine.cardio, index + 1, {
+          seconds: parseDurationSeconds(interval.duration),
+          notes: `Cardio finisher · ${interval.sets === "W" ? "Warm-up" : "Work"} · ${interval.duration}`,
+        });
+      });
+    }
+  });
+  return `${rows.map((row) => row.map(csvEscape).join(",")).join("\n")}\n`;
+}
+
+let planActionStatusTimeout;
+
+function showPlanActionStatus(message, type = "success") {
+  planActionStatus.textContent = message;
+  planActionStatus.classList.toggle("is-error", type === "error");
+  planActionStatus.classList.add("is-visible");
+  window.clearTimeout(planActionStatusTimeout);
+  planActionStatusTimeout = window.setTimeout(() => planActionStatus.classList.remove("is-visible"), 4000);
+}
+
+function closePlanActions({ restoreFocus = true } = {}) {
+  planActionsMenu.classList.remove("is-open");
+  planActionsBackdrop.classList.remove("is-open");
+  planActionsMenu.hidden = true;
+  planActionsBackdrop.hidden = true;
+  planActionsButton.setAttribute("aria-expanded", "false");
+  if (restoreFocus) planActionsButton.focus();
+}
+
+function openPlanActions() {
+  planActionsMenu.hidden = false;
+  planActionsBackdrop.hidden = false;
+  planActionsMenu.classList.add("is-open");
+  planActionsBackdrop.classList.add("is-open");
+  planActionsButton.setAttribute("aria-expanded", "true");
+  planActionsMenu.querySelector('[role="menuitem"]:not(.plan-action-cancel)').focus();
+}
+
+async function copyPlanLink() {
+  const action = planActionsMenu.querySelector('[data-plan-action="copy-link"]');
+  action.disabled = true;
+  action.querySelector("span").textContent = "Copying link…";
+  try {
+    if (!navigator.clipboard?.writeText) throw new Error("Clipboard API unavailable");
+    await navigator.clipboard.writeText(window.location.href);
+    closePlanActions();
+    showPlanActionStatus("Plan link copied");
+  } catch (error) {
+    console.warn("Unable to copy plan link", error);
+    closePlanActions();
+    showPlanActionStatus("Unable to copy the plan link", "error");
+  } finally {
+    action.disabled = false;
+    action.querySelector("span").textContent = "Copy plan link";
+  }
+}
+
+function downloadHevyCsv() {
+  const action = planActionsMenu.querySelector('[data-plan-action="download-hevy"]');
+  action.disabled = true;
+  action.querySelector("span").textContent = "Preparing Hevy CSV…";
+  window.setTimeout(() => {
+    try {
+      const csv = buildHevyExport(currentRoutines);
+      const date = new Date().toISOString().slice(0, 10);
+      const filename = `2-5-15-30-hevy-${date}-${activeSeed.slice(0, 6)}.csv`;
+      const blob = new Blob([`\uFEFF${csv}`], { type: "text/csv;charset=utf-8" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = filename;
+      link.click();
+      window.setTimeout(() => URL.revokeObjectURL(link.href), 0);
+      closePlanActions();
+      showPlanActionStatus("Hevy CSV downloaded · names may need matching in Hevy");
+    } catch (error) {
+      console.error("Unable to create Hevy CSV", error);
+      closePlanActions();
+      showPlanActionStatus("Unable to create the Hevy CSV", "error");
+    } finally {
+      action.disabled = false;
+      action.querySelector("span").textContent = "Download Hevy CSV";
+    }
+  }, 0);
 }
 
 function updateEquipmentState(button) {
@@ -1029,17 +1215,35 @@ planToastUndo.addEventListener("click", () => {
   planToast.classList.remove("is-visible");
 });
 
-let sharePopoverTimeout;
-
-shareButton.addEventListener("click", async () => {
-  try {
-    await navigator.clipboard.writeText(window.location.href);
-    sharePopover.classList.add("is-visible");
-    window.clearTimeout(sharePopoverTimeout);
-    sharePopoverTimeout = window.setTimeout(() => sharePopover.classList.remove("is-visible"), 1600);
-  } catch (error) {
-    console.warn("Unable to copy plan link", error);
+planActionsButton.addEventListener("click", () => {
+  if (planActionsMenu.hidden) openPlanActions();
+  else closePlanActions();
+});
+planActionsBackdrop.addEventListener("click", () => closePlanActions());
+planActionsMenu.addEventListener("click", (event) => {
+  const action = event.target.closest("[data-plan-action]")?.dataset.planAction;
+  if (action === "copy-link") copyPlanLink();
+  if (action === "download-hevy") downloadHevyCsv();
+  if (action === "cancel") closePlanActions();
+});
+planActionsMenu.addEventListener("keydown", (event) => {
+  const items = [...planActionsMenu.querySelectorAll('[role="menuitem"]:not(:disabled)')]
+    .filter((item) => getComputedStyle(item).display !== "none");
+  const currentIndex = items.indexOf(document.activeElement);
+  if (event.key === "Escape") {
+    event.preventDefault();
+    closePlanActions();
+    return;
   }
+  if (["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) {
+    event.preventDefault();
+    const offset = event.key === "ArrowUp" ? -1 : event.key === "ArrowDown" ? 1 : 0;
+    const nextIndex = event.key === "Home" ? 0 : event.key === "End" ? items.length - 1 : (currentIndex + offset + items.length) % items.length;
+    items[nextIndex]?.focus();
+  }
+});
+document.addEventListener("focusin", (event) => {
+  if (!planActionsMenu.hidden && event.target !== planActionsButton && !planActionsMenu.contains(event.target)) closePlanActions({ restoreFocus: false });
 });
 function closeMobileMenu() {
   mobileMenu.classList.remove("is-open");
@@ -1058,7 +1262,10 @@ menuButton.addEventListener("click", () => {
 menuClose.addEventListener("click", closeMobileMenu);
 menuBackdrop.addEventListener("click", closeMobileMenu);
 document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") closeMobileMenu();
+  if (event.key === "Escape") {
+    closeMobileMenu();
+    if (!planActionsMenu.hidden) closePlanActions();
+  }
 });
 mobileMenu.addEventListener("click", (event) => {
   const action = event.target.closest("[data-menu-action]")?.dataset.menuAction;

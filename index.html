@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=20260961" />
+    <link rel="stylesheet" href="styles.css?v=20260963" />
     <link rel="stylesheet" href="supersets.css?v=20260814" />
   </head>
   <body>
@@ -248,9 +248,17 @@
       <section class="results shell" id="results" aria-live="polite">
         <div class="cards-actions">
           <button class="text-button" id="config-button" type="button" aria-label="Configure plan" title="Configure plan"><svg class="action-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19.43 12.98c.04-.32.07-.65.07-.98s-.02-.66-.07-.98l2.11-1.65a.5.5 0 0 0 .12-.64l-2-3.46a.5.5 0 0 0-.61-.22l-2.49 1a7.2 7.2 0 0 0-1.69-.98L14.5 2.42A.49.49 0 0 0 14.01 2h-4a.49.49 0 0 0-.49.42L9.14 5.07c-.6.24-1.16.57-1.69.98l-2.49-1a.49.49 0 0 0-.61.22l-2 3.46a.5.5 0 0 0 .12.64l2.11 1.65c-.04.32-.08.65-.08.98s.03.66.08.98l-2.11 1.65a.5.5 0 0 0-.12.64l2 3.46c.12.21.37.3.61.22l2.49-1c.53.41 1.09.74 1.69.98l.38 2.65c.04.24.25.42.49.42h4c.24 0 .45-.18.49-.42l.38-2.65c.6-.24 1.16-.57 1.69-.98l2.49 1c.23.08.49-.01.61-.22l2-3.46a.5.5 0 0 0-.12-.64l-2.11-1.65zM12 15.5A3.5 3.5 0 1 1 12 8a3.5 3.5 0 0 1 0 7.5z" /></svg></button>
-          <button class="text-button" id="share-button" type="button" aria-label="Share plan" title="Share plan"><svg class="share-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11A2.99 2.99 0 1 0 15 5c0 .24.04.47.09.7L8.04 9.81A3 3 0 1 0 8 14.19l7.05 4.11c-.05.21-.08.43-.08.65a3.03 3.03 0 1 0 3.03-2.87zM6 13a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm12-9a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm0 16.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" /></svg></button>
+          <div class="plan-actions">
+            <button class="text-button" id="plan-actions-button" type="button" aria-label="Plan actions" title="Plan actions" aria-haspopup="menu" aria-expanded="false" aria-controls="plan-actions-menu"><svg class="action-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="2" /><circle cx="12" cy="12" r="2" /><circle cx="19" cy="12" r="2" /></svg></button>
+            <div class="plan-actions-backdrop" id="plan-actions-backdrop" hidden></div>
+            <div class="plan-actions-menu" id="plan-actions-menu" role="menu" aria-label="Plan actions" hidden>
+              <button type="button" role="menuitem" data-plan-action="copy-link"><svg class="menu-action-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7h10a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2zm-4 6H3a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v1h-2V4H3v7h1v2z" /></svg><span>Copy plan link</span></button>
+              <button type="button" role="menuitem" data-plan-action="download-hevy"><svg class="menu-action-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 3h2v10.17l3.59-3.58L18 11l-6 6-6-6 1.41-1.41L11 13.17V3zM4 19h16v2H4v-2z" /></svg><span>Download Hevy CSV</span></button>
+              <button class="plan-action-cancel" type="button" role="menuitem" data-plan-action="cancel">Cancel</button>
+            </div>
+          </div>
           <button class="text-button" id="regenerate-button" type="button" aria-label="Regenerate routines" title="Regenerate routines"><svg class="action-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.65 6.35A7.96 7.96 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4a6 6 0 1 1 4.24-10.24L13 11h7V4l-2.35 2.35z" /></svg></button>
-          <span class="share-popover" id="share-popover" role="status" aria-live="polite">Link copied</span>
+          <span class="plan-action-status" id="plan-action-status" role="status" aria-live="polite"></span>
         </div>
         <div id="routine-output"></div>
         <div class="plan-toast" id="plan-toast" role="status" aria-live="polite"><span id="plan-toast-message"></span><button class="text-button" id="plan-toast-undo" type="button">Undo</button></div>
@@ -343,6 +351,6 @@
       </div>
     </dialog>
 
-    <script src="app.js?v=20260978"></script>
+    <script src="app.js?v=20260980"></script>
   </body>
 </html>

@@ -91,15 +91,15 @@
         "bench-flat"
       ],
       "instructions": [
-        "Set the bench or floor position and plant both feet firmly.",
-        "Brace the torso and keep the wrists stacked over the elbows.",
-        "Press the weight away from the body without losing shoulder position.",
-        "Lower the weight under control through a comfortable range.",
-        "Repeat without bouncing or shifting the torso."
+        "Set the bench to a flat position and plant both feet firmly.",
+        "Start with the dumbbells above the chest, palms facing each other, and a soft bend in the elbows.",
+        "Lower the weights out and slightly down in a controlled arc until the chest is gently stretched.",
+        "Squeeze the chest to bring the dumbbells back together without turning the movement into a press.",
+        "Keep the elbow angle steady and stop before the shoulders feel strained."
       ],
       "formCues": [
-        "Keep the shoulder blades stable.",
-        "Keep the wrists stacked over the elbows."
+        "Keep the shoulder blades set against the bench.",
+        "Keep a soft, consistent bend in the elbows."
       ]
     },
     {
@@ -332,7 +332,7 @@
       ],
       "primaryEligible": false,
       "movementPattern": "horizontal-push",
-      "secondaryWarmupEligible": true,
+      "secondaryWarmupEligible": false,
       "setupResources": [
         "band-anchor"
       ],
@@ -980,7 +980,7 @@
       "id": "medicine-ball-goblet-squat",
       "primaryEligible": false,
       "movementPattern": "squat",
-      "secondaryWarmupEligible": true,
+      "secondaryWarmupEligible": false,
       "setupResources": [],
       "instructions": [
         "Set the feet comfortably and brace before descending.",
@@ -1010,7 +1010,7 @@
       "id": "tube-band-squat",
       "primaryEligible": false,
       "movementPattern": "squat",
-      "secondaryWarmupEligible": true,
+      "secondaryWarmupEligible": false,
       "setupResources": [],
       "instructions": [
         "Set the feet comfortably and brace before descending.",
@@ -1304,7 +1304,7 @@
       "id": "tube-band-good-morning-strength",
       "primaryEligible": false,
       "movementPattern": "hinge",
-      "secondaryWarmupEligible": true,
+      "secondaryWarmupEligible": false,
       "setupResources": [],
       "instructions": [
         "Set the feet and brace the torso before moving.",
@@ -2938,7 +2938,7 @@
         "glutes"
       ],
       "movementPattern": "hinge",
-      "secondaryWarmupEligible": true,
+      "secondaryWarmupEligible": false,
       "setupResources": [],
       "instructions": [
         "Set the feet and brace the torso before moving.",
@@ -3000,8 +3000,12 @@
           "duration": "3:00"
         },
         {
-          "sets": "1",
-          "duration": "25:00"
+          "sets": "5",
+          "duration": "1:00 hard"
+        },
+        {
+          "sets": "5",
+          "duration": "3:00 easy"
         },
         {
           "sets": "W",
@@ -3070,8 +3074,12 @@
           "duration": "3:00"
         },
         {
-          "sets": "1",
-          "duration": "25:00"
+          "sets": "5",
+          "duration": "1:00 hard"
+        },
+        {
+          "sets": "5",
+          "duration": "3:00 easy"
         },
         {
           "sets": "W",
@@ -3140,8 +3148,12 @@
           "duration": "3:00"
         },
         {
-          "sets": "1",
-          "duration": "25:00"
+          "sets": "5",
+          "duration": "1:00 hard"
+        },
+        {
+          "sets": "5",
+          "duration": "3:00 easy"
         },
         {
           "sets": "W",
@@ -3210,8 +3222,12 @@
           "duration": "3:00"
         },
         {
-          "sets": "1",
-          "duration": "25:00"
+          "sets": "5",
+          "duration": "1:00 hard"
+        },
+        {
+          "sets": "5",
+          "duration": "3:00 easy"
         },
         {
           "sets": "W",
@@ -4400,7 +4416,7 @@
       "id": "tube-band-anchored-leg-curl",
       "primaryEligible": false,
       "movementPattern": "hinge",
-      "secondaryWarmupEligible": true,
+      "secondaryWarmupEligible": false,
       "setupResources": [
         "band-anchor"
       ],

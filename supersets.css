@@ -133,6 +133,34 @@ html[data-theme="dark"] .cardio-exercise .exercise-sets {
   color: #cbb1f3;
 }
 
+.superset-a .superset-heading > span:first-child,
+.superset-a .exercise-rest .exercise-name,
+.superset-a .exercise-rest .exercise-sets,
+.superset-a .exercise-warmup-set {
+  color: #2f7046;
+}
+
+.superset-b .superset-heading > span:first-child,
+.superset-b .exercise-rest .exercise-name,
+.superset-b .exercise-rest .exercise-sets,
+.superset-b .exercise-warmup-set {
+  color: #245a9a;
+}
+
+html[data-theme="dark"] .superset-a .superset-heading > span:first-child,
+html[data-theme="dark"] .superset-a .exercise-rest .exercise-name,
+html[data-theme="dark"] .superset-a .exercise-rest .exercise-sets,
+html[data-theme="dark"] .superset-a .exercise-warmup-set {
+  color: #b9e681;
+}
+
+html[data-theme="dark"] .superset-b .superset-heading > span:first-child,
+html[data-theme="dark"] .superset-b .exercise-rest .exercise-name,
+html[data-theme="dark"] .superset-b .exercise-rest .exercise-sets,
+html[data-theme="dark"] .superset-b .exercise-warmup-set {
+  color: #a9c9ff;
+}
+
 .primary-sets,
 .stacked-sets {
   display: flex;

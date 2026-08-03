@@ -1,11 +1,11 @@
 async function startApp() {
-  const loadJson = (file) => fetch(`./${file}?v=20260981`).then((response) => {
+  const loadJson = (file) => fetch(`./${file}?v=20260982`).then((response) => {
     if (!response.ok) throw new Error(`Unable to load workout data (${response.status})`);
     return response.json();
   });
   const [
     { exercises },
-    { routineBlueprints },
+    { coverageCycle },
     { equipment: equipmentCatalog },
   ] = await Promise.all([
     loadJson("exercises.json"),
@@ -16,6 +16,7 @@ async function startApp() {
 const equipmentButtons = [...document.querySelectorAll("[data-equipment]")];
 const countLabel = document.querySelector("#selection-count");
 const output = document.querySelector("#routine-output");
+const routineStatus = document.querySelector("#routine-status");
 const sessionSlider = document.querySelector("#session-slider");
 const dynamicWarmupToggle = document.querySelector("#dynamic-warmups-toggle");
 const dynamicRestToggle = document.querySelector("#dynamic-rest-toggle");
@@ -45,6 +46,8 @@ const planActionsButton = document.querySelector("#plan-actions-button");
 const planActionsMenu = document.querySelector("#plan-actions-menu");
 const planActionsBackdrop = document.querySelector("#plan-actions-backdrop");
 const planActionStatus = document.querySelector("#plan-action-status");
+const cardsActions = document.querySelector(".cards-actions");
+const regenerateButton = document.querySelector("#regenerate-button");
 const menuButton = document.querySelector("#menu-button");
 const mobileMenu = document.querySelector("#mobile-menu");
 const menuClose = document.querySelector("#menu-close");
@@ -61,6 +64,8 @@ const MAX_UNILATERAL_EXERCISES = 2;
 const SECONDARY_WARMUP_RECOVERY_SECONDS = 30;
 const SECONDARY_WARMUP_DOSE = "W × 5–8 × 50%";
 const SECONDARY_PULL_WARMUP_DOSE = "W × 3–5 assisted";
+
+if (cardsActions && regenerateButton) cardsActions.insertBefore(regenerateButton, cardsActions.firstChild);
 const COVERAGE_MUSCLES = ["shoulders", "biceps", "triceps", "back", "chest", "quads", "hamstrings", "calves"];
 const PRIMARY_COVERAGE_MUSCLES = ["shoulders", "back", "chest", "quads", "hamstrings"];
 const equipmentLabels = new Map(equipmentCatalog.flatMap((item) => [
@@ -73,13 +78,25 @@ const conditioningEquipment = new Set(equipmentCatalog.filter((item) => item.gro
 const planParams = new URLSearchParams(window.location.search);
 const exerciseIds = new Set(exercises.map((exercise) => exercise.id));
 const exerciseCatalogById = new Map(exercises.map((exercise) => [exercise.id, exercise]));
-const exerciseIndexes = new Map(exercises.map((exercise, index) => [exercise.id, index]));
 const equipmentGroupGrids = new Map(
   [...document.querySelectorAll("[data-equipment-group]")].map((section) => [
     section.dataset.equipmentGroup,
     section.querySelector(".equipment-grid"),
   ]),
 );
+equipmentCatalog.forEach((equipment) => {
+  let button = equipmentButtons.find((item) => item.dataset.equipment === equipment.key);
+  if (!button) {
+    button = document.createElement("button");
+    button.className = "equipment-card";
+    button.type = "button";
+    button.dataset.equipment = equipment.key;
+    button.innerHTML = `<span class="equipment-icon body-icon" aria-hidden="true"><span></span><i></i><b></b></span><span class="equipment-name"></span><span class="equipment-detail"></span><span class="check" aria-hidden="true">✓</span>`;
+    equipmentButtons.push(button);
+  }
+  button.querySelector(".equipment-name").textContent = equipment.label;
+  button.querySelector(".equipment-detail").textContent ||= equipment.group === "cardio" ? "Cardio equipment" : `${equipment.group} equipment`;
+});
 equipmentButtons.forEach((button) => {
   const equipment = equipmentCatalog.find((item) => item.key === button.dataset.equipment);
   equipmentGroupGrids.get(equipment?.group)?.append(button);
@@ -97,14 +114,7 @@ function decodeBase36BigInt(value) {
 
 function decodeExcludedExercises(value) {
   if (!value) return [];
-  if (!value.startsWith("x")) {
-    return value.split(",").map((id) => id.trim()).filter((id) => exerciseIds.has(id));
-  }
-  const mask = decodeBase36BigInt(value.slice(1));
-  if (mask === null) return [];
-  return exercises
-    .filter((exercise, index) => (mask & (1n << BigInt(index))) !== 0n)
-    .map((exercise) => exercise.id);
+  return value.split(",").map((id) => id.trim()).filter((id) => exerciseIds.has(id));
 }
 
 const excludedExerciseIds = new Set(decodeExcludedExercises(planParams.get("exclude")));
@@ -128,9 +138,22 @@ exercises.filter((exercise) => exercise.type === "warmup" && exercise.isUniversa
   });
 const equipmentDependencies = new Map(equipmentCatalog.map((item) => [item.key, item.dependencies || []]));
 const defaultEquipment = equipmentCatalog.filter((item) => item.isDefault).map((item) => item.key);
-const loadedFromSeed = Boolean(planParams.get("seed"));
 const equipmentKeys = equipmentCatalog.map((item) => item.key);
-const equipmentIndexes = new Map(equipmentKeys.map((equipment, index) => [equipment, index]));
+
+const duplicateExerciseIds = exercises
+  .map((exercise) => exercise.id)
+  .filter((id, index, ids) => ids.indexOf(id) !== index);
+const equipmentReferences = new Set(equipmentCatalog.flatMap((item) => [item.key, ...(item.aliases || [])]));
+const catalogErrors = [
+  duplicateExerciseIds.length ? `duplicate exercise IDs: ${[...new Set(duplicateExerciseIds)].join(", ")}` : "",
+  equipmentCatalog.some((item) => !item.key || !item.group || !Array.isArray(item.dependencies)) ? "invalid equipment record" : "",
+  exercises.some((exercise) => !exercise.id || !Array.isArray(exercise.equipment)) ? "invalid exercise record" : "",
+  exercises.some((exercise) => [...(exercise.equipment || []), ...(exercise.requires || [])]
+    .some((item) => item !== "bodyweight" && !equipmentReferences.has(item))) ? "unknown exercise equipment reference" : "",
+  exercises.some((exercise) => !exercise.instructions?.length) ? "exercise instructions missing" : "",
+  !Array.isArray(coverageCycle) || coverageCycle.length !== 4 ? "coverage cycle must contain four routines" : "",
+].filter(Boolean);
+if (catalogErrors.length) throw new Error(`Workout catalog validation failed: ${catalogErrors.join("; ")}`);
 
 function resolveEquipmentDependencies(equipment) {
   const resolved = new Set(equipment);
@@ -156,10 +179,11 @@ function decodePlanSeed(token) {
   const parts = token?.split(".");
   if (!parts || parts.length !== 8 || !parts[0] || !["0", "1"].includes(parts[2])) return null;
   if (parts[7] !== "7" || !["0", "1"].includes(parts[5]) || !["0", "1"].includes(parts[6]) || !["d", "l"].includes(parts[4])) return null;
-  const equipmentMask = Number.parseInt(parts[3], 36);
-  if (!Number.isInteger(equipmentMask)) return null;
-  const equipment = resolveEquipmentDependencies(equipmentKeys.filter((key, index) => (equipmentMask & (1 << index)) !== 0));
+  const equipmentMask = decodeBase36BigInt(parts[3]);
+  if (equipmentMask === null) return null;
+  const equipment = resolveEquipmentDependencies(equipmentKeys.filter((key, index) => (equipmentMask & (1n << BigInt(index))) !== 0n));
   if (!equipment.length) return null;
+  if ((parts[2] === "1") !== equipment.some((item) => cardioEquipment.has(item))) return null;
   return {
     seed: parts[0],
     sessions: parseSessionCount(parts[1]),
@@ -201,7 +225,7 @@ function hashSeed(seed) {
 }
 
 function encodePlanSeed() {
-  const equipmentMask = [...selectedEquipment].reduce((mask, equipment) => mask | (1 << equipmentIndexes.get(equipment)), 0);
+  const equipmentMask = [...selectedEquipment].reduce((mask, equipment) => mask | (1n << BigInt(equipmentKeys.indexOf(equipment))), 0n);
   const themeCode = document.documentElement.dataset.theme === "light" ? "l" : "d";
   return `${activeSeed}.${sessionCount}.${cardioEnabled() ? "1" : "0"}.${equipmentMask.toString(36)}.${themeCode}.${dynamicWarmups ? "1" : "0"}.${dynamicRest ? "1" : "0"}.7`;
 }
@@ -209,12 +233,7 @@ function encodePlanSeed() {
 function updatePlanUrl() {
   const url = new URL(window.location.href);
   url.searchParams.set("seed", encodePlanSeed());
-  let exclusionMask = 0n;
-  excludedExerciseIds.forEach((id) => {
-    const index = exerciseIndexes.get(id);
-    if (index !== undefined) exclusionMask |= 1n << BigInt(index);
-  });
-  const encodedExclusions = exclusionMask ? `x${exclusionMask.toString(36)}` : "";
+  const encodedExclusions = [...excludedExerciseIds].sort().join(",");
   if (encodedExclusions) url.searchParams.set("exclude", encodedExclusions);
   else url.searchParams.delete("exclude");
   url.searchParams.delete("sessions");
@@ -224,7 +243,7 @@ function updatePlanUrl() {
   window.history.replaceState({}, "", url);
 }
 
-let activeSeed = decodedPlan?.seed || planParams.get("seed") || createSeed();
+let activeSeed = decodedPlan?.seed || createSeed();
 updatePlanUrl();
 
 function planSeedMaterial() {
@@ -237,6 +256,7 @@ const moonIcon = '<svg class="theme-icon" viewBox="0 0 24 24" aria-hidden="true"
 function setTheme(theme) {
   const isDark = theme === "dark";
   document.documentElement.dataset.theme = isDark ? "dark" : "light";
+  document.querySelector('meta[name="theme-color"]')?.setAttribute("content", isDark ? "#1f2428" : "#f5f4ef");
   themeToggles.forEach((toggle) => {
     toggle.setAttribute("aria-pressed", String(isDark));
     toggle.innerHTML = isDark ? sunIcon : moonIcon;
@@ -395,7 +415,7 @@ function detailPrescription(exercise) {
   const rangeLabel = exercise.durationRange ? range : `${range} reps`;
   const prescription = `<p><strong>${sets} sets × ${escapeHtml(rangeLabel)}</strong></p>`;
   const rest = formatRestSeconds(exercise.detailRestSeconds ?? exercise.restPeriod);
-  const restMarkup = rest ? `<p>Rest ${rest} after each superset round</p>` : "";
+  const restMarkup = rest ? `<p>Rest ${rest} between superset rounds</p>` : "";
   const hasPowerPrep = exercise.conditioning && exercise.warmupProtocol === "powerPrep";
   const warmupSets = exercise.primary || hasPowerPrep
     ? exerciseWarmupSets(exercise)
@@ -408,13 +428,20 @@ function detailPrescription(exercise) {
 
 function detailProgression(exercise) {
   if (exercise.type === "warmup" || exercise.type === "cardio") return "";
-  const sideNote = exercise.repUnit === "per side" ? "Complete the assigned range on each side." : "";
-  const withSideNote = (text) => [text, sideNote].filter(Boolean).join("\n\n");
+  const paragraphBreak = "\n\n";
+  const sideNote = exercise.repUnit === "per side"
+    ? "Complete the assigned range on each side, using the weaker side to set the limit."
+    : "";
+  const withSideNote = (text) => [text, sideNote].filter(Boolean).join(paragraphBreak);
   if (exercise.repNotes) return withSideNote(exercise.repNotes);
   if (exercise.warmupProtocol === "powerPrep") return withSideNote("Perform each repetition explosively while maintaining control. Stop the set when speed or technique noticeably declines.");
   if (exercise.durationRange) return withSideNote("Maintain good position for the assigned duration. Increase the duration within the range before progressing resistance or difficulty.");
-  const standardProgression = "Use one working weight for all three sets.\n\nComplete as many clean reps as possible within the assigned range without sacrificing form.\n\nKeep the weight until every set reaches the top of the range, then increase the weight the next time the exercise appears. Repetitions do not need to increase every workout; they increase as ability improves.";
-  return [standardProgression, sideNote].filter(Boolean).join("\n\n");
+  const standardProgression = [
+    "Use one working weight for all three sets.",
+    "Complete as many clean reps as possible within the assigned range without sacrificing form.",
+    "Keep the weight until every set reaches the top of the range, then increase the weight the next time the exercise appears.",
+  ].join(paragraphBreak);
+  return withSideNote(standardProgression);
 }
 
 function renderExerciseDetails(exercise) {
@@ -449,7 +476,7 @@ function setupsConflict(exercise, supersetExercises) {
     const partnerResources = partner.setupResources || [];
     return exerciseResources.some((resource) => partnerResources.some((partnerResource) => {
       if (resource.startsWith("bench-") && partnerResource.startsWith("bench-")) {
-        return resource !== partnerResource;
+        return true;
       }
       return ["rack", "landmine", "band-anchor", "olympic-bar", "ez-bar", "trap-bar"].includes(resource)
         && resource === partnerResource;
@@ -461,6 +488,15 @@ function isBodyweightOnly(exercise) {
   return exercise.equipment.includes("bodyweight") && exercise.equipment.every((item) => item === "bodyweight" || item === "bench");
 }
 
+function selectedEquipmentSupportsPrimaryMuscle(muscle) {
+  return strengthExercises.some((exercise) => exercise.primaryMuscle === muscle
+    && exercise.primaryEligible
+    && !isExcluded(exercise)
+    && matchesSelectedEquipment(exercise)
+    && !isBodyweightOnly(exercise)
+    && !exercise.conditioning);
+}
+
 function selectedEquipmentSupportsMuscle(muscle) {
   return strengthExercises.some((exercise) => exercise.primaryMuscle === muscle
     && !isExcluded(exercise)
@@ -470,20 +506,17 @@ function selectedEquipmentSupportsMuscle(muscle) {
 }
 
 function unsupportedCoverageMuscles() {
-  return COVERAGE_MUSCLES.filter((muscle) => !selectedEquipmentSupportsMuscle(muscle));
+  return COVERAGE_MUSCLES.filter((muscle) => PRIMARY_COVERAGE_MUSCLES.includes(muscle)
+    ? !selectedEquipmentSupportsPrimaryMuscle(muscle)
+    : !selectedEquipmentSupportsMuscle(muscle));
 }
 
 function chooseExercise(muscle, supersetExercises = [], exerciseIndex, recentExerciseIds = [], routineExercises = []) {
   const muscleExercises = strengthExercises.filter((exercise) => exercise.primaryMuscle === muscle && !isExcluded(exercise));
   const matchingExercises = muscleExercises.filter(matchesSelectedEquipment);
   const weightedExercises = matchingExercises.filter((exercise) => !isBodyweightOnly(exercise) && !exercise.conditioning);
-  const bodyweightFallback = matchingExercises.filter((exercise) => isBodyweightOnly(exercise));
   const primaryExercises = matchingExercises.filter((exercise) => exercise.primaryEligible && !exercise.conditioning);
-  const pools = exerciseIndex === 0
-    ? [primaryExercises]
-    : exerciseIndex === 4
-      ? [weightedExercises, bodyweightFallback]
-      : [weightedExercises];
+  const pools = exerciseIndex === 0 ? [primaryExercises] : [weightedExercises];
   const recentIds = new Set(recentExerciseIds);
 
   const compatibleExercises = (pool, avoidRecent) => shuffle(pool).filter((exercise) =>
@@ -578,11 +611,10 @@ function universalWarmupsForRoutine(sequenceNumber) {
   return (universalWarmupSets.get((sequenceNumber - 1) % 4) || []).filter((warmup) => !isExcluded(warmup));
 }
 
-function buildRoutine(blueprint, sequenceNumber, recentExerciseIds = [], targetExerciseCount = blueprint.muscles.length, targetMuscles = null) {
+function buildRoutine(sequenceNumber, recentExerciseIds = [], targetExerciseCount = 4, targetMuscles = []) {
   // The first four slots are lifting work. A fifth slot is reserved for
   // core, bodyweight, or conditioning work.
-  const nonCoreMuscles = shuffle(blueprint.muscles.filter((muscle) => muscle !== blueprint.primaryMuscle && muscle !== "core"));
-  const liftingMuscles = (targetMuscles || [blueprint.primaryMuscle, ...nonCoreMuscles])
+  const liftingMuscles = targetMuscles
     .slice(0, Math.min(4, targetExerciseCount));
   const exercises = liftingMuscles.reduce((built, muscle, index) => {
     const supersetStart = index < 2 ? 0 : 2;
@@ -594,7 +626,7 @@ function buildRoutine(blueprint, sequenceNumber, recentExerciseIds = [], targetE
   }, []);
   if (targetExerciseCount === 5) {
     const finalExercise = chooseFinalExercise(
-      targetMuscles?.includes("core") || blueprint.muscles.includes("core") ? "core" : null,
+      targetMuscles.includes("core") ? "core" : null,
       exercises.slice(2),
       recentExerciseIds,
       exercises,
@@ -616,7 +648,9 @@ function buildRoutine(blueprint, sequenceNumber, recentExerciseIds = [], targetE
       : [])
     : universalWarmupsForRoutine(sequenceNumber).map((warmup) => ({ ...warmup, muscle: "full body" }));
   if (exercises.length > 4) {
-    const optionalExercise = shuffle(exercises)[0];
+    const warmedExerciseIds = new Set(warmupTargets.map((exercise) => exercise.id));
+    const optionalExercise = shuffle(exercises.filter((exercise) => !warmedExerciseIds.has(exercise.id)))[0]
+      || shuffle(exercises)[0];
     const optionalWarmup = chooseWarmups([optionalExercise], warmups.map((warmup) => warmup.id))[0];
     if (optionalWarmup) warmups.push({ ...optionalWarmup, muscle: optionalExercise.muscle, optional: true });
   }
@@ -631,9 +665,14 @@ function buildRoutine(blueprint, sequenceNumber, recentExerciseIds = [], targetE
       + (exercise.secondaryWarmupSets?.length || 0))
       * exercise.setTime * exerciseTimeMultiplier(exercise), 0);
   const secondaryWarmupRecoverySeconds = secondaryWarmup ? SECONDARY_WARMUP_RECOVERY_SECONDS : 0;
+  const primaryWarmupRecoverySeconds = exercises.reduce((total, exercise) => {
+    const hasPreparation = exercise.primary || (exercise.conditioning && exercise.warmupProtocol === "powerPrep");
+    return total + (hasPreparation ? exerciseWarmupSets(exercise).length * SECONDARY_WARMUP_RECOVERY_SECONDS : 0);
+  }, 0);
   const warmupSeconds = warmups.reduce((total, warmup) => total
     + ((warmup.setTime || 30) * exerciseTimeMultiplier(warmup)), 0)
     + exerciseWarmupSeconds
+    + primaryWarmupRecoverySeconds
     + secondaryWarmupRecoverySeconds;
   const setupTearDownSeconds = [...exercises, ...warmups]
     .reduce((total, exercise) => total + (exercise.setupTime || 0), 0);
@@ -642,7 +681,6 @@ function buildRoutine(blueprint, sequenceNumber, recentExerciseIds = [], targetE
   const restSeconds = supersetRestPeriods(exercises).reduce((total, rest) => total + (rest * 2), 0);
   const minutes = Math.ceil((workingSetSeconds + warmupSeconds + setupTearDownSeconds + restSeconds + ROUTINE_TRANSITION_SECONDS) / 60);
   return {
-    ...blueprint,
     sequenceNumber,
     exercises,
     warmups,
@@ -654,30 +692,24 @@ function buildRoutine(blueprint, sequenceNumber, recentExerciseIds = [], targetE
 }
 
 function buildCoverageMusclePlan(routineExerciseCounts) {
-  const coverageCycle = [
-    ["chest", "back", "biceps", "calves"],
-    ["quads", "hamstrings", "shoulders", "triceps"],
-    ["shoulders", "chest", "triceps", "biceps"],
-    ["back", "hamstrings", "quads", "calves"],
-  ];
   const muscleSets = routineExerciseCounts.map((exerciseCount, index) => {
     const cycleSet = shuffle(coverageCycle[index % coverageCycle.length]);
     return exerciseCount === 5 ? [...cycleSet, "core"] : cycleSet;
   });
   const primaryMuscles = muscleSets.map((muscles) => {
-    const candidates = muscles.filter((muscle) => PRIMARY_COVERAGE_MUSCLES.includes(muscle));
+    const candidates = muscles.filter((muscle) => selectedEquipmentSupportsPrimaryMuscle(muscle));
     return candidates.length ? shuffle(candidates)[0] : muscles[0];
   });
   for (let index = 1; index < primaryMuscles.length; index += 1) {
     if (primaryMuscles[index] !== primaryMuscles[index - 1]) continue;
     const replacement = muscleSets[index]
-      .filter((muscle) => PRIMARY_COVERAGE_MUSCLES.includes(muscle) && muscle !== primaryMuscles[index - 1])
+        .filter((muscle) => selectedEquipmentSupportsPrimaryMuscle(muscle) && muscle !== primaryMuscles[index - 1])
       .find((muscle) => muscle !== primaryMuscles[index - 2]);
     if (replacement) primaryMuscles[index] = replacement;
   }
   if (primaryMuscles.length > 1 && primaryMuscles.at(-1) === primaryMuscles[0]) {
     const lastCandidates = muscleSets.at(-1)
-      .filter((muscle) => PRIMARY_COVERAGE_MUSCLES.includes(muscle)
+      .filter((muscle) => selectedEquipmentSupportsPrimaryMuscle(muscle)
         && muscle !== primaryMuscles.at(-2)
         && muscle !== primaryMuscles[0]);
     if (lastCandidates.length) primaryMuscles[primaryMuscles.length - 1] = lastCandidates[0];
@@ -691,9 +723,7 @@ function buildCoverageMusclePlan(routineExerciseCounts) {
 function warmupCandidates(muscle) {
   const candidates = exercises.filter((exercise) => exercise.type === "warmup"
     && exercise.primaryMuscle === muscle
-    && !isExcluded(exercise)
-    && !(exercise.equipment || []).includes("tubebands")
-    && !(exercise.requires || []).includes("tubebands"));
+    && !isExcluded(exercise));
   const matchingEquipment = candidates.filter(matchesSelectedEquipment);
   const available = matchingEquipment.length
     ? matchingEquipment
@@ -748,14 +778,17 @@ function supersetRestPeriods(exercises) {
 function cardioDurationMinutes(cardio) {
   return cardio?.timing.reduce((total, interval) => {
     const duration = Number.parseFloat(interval.duration);
-    return total + (interval.duration.includes("sec") ? duration / 60 : duration);
+    const repetitions = /^\d+$/.test(String(interval.sets)) ? Number(interval.sets) : 1;
+    return total + repetitions * (interval.duration.includes("sec") ? duration / 60 : duration);
   }, 0) || 0;
 }
 
 function renderRoutine(routine) {
-  const validWarmups = routine.warmups.filter((warmup) => warmup?.name);
-  const interactiveAttributes = (exercise) => `data-exercise-id="${escapeHtml(exercise.id)}" tabindex="0" role="button" aria-label="Open details for ${escapeHtml(exerciseDisplayName(exercise))}"`;
-  const warmupMarkup = `<div class="superset warmup-block"><div class="superset-heading"><span>Warm up</span></div>${validWarmups.map((warmup) => `<div class="exercise warmup-exercise exercise-row-interactive" ${interactiveAttributes(warmup)}><span><span class="exercise-name">${exerciseDisplayName(warmup)}</span><span class="exercise-muscle">${exerciseDescriptor(warmup, warmup.muscle)}</span></span><span class="exercise-sets">${warmup.dose}</span></div>`).join("")}</div>`;
+  const validWarmups = routine.warmups
+    .map((warmup, index) => ({ warmup, index }))
+    .filter(({ warmup }) => warmup?.name);
+  const interactiveAttributes = (exercise, instanceKey) => `data-exercise-id="${escapeHtml(exercise.id)}" data-exercise-instance="${escapeHtml(instanceKey)}" tabindex="0" role="button" aria-label="Open details for ${escapeHtml(exerciseDisplayName(exercise))}"`;
+  const warmupMarkup = `<div class="superset warmup-block"><div class="superset-heading"><span>Warm up</span></div>${validWarmups.map(({ warmup, index }) => `<div class="exercise warmup-exercise exercise-row-interactive" ${interactiveAttributes(warmup, `routine-${routine.sequenceNumber}:warmup-${index}-${warmup.id}`)}><span><span class="exercise-name">${exerciseDisplayName(warmup)}</span><span class="exercise-muscle">${exerciseDescriptor(warmup, warmup.muscle)}</span></span><span class="exercise-sets">${warmup.dose}</span></div>`).join("")}</div>`;
   const supersetGroups = routine.exercises.length === 5
     ? [routine.exercises.slice(0, 2), routine.exercises.slice(2)]
     : [routine.exercises.slice(0, 2), routine.exercises.slice(2, 4)];
@@ -765,13 +798,14 @@ function renderRoutine(routine) {
     const groupLabel = "Superset";
     const rest = formatRest(restPeriods[groupIndex]);
     const groupExercises = group.map((exercise) => {
+      const exerciseIndex = routine.exercises.indexOf(exercise);
       const hasPowerPrep = exercise.conditioning && exercise.warmupProtocol === "powerPrep";
       const preparationSets = exercise.primary || hasPowerPrep
         ? exerciseWarmupSets(exercise)
         : (exercise.secondaryWarmupSets || []);
       const primarySets = [...preparationSets, `${exercise.sets} × ${exerciseRepRange(exercise)}`];
       return `
-        <div class="exercise exercise-row-interactive" ${interactiveAttributes(exercise)}>
+        <div class="exercise exercise-row-interactive" ${interactiveAttributes(exercise, `routine-${routine.sequenceNumber}:exercise-${exerciseIndex}-${exercise.id}`)}>
           <span><span class="exercise-name">${exerciseDisplayName(exercise)}</span><span class="exercise-muscle">${exerciseDescriptor(exercise, exercise.muscle)}</span></span>
           <span class="exercise-sets${primarySets.length > 1 ? " stacked-sets" : ""}">${primarySets.map((set, index) => `<span class="${index < preparationSets.length ? "exercise-warmup-set" : "exercise-working-set"}">${set}</span>`).join("")}</span>
         </div>`;
@@ -784,33 +818,10 @@ function renderRoutine(routine) {
   return `
     <article class="routine-card">
       <div class="routine-top">
-        <div class="routine-title-row"><h4>Routine ${String(routine.sequenceNumber).padStart(2, "0")}</h4><span class="routine-duration${routine.liftingMinutes > 30 ? " is-over-target" : ""}"><span>${routine.liftingMinutes}′</span>${routine.cardio ? `<span class="routine-duration-divider" aria-hidden="true"><svg viewBox="0 0 4 32"><path d="M2 1v30" /></svg></span><span class="routine-cardio-duration">${routine.cardioMinutes}′</span>` : ""}</span></div>
+        <div class="routine-title-row"><h2>Routine ${String(routine.sequenceNumber).padStart(2, "0")}</h2><span class="routine-duration${routine.liftingMinutes > 30 ? " is-over-target" : ""}"><span>${routine.liftingMinutes}′</span>${routine.cardio ? `<span class="routine-duration-divider" aria-hidden="true"><svg viewBox="0 0 4 32"><path d="M2 1v30" /></svg></span><span class="routine-cardio-duration">${routine.cardioMinutes}′</span>` : ""}</span></div>
       </div>
-      <div class="exercise-list">${warmupMarkup}${exerciseMarkup}${routine.cardio ? `<div class="superset cardio-block"><div class="superset-heading"><span>Cardio finisher</span></div><div class="exercise cardio-exercise exercise-row-interactive" ${interactiveAttributes(routine.cardio)}><span><span class="exercise-name">${routine.cardio.name}</span><span class="exercise-muscle">cardio - conditioning</span></span><span class="exercise-sets cardio-sets">${routine.cardio.timing.map((interval) => `<span class="${interval.sets === "1" ? "cardio-working-set" : "cardio-warmup-set"}">${interval.sets} × ${interval.duration}</span>`).join("")}</span></div></div>` : ""}</div>
+      <div class="exercise-list">${warmupMarkup}${exerciseMarkup}${routine.cardio ? `<div class="superset cardio-block"><div class="superset-heading"><span>Cardio finisher</span></div><div class="exercise cardio-exercise exercise-row-interactive" ${interactiveAttributes(routine.cardio, `routine-${routine.sequenceNumber}:cardio-${routine.cardio.id}`)}><span><span class="exercise-name">${routine.cardio.name}</span><span class="exercise-muscle">cardio - conditioning</span></span><span class="exercise-sets cardio-sets">${routine.cardio.timing.map((interval) => `<span class="${interval.sets === "W" ? "cardio-warmup-set" : "cardio-working-set"}">${interval.sets} × ${interval.duration}</span>`).join("")}</span></div></div>` : ""}</div>
     </article>`;
-}
-
-function buildBlueprintQueue() {
-  const queue = [];
-  const primaryMuscles = [...new Set(routineBlueprints.map((blueprint) => blueprint.primaryMuscle))];
-  let previousPrimary = null;
-  const pools = new Map(primaryMuscles.map((muscle) => [
-    muscle,
-    shuffle(routineBlueprints.filter((blueprint) => blueprint.primaryMuscle === muscle)),
-  ]));
-
-  while (queue.length < sessionCount) {
-    const candidateMuscles = primaryMuscles.filter((muscle) => muscle !== previousPrimary);
-    const primaryMuscle = shuffle(candidateMuscles.length ? candidateMuscles : primaryMuscles)[0];
-    const pool = pools.get(primaryMuscle);
-    if (!pool.length) {
-      pool.push(...shuffle(routineBlueprints.filter((blueprint) => blueprint.primaryMuscle === primaryMuscle)));
-    }
-    queue.push(pool.shift());
-    previousPrimary = primaryMuscle;
-  }
-
-  return queue;
 }
 
 let lastPlanSignature = null;
@@ -819,10 +830,11 @@ let currentRoutines = [];
 function regenerateFromConfig() {
   const card = configModal.querySelector(".info-modal-card");
   const previousScrollTop = card?.scrollTop || 0;
-  generatePlan();
+  const generated = generatePlan();
   requestAnimationFrame(() => {
     if (configModal.open && card) card.scrollTop = previousScrollTop;
   });
+  return generated;
 }
 
 function generatePlan({ newSeed = false } = {}) {
@@ -830,6 +842,7 @@ function generatePlan({ newSeed = false } = {}) {
   if (unsupportedMuscles.length) {
     currentRoutines = [];
     output.innerHTML = `<p class="plan-error">Selected equipment cannot cover ${unsupportedMuscles.map(labelMuscle).join(", ")}. Add equipment or choose a different setup.</p>`;
+    if (routineStatus) routineStatus.textContent = "Unable to generate routines for this setup";
     return false;
   }
   let routines;
@@ -837,6 +850,7 @@ function generatePlan({ newSeed = false } = {}) {
   let attempts = 0;
   const maxAttempts = 8;
   do {
+    planSignature = null;
     if (newSeed) {
       activeSeed = createSeed();
       updatePlanUrl();
@@ -846,7 +860,6 @@ function generatePlan({ newSeed = false } = {}) {
       !isExcluded(option) && option.equipment.some((item) => selectedEquipment.has(item)),
     );
     const cardioName = () => shuffle(availableCardio)[0] || null;
-    const blueprintQueue = buildBlueprintQueue();
     const hasUsableCardio = availableCardio.length > 0;
     const fourExerciseOffset = hasUsableCardio ? (seededRandom() < 0.5 ? 0 : 1) : null;
     const targetExerciseCounts = Array.from({ length: sessionCount }, (_, index) => (
@@ -855,10 +868,8 @@ function generatePlan({ newSeed = false } = {}) {
     const coverageMusclePlan = buildCoverageMusclePlan(targetExerciseCounts);
     let previousExerciseIds = [];
     routines = Array.from({ length: sessionCount }, (_, index) => {
-      const blueprint = blueprintQueue[index];
       const targetExerciseCount = targetExerciseCounts[index];
       const routine = buildRoutine(
-        blueprint,
         index + 1,
         previousExerciseIds,
         targetExerciseCount,
@@ -888,6 +899,7 @@ function generatePlan({ newSeed = false } = {}) {
   if (!routines || routines.some((routine) => !routine)) {
     currentRoutines = [];
     output.innerHTML = `<p class="plan-error">Selected equipment cannot build the requested routine sequence. Add equipment or choose a different setup.</p>`;
+    if (routineStatus) routineStatus.textContent = "Unable to generate routines for this setup";
     return false;
   }
 
@@ -897,16 +909,17 @@ function generatePlan({ newSeed = false } = {}) {
   routines.forEach((routine) => {
     const restPeriods = supersetRestPeriods(routine.exercises);
     routine.exercises.forEach((exercise, index) => {
-      currentExerciseDetails.set(exercise.id, {
+      currentExerciseDetails.set(`routine-${routine.sequenceNumber}:exercise-${index}-${exercise.id}`, {
         ...exercise,
         detailRestSeconds: restPeriods[index < 2 ? 0 : 1],
       });
     });
-    routine.warmups.forEach((warmup) => currentExerciseDetails.set(warmup.id, { ...warmup }));
-    if (routine.cardio) currentExerciseDetails.set(routine.cardio.id, { ...routine.cardio });
+    routine.warmups.forEach((warmup, index) => currentExerciseDetails.set(`routine-${routine.sequenceNumber}:warmup-${index}-${warmup.id}`, { ...warmup }));
+    if (routine.cardio) currentExerciseDetails.set(`routine-${routine.sequenceNumber}:cardio-${routine.cardio.id}`, { ...routine.cardio });
   });
   const routineMarkup = routines.map(renderRoutine).join("");
   output.innerHTML = `<div class="routine-grid">${routineMarkup}</div>`;
+  if (routineStatus) routineStatus.textContent = `${routines.length} routines generated`;
   renderExcludedExercises();
   return true;
 }
@@ -973,8 +986,8 @@ function setExerciseExclusion(id, shouldExclude) {
   showPlanToast(`${exerciseLabelById(id)} included`);
 }
 
-function openExerciseDetails(id) {
-  const exercise = currentExerciseDetails.get(id) || exerciseCatalogById.get(id);
+function openExerciseDetails(instanceKey, id) {
+  const exercise = currentExerciseDetails.get(instanceKey) || exerciseCatalogById.get(id);
   if (!exercise) return;
   previousDetailTarget = document.activeElement;
   activeDetailExerciseId = id;
@@ -1193,12 +1206,19 @@ function updateEquipmentState(button) {
 }
 
 equipmentButtons.forEach((button) => button.addEventListener("click", () => {
+  const previousEquipment = new Set(selectedEquipment);
   if (updateEquipmentState(button)) {
     updatePlanUrl();
-    regenerateFromConfig();
+    if (!regenerateFromConfig()) {
+      selectedEquipment = previousEquipment;
+      syncEquipmentButtons();
+      updatePlanUrl();
+      regenerateFromConfig();
+      showPlanToast("That equipment setup cannot build a complete routine sequence.");
+    }
   }
 }));
-document.querySelector("#regenerate-button").addEventListener("click", () => generatePlan({ newSeed: true }));
+regenerateButton.addEventListener("click", () => generatePlan({ newSeed: true }));
 infoButton.addEventListener("click", () => infoModal.showModal());
 infoClose.addEventListener("click", () => infoModal.close());
 infoModal.addEventListener("click", (event) => {
@@ -1227,13 +1247,13 @@ exerciseDetailExclude.addEventListener("change", () => {
 });
 output.addEventListener("click", (event) => {
   const row = event.target.closest(".exercise-row-interactive");
-  if (row) openExerciseDetails(row.dataset.exerciseId);
+  if (row) openExerciseDetails(row.dataset.exerciseInstance, row.dataset.exerciseId);
 });
 output.addEventListener("keydown", (event) => {
   const row = event.target.closest(".exercise-row-interactive");
   if (!row || !["Enter", " "].includes(event.key)) return;
   event.preventDefault();
-  openExerciseDetails(row.dataset.exerciseId);
+  openExerciseDetails(row.dataset.exerciseInstance, row.dataset.exerciseId);
 });
 excludedExerciseList.addEventListener("click", (event) => {
   const includeButton = event.target.closest("[data-include-exercise]");
@@ -1282,23 +1302,50 @@ planActionsMenu.addEventListener("keydown", (event) => {
 document.addEventListener("focusin", (event) => {
   if (!planActionsMenu.hidden && event.target !== planActionsButton && !planActionsMenu.contains(event.target)) closePlanActions({ restoreFocus: false });
 });
-function closeMobileMenu() {
+let previousMenuTarget = null;
+
+function menuFocusableElements() {
+  return [...mobileMenu.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')]
+    .filter((element) => !element.disabled && element.offsetParent !== null);
+}
+
+function closeMobileMenu({ restoreFocus = true } = {}) {
   mobileMenu.classList.remove("is-open");
   menuBackdrop.classList.remove("is-visible");
   document.body.classList.remove("menu-is-open");
   menuButton.setAttribute("aria-expanded", "false");
   menuButton.setAttribute("aria-label", "Open menu");
+  if (restoreFocus) (previousMenuTarget || menuButton).focus();
+  previousMenuTarget = null;
 }
 menuButton.addEventListener("click", () => {
-  const isOpen = mobileMenu.classList.toggle("is-open");
-  menuBackdrop.classList.toggle("is-visible", isOpen);
-  document.body.classList.toggle("menu-is-open", isOpen);
-  menuButton.setAttribute("aria-expanded", String(isOpen));
-  menuButton.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+  if (mobileMenu.classList.contains("is-open")) {
+    closeMobileMenu();
+    return;
+  }
+  previousMenuTarget = document.activeElement;
+  mobileMenu.classList.add("is-open");
+  menuBackdrop.classList.add("is-visible");
+  document.body.classList.add("menu-is-open");
+  menuButton.setAttribute("aria-expanded", "true");
+  menuButton.setAttribute("aria-label", "Close menu");
+  requestAnimationFrame(() => menuClose.focus());
 });
 menuClose.addEventListener("click", closeMobileMenu);
 menuBackdrop.addEventListener("click", closeMobileMenu);
 document.addEventListener("keydown", (event) => {
+  if (mobileMenu.classList.contains("is-open") && event.key === "Tab") {
+    const focusable = menuFocusableElements();
+    const first = focusable[0];
+    const last = focusable.at(-1);
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
   if (event.key === "Escape") {
     closeMobileMenu();
     if (!planActionsMenu.hidden) closePlanActions();
@@ -1342,19 +1389,30 @@ function generateInitialPlan() {
   );
   let restoredCardioExclusion = false;
   if (cardioEnabled() && compatibleCardio.length && !compatibleCardio.some((exercise) => !isExcluded(exercise))) {
-    const cardioExclusion = requestedExclusions.findLast((id) => compatibleCardio.some((exercise) => exercise.id === id));
+    const cardioExclusion = [...requestedExclusions].reverse().find((id) => compatibleCardio.some((exercise) => exercise.id === id));
     if (cardioExclusion) {
       excludedExerciseIds.delete(cardioExclusion);
       restoredCardioExclusion = true;
     }
   }
   let generated = generatePlan();
+  let restoredExclusions = restoredCardioExclusion;
   while (!generated && requestedExclusions.length) {
-    excludedExerciseIds.delete(requestedExclusions.pop());
-    generated = generatePlan();
+    let restoredOne = false;
+    for (const exclusion of requestedExclusions) {
+      excludedExerciseIds.delete(exclusion);
+      if (generatePlan()) {
+        requestedExclusions.splice(requestedExclusions.indexOf(exclusion), 1);
+        restoredExclusions = true;
+        restoredOne = true;
+        break;
+      }
+      excludedExerciseIds.add(exclusion);
+    }
+    if (!restoredOne) break;
   }
   updatePlanUrl();
-  if (restoredCardioExclusion || requestedExclusions.length < [...decodeExcludedExercises(planParams.get("exclude"))].length) {
+  if (restoredExclusions || requestedExclusions.length < [...decodeExcludedExercises(planParams.get("exclude"))].length) {
     showPlanToast("Some exclusions were restored so the plan could be completed.");
   }
 }
@@ -1362,9 +1420,6 @@ function generateInitialPlan() {
 syncEquipmentButtons();
 updateSessionControls();
 generateInitialPlan();
-window.addEventListener("load", () => {
-  if (!loadedFromSeed) document.querySelector(".cards-actions").scrollIntoView({ behavior: "auto", block: "start" });
-});
 }
 
 startApp().catch((error) => {

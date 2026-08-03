@@ -9,7 +9,7 @@
   --lavender: #dfd8ff;
   --cream: #fffcf4;
   --shadow: 0 14px 35px rgba(36, 37, 34, .06);
-  font-family: "DM Sans", sans-serif;
+  font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
   color: var(--ink);
   background: var(--paper);
 }
@@ -56,6 +56,7 @@ button { cursor: pointer; }
 .session-range input::-moz-range-track { height: 4px; border: 0; border-radius: 999px; background: linear-gradient(to right, var(--lime-dark) 0 var(--slider-progress), var(--line) var(--slider-progress) 100%); }
 .session-range input::-webkit-slider-thumb { width: 16px; height: 16px; margin-top: -6px; appearance: none; border: 0; border-radius: 50%; background: var(--lime-dark); }
 .session-range input::-moz-range-thumb { width: 16px; height: 16px; border: 0; border-radius: 50%; background: var(--lime-dark); }
+.session-range input:focus-visible { outline: 2px solid var(--lime-dark); outline-offset: 4px; border-radius: 4px; }
  .session-range-scale { display: block; position: relative; width: 100%; height: 12px; color: var(--muted); font-size: 10px; }
  .session-range-scale span { position: absolute; transform: translateX(-50%); }
  .session-range-scale span:nth-child(1) { left: 0; transform: translateX(0); }
@@ -102,6 +103,14 @@ button { cursor: pointer; }
   .equipment-card:hover,
   .config-modal .equipment-card:hover { transform: none; box-shadow: none; }
   .equipment-card:active { transform: scale(.99); }
+}
+
+.routine-top h2 { font: 800 18px "Manrope", sans-serif; letter-spacing: -.05em; margin: 0; }
+.exercise-name { font-size: 12px; }
+.exercise-muscle { font-size: 10px; }
+
+@media (max-width: 620px) {
+  .routine-top h2 { font-size: 20px; }
 }
 
 .switch-row { position: relative; }
@@ -322,11 +331,6 @@ html[data-theme="dark"] .primary-button:hover {
   }
 }
 
-html,
-body {
-  min-width: 350px;
-}
-
 .site-footer span:first-child,
 .site-footer .footer-link {
   font-weight: 400;
@@ -341,6 +345,26 @@ body {
   padding: 3px 4px;
   font-size: 20px;
   line-height: 1;
+}
+
+.tool-brand a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .action-icon,
@@ -698,9 +722,6 @@ body {
   gap: 12px;
 }
 
-.cards-actions #regenerate-button { order: 1; }
-.cards-actions #config-button { order: 2; }
-.cards-actions .plan-actions { order: 3; }
 .cards-actions > button,
 .plan-actions > button {
   display: inline-flex;

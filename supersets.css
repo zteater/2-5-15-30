@@ -71,6 +71,11 @@
   padding-top: 8px;
 }
 
+.warmup-block .exercise,
+.superset-b .exercise {
+  border-bottom: 0;
+}
+
 .routine-top {
   border-bottom: 0;
 }
@@ -172,6 +177,14 @@ html[data-theme="dark"] .superset-b .exercise-warmup-set {
 .superset .exercise {
   grid-template-columns: 1fr auto;
   padding: 8px 0;
+}
+
+.superset .exercise-row-interactive:hover,
+.superset .exercise-row-interactive:focus-visible {
+  margin-left: -7px;
+  margin-right: -7px;
+  padding-left: 7px;
+  padding-right: 7px;
 }
 
 @media (max-width: 620px) {

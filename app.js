@@ -1,8 +1,9 @@
 import { HevyApiError, HevyClient, listAllPages } from "./hevy-client.js";
 import { buildExportId, buildHevyFolderRequest, buildHevyRoutineRequests, validateHevyExport } from "./hevy-export.js";
+import { calculateRoutineMinutes, calculateRoutineSeconds } from "./routine-timing.js";
 
 async function startApp() {
-  const loadJson = (file) => fetch(`./${file}?v=20260983`).then((response) => {
+  const loadJson = (file) => fetch(`./${file}?v=20260984`).then((response) => {
     if (!response.ok) throw new Error(`Unable to load workout data (${response.status})`);
     return response.json();
   });
@@ -66,6 +67,9 @@ const sessionOptions = [4, 8, 12, 16];
 const FIXED_REST_PERIODS = [90, 60];
 const PRIMARY_REST_PERIOD = 120;
 const ROUTINE_TRANSITION_SECONDS = 120;
+const TARGET_LIFTING_SECONDS = 29 * 60;
+const MAX_LIFTING_SECONDS = 30 * 60;
+const MAX_ROUTINE_CANDIDATES = 96;
 const MAX_UNILATERAL_EXERCISES = 2;
 const SECONDARY_WARMUP_RECOVERY_SECONDS = 30;
 const SECONDARY_WARMUP_DOSE = "W × 5–8 × 50%";
@@ -517,7 +521,7 @@ function unsupportedCoverageMuscles() {
     : !selectedEquipmentSupportsMuscle(muscle));
 }
 
-function chooseExercise(muscle, supersetExercises = [], exerciseIndex, recentExerciseIds = [], routineExercises = []) {
+function exerciseCandidates(muscle, supersetExercises = [], exerciseIndex, recentExerciseIds = [], routineExercises = []) {
   const muscleExercises = strengthExercises.filter((exercise) => exercise.primaryMuscle === muscle && !isExcluded(exercise));
   const matchingExercises = muscleExercises.filter(matchesSelectedEquipment);
   const weightedExercises = matchingExercises.filter((exercise) => !isBodyweightOnly(exercise) && !exercise.conditioning);
@@ -525,30 +529,24 @@ function chooseExercise(muscle, supersetExercises = [], exerciseIndex, recentExe
   const pools = exerciseIndex === 0 ? [primaryExercises] : [weightedExercises];
   const recentIds = new Set(recentExerciseIds);
 
-  const compatibleExercises = (pool, avoidRecent) => shuffle(pool).filter((exercise) =>
-    (!avoidRecent || !recentIds.has(exercise.id))
+  const compatibleExercises = (pool) => shuffle(pool).filter((exercise) =>
+    !routineExercises.some((routineExercise) => routineExercise.id === exercise.id)
       && !setupsConflict(exercise, supersetExercises)
       && (!exercise.unilateral
         || routineExercises.filter((routineExercise) => routineExercise.unilateral).length < MAX_UNILATERAL_EXERCISES),
   );
 
-  for (const pool of pools) {
-    const compatible = compatibleExercises(pool, true);
-    if (compatible.length) return compatible[0];
-  }
-
-  for (const pool of pools) {
-    const compatible = compatibleExercises(pool, false);
-    if (compatible.length) return compatible[0];
-  }
-
-  return null;
+  return [...new Map(pools
+    .flatMap((pool) => compatibleExercises(pool))
+    .sort((first, second) => Number(recentIds.has(first.id)) - Number(recentIds.has(second.id)))
+    .map((exercise) => [exercise.id, exercise])).values()];
 }
 
-function chooseFinalExercise(preferredMuscle, supersetExercises = [], recentExerciseIds = [], routineExercises = []) {
+function finalExerciseCandidates(preferredMuscle, supersetExercises = [], recentExerciseIds = [], routineExercises = []) {
   const candidates = strengthExercises
     .filter((exercise) => !isExcluded(exercise))
     .filter(matchesSelectedEquipment)
+    .filter((exercise) => !routineExercises.some((routineExercise) => routineExercise.id === exercise.id))
     .filter((exercise) => exercise.primaryMuscle === "core"
       || isBodyweightOnly(exercise)
       || exercise.conditioning
@@ -574,17 +572,12 @@ function chooseFinalExercise(preferredMuscle, supersetExercises = [], recentExer
         || routineExercises.filter((routineExercise) => routineExercise.unilateral).length < MAX_UNILATERAL_EXERCISES),
   );
 
-  for (const pool of pools) {
-    const compatible = compatibleExercises(pool, true);
-    if (compatible.length) return compatible[0];
-  }
-
-  for (const pool of pools) {
-    const compatible = compatibleExercises(pool, false);
-    if (compatible.length) return compatible[0];
-  }
-
-  return null;
+  return [...new Map(pools
+    .flatMap((pool) => [
+      ...compatibleExercises(pool, true),
+      ...compatibleExercises(pool, false),
+    ])
+    .map((exercise) => [exercise.id, exercise])).values()];
 }
 
 function movementPatternsMatch(firstPattern, secondPattern) {
@@ -617,35 +610,22 @@ function universalWarmupsForRoutine(sequenceNumber) {
   return (universalWarmupSets.get((sequenceNumber - 1) % 4) || []).filter((warmup) => !isExcluded(warmup));
 }
 
-function buildRoutine(sequenceNumber, recentExerciseIds = [], targetExerciseCount = 4, targetMuscles = []) {
-  // The first four slots are lifting work. A fifth slot is reserved for
-  // core, bodyweight, or conditioning work.
-  const liftingMuscles = targetMuscles
-    .slice(0, Math.min(4, targetExerciseCount));
-  const exercises = liftingMuscles.reduce((built, muscle, index) => {
-    const supersetStart = index < 2 ? 0 : 2;
-    const supersetExercises = built.slice(supersetStart);
-    const selectedExercise = chooseExercise(muscle, supersetExercises, index, recentExerciseIds, built);
-    if (!selectedExercise) return built;
-    built.push({ ...selectedExercise, muscle, sets: 3, primary: index === 0 });
-    return built;
-  }, []);
-  if (targetExerciseCount === 5) {
-    const finalExercise = chooseFinalExercise(
-      targetMuscles.includes("core") ? "core" : null,
-      exercises.slice(2),
-      recentExerciseIds,
-      exercises,
-    );
-    if (finalExercise) exercises.push({ ...finalExercise, sets: 3, primary: false });
-  }
-  if (exercises.length !== targetExerciseCount) return null;
-  const secondaryWarmup = chooseSecondaryWarmup(exercises);
-  if (secondaryWarmup) {
-    secondaryWarmup.secondaryWarmupSets = [
-      /pull-up|chin-up/i.test(secondaryWarmup.name) ? SECONDARY_PULL_WARMUP_DOSE : SECONDARY_WARMUP_DOSE,
-    ];
-  }
+function finalizeRoutineCandidate(sequenceNumber, sourceExercises) {
+  const baseExercises = sourceExercises.map((exercise, index) => ({
+    ...exercise,
+    sets: 3,
+    primary: index === 0,
+    secondaryWarmupSets: undefined,
+  }));
+  const secondaryWarmup = chooseSecondaryWarmup(baseExercises);
+  const exercises = baseExercises.map((exercise) => exercise.id === secondaryWarmup?.id
+    ? {
+      ...exercise,
+      secondaryWarmupSets: [
+        /pull-up|chin-up/i.test(exercise.name) ? SECONDARY_PULL_WARMUP_DOSE : SECONDARY_WARMUP_DOSE,
+      ],
+    }
+    : exercise);
   const warmupTargets = shuffle(exercises.slice(0, 4)).slice(0, Math.min(3, exercises.length));
   const matchedWarmups = dynamicWarmups ? chooseWarmups(warmupTargets) : [];
   const warmups = dynamicWarmups
@@ -660,42 +640,104 @@ function buildRoutine(sequenceNumber, recentExerciseIds = [], targetExerciseCoun
     const optionalWarmup = chooseWarmups([optionalExercise], warmups.map((warmup) => warmup.id))[0];
     if (optionalWarmup) warmups.push({ ...optionalWarmup, muscle: optionalExercise.muscle, optional: true });
   }
-  const finalSets = exercises.reduce((total, exercise) => total + exercise.sets, 0);
-  const exerciseTimeMultiplier = (exercise) => exercise.unilateral ? 2 : 1;
-  const workingSetSeconds = exercises.reduce((total, exercise) => total
-    + (exercise.sets * exercise.setTime * exerciseTimeMultiplier(exercise)), 0);
-  const exerciseWarmupSeconds = exercises.reduce((total, exercise) => total
-    + (((exercise.primary || (exercise.conditioning && exercise.warmupProtocol === "powerPrep"))
-      ? exerciseWarmupSets(exercise).length
-      : 0)
-      + (exercise.secondaryWarmupSets?.length || 0))
-      * exercise.setTime * exerciseTimeMultiplier(exercise), 0);
-  const secondaryWarmupRecoverySeconds = secondaryWarmup ? SECONDARY_WARMUP_RECOVERY_SECONDS : 0;
-  const primaryWarmupRecoverySeconds = exercises.reduce((total, exercise) => {
-    const hasPreparation = exercise.primary || (exercise.conditioning && exercise.warmupProtocol === "powerPrep");
-    return total + (hasPreparation ? exerciseWarmupSets(exercise).length * SECONDARY_WARMUP_RECOVERY_SECONDS : 0);
-  }, 0);
-  const warmupSeconds = warmups.reduce((total, warmup) => total
-    + ((warmup.setTime || 30) * exerciseTimeMultiplier(warmup)), 0)
-    + exerciseWarmupSeconds
-    + primaryWarmupRecoverySeconds
-    + secondaryWarmupRecoverySeconds;
-  const setupTearDownSeconds = [...exercises, ...warmups]
-    .reduce((total, exercise) => total + (exercise.setupTime || 0), 0);
-  // Three rounds have two between-round rest intervals. The separate
-  // transition allowance covers setup between supersets/routines.
-  const restSeconds = supersetRestPeriods(exercises).reduce((total, rest) => total + (rest * 2), 0);
-  const minutes = Math.ceil((workingSetSeconds + warmupSeconds + setupTearDownSeconds + restSeconds + ROUTINE_TRANSITION_SECONDS) / 60);
+  const restPeriods = supersetRestPeriods(exercises);
+  const liftingSeconds = calculateRoutineSeconds({
+    exercises,
+    warmups,
+    restPeriods,
+    transitionSeconds: ROUTINE_TRANSITION_SECONDS,
+    preparationRecoverySeconds: SECONDARY_WARMUP_RECOVERY_SECONDS,
+  });
   return {
     sequenceNumber,
     exercises,
     warmups,
-    totalSets: finalSets,
-    restPeriods: supersetRestPeriods(exercises),
-    liftingMinutes: Math.round(minutes),
+    totalSets: exercises.reduce((total, exercise) => total + exercise.sets, 0),
+    restPeriods,
+    liftingSeconds,
+    liftingMinutes: calculateRoutineMinutes({
+      exercises,
+      warmups,
+      restPeriods,
+      transitionSeconds: ROUTINE_TRANSITION_SECONDS,
+      preparationRecoverySeconds: SECONDARY_WARMUP_RECOVERY_SECONDS,
+    }),
     cardioMinutes: 0,
-    minutes: Math.round(minutes),
+    minutes: calculateRoutineMinutes({
+      exercises,
+      warmups,
+      restPeriods,
+      transitionSeconds: ROUTINE_TRANSITION_SECONDS,
+      preparationRecoverySeconds: SECONDARY_WARMUP_RECOVERY_SECONDS,
+    }),
   };
+}
+
+function candidatePreference(first, second) {
+  const firstTarget = first.liftingSeconds <= TARGET_LIFTING_SECONDS;
+  const secondTarget = second.liftingSeconds <= TARGET_LIFTING_SECONDS;
+  if (firstTarget !== secondTarget) return firstTarget ? -1 : 1;
+  return first.liftingSeconds - second.liftingSeconds;
+}
+
+function buildRoutine(sequenceNumber, recentExerciseIds = [], targetExerciseCount = 4, targetMuscles = []) {
+  // The first four slots are required lifting work. A fifth slot is optional
+  // and is kept only when the complete routine remains within the time limit.
+  const liftingMuscles = targetMuscles.slice(0, 4);
+  const baseCombinations = [];
+  const collectBaseCombinations = (index, built) => {
+    if (baseCombinations.length >= MAX_ROUTINE_CANDIDATES) return;
+    if (index === liftingMuscles.length) {
+      baseCombinations.push(built);
+      return;
+    }
+    const supersetStart = index < 2 ? 0 : 2;
+    const candidates = exerciseCandidates(
+      liftingMuscles[index],
+      built.slice(supersetStart),
+      index,
+      recentExerciseIds,
+      built,
+    );
+    candidates.forEach((exercise) => {
+      if (baseCombinations.length >= MAX_ROUTINE_CANDIDATES) return;
+      collectBaseCombinations(index + 1, [
+        ...built,
+        { ...exercise, muscle: liftingMuscles[index] },
+      ]);
+    });
+  };
+  collectBaseCombinations(0, []);
+  if (!baseCombinations.length) return null;
+
+  const baseCandidates = baseCombinations
+    .map((exercises) => finalizeRoutineCandidate(sequenceNumber, exercises))
+    .filter((candidate) => candidate.liftingSeconds <= MAX_LIFTING_SECONDS)
+    .sort(candidatePreference);
+  if (!baseCandidates.length) return null;
+  if (targetExerciseCount !== 5) return baseCandidates[0];
+
+  const fiveExerciseCandidates = [];
+  baseCandidates.forEach((baseCandidate) => {
+    const finalCandidates = finalExerciseCandidates(
+      targetMuscles.includes("core") ? "core" : null,
+      baseCandidate.exercises.slice(2),
+      recentExerciseIds,
+      baseCandidate.exercises,
+    );
+    finalCandidates.forEach((exercise) => {
+      if (fiveExerciseCandidates.length >= MAX_ROUTINE_CANDIDATES) return;
+      const candidate = finalizeRoutineCandidate(sequenceNumber, [
+        ...baseCandidate.exercises,
+        { ...exercise, muscle: exercise.primaryMuscle },
+      ]);
+      if (candidate.liftingSeconds <= MAX_LIFTING_SECONDS) fiveExerciseCandidates.push(candidate);
+    });
+  });
+  fiveExerciseCandidates.sort(candidatePreference);
+  // The fifth exercise is a maximum, not a requirement. If it cannot fit,
+  // preserve the valid four-exercise base routine and its twelve sets.
+  return fiveExerciseCandidates[0] || baseCandidates[0];
 }
 
 function buildCoverageMusclePlan(routineExerciseCounts) {

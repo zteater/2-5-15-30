@@ -27,9 +27,11 @@ The project intentionally has no backend, build system, framework, account model
 | `supersets.css` | Routine-card and superset presentation |
 | `hevy-client.js` | In-memory browser client for the documented Hevy API |
 | `hevy-export.js` | Pure Hevy folder and routine payload mapper |
+| `routine-timing.js` | Pure routine duration calculation used during generation |
 | `hevy-mappings.json` | Verified internal-exercise to Hevy-template mappings |
 | `tools/build-hevy-template-map.mjs` | Developer-only mapping review generator |
 | `tests/hevy-export.test.mjs` | Node export-mapper tests |
+| `tests/routine-timing.test.mjs` | Routine duration regression tests |
 | `README.md` | Engineering documentation |
 
 There are no generated assets and no build output directory.

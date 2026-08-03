@@ -1,5 +1,5 @@
 async function startApp() {
-  const loadJson = (file) => fetch(`./${file}?v=20260980`).then((response) => {
+  const loadJson = (file) => fetch(`./${file}?v=20260981`).then((response) => {
     if (!response.ok) throw new Error(`Unable to load workout data (${response.status})`);
     return response.json();
   });
@@ -74,6 +74,16 @@ const planParams = new URLSearchParams(window.location.search);
 const exerciseIds = new Set(exercises.map((exercise) => exercise.id));
 const exerciseCatalogById = new Map(exercises.map((exercise) => [exercise.id, exercise]));
 const exerciseIndexes = new Map(exercises.map((exercise, index) => [exercise.id, index]));
+const equipmentGroupGrids = new Map(
+  [...document.querySelectorAll("[data-equipment-group]")].map((section) => [
+    section.dataset.equipmentGroup,
+    section.querySelector(".equipment-grid"),
+  ]),
+);
+equipmentButtons.forEach((button) => {
+  const equipment = equipmentCatalog.find((item) => item.key === button.dataset.equipment);
+  equipmentGroupGrids.get(equipment?.group)?.append(button);
+});
 
 function decodeBase36BigInt(value) {
   let result = 0n;
@@ -101,6 +111,14 @@ const excludedExerciseIds = new Set(decodeExcludedExercises(planParams.get("excl
 const isExcluded = (exercise) => excludedExerciseIds.has(exercise.id);
 const strengthExercises = exercises.filter((exercise) => exercise.type === "strength");
 const cardioExercises = exercises.filter((exercise) => exercise.type === "cardio");
+
+function availableCardioAfterExclusion(exerciseId) {
+  return cardioExercises.filter((exercise) =>
+    exercise.id !== exerciseId &&
+    !isExcluded(exercise) &&
+    exercise.equipment.some((item) => selectedEquipment.has(item)),
+  );
+}
 const universalWarmupSets = new Map();
 exercises.filter((exercise) => exercise.type === "warmup" && exercise.isUniversal)
   .forEach((exercise) => {
@@ -798,6 +816,15 @@ function buildBlueprintQueue() {
 let lastPlanSignature = null;
 let currentRoutines = [];
 
+function regenerateFromConfig() {
+  const card = configModal.querySelector(".info-modal-card");
+  const previousScrollTop = card?.scrollTop || 0;
+  generatePlan();
+  requestAnimationFrame(() => {
+    if (configModal.open && card) card.scrollTop = previousScrollTop;
+  });
+}
+
 function generatePlan({ newSeed = false } = {}) {
   const unsupportedMuscles = unsupportedCoverageMuscles();
   if (unsupportedMuscles.length) {
@@ -820,10 +847,10 @@ function generatePlan({ newSeed = false } = {}) {
     );
     const cardioName = () => shuffle(availableCardio)[0] || null;
     const blueprintQueue = buildBlueprintQueue();
-    const hasCardio = cardioEnabled();
-    const fourExerciseOffset = hasCardio ? (seededRandom() < 0.5 ? 0 : 1) : null;
+    const hasUsableCardio = availableCardio.length > 0;
+    const fourExerciseOffset = hasUsableCardio ? (seededRandom() < 0.5 ? 0 : 1) : null;
     const targetExerciseCounts = Array.from({ length: sessionCount }, (_, index) => (
-      hasCardio && index % 2 === fourExerciseOffset ? 4 : 5
+      hasUsableCardio && index % 2 === fourExerciseOffset ? 4 : 5
     ));
     const coverageMusclePlan = buildCoverageMusclePlan(targetExerciseCounts);
     let previousExerciseIds = [];
@@ -838,7 +865,7 @@ function generatePlan({ newSeed = false } = {}) {
         coverageMusclePlan[index],
       );
       if (!routine) return null;
-      routine.cardio = hasCardio && targetExerciseCount === 4
+      routine.cardio = hasUsableCardio && targetExerciseCount === 4
         ? cardioName()
         : null;
       routine.cardioMinutes = routine.cardio ? cardioDurationMinutes(routine.cardio) : 0;
@@ -914,6 +941,16 @@ function setExerciseExclusion(id, shouldExclude) {
   if (!id) return;
   if (shouldExclude) {
     if (excludedExerciseIds.has(id)) return;
+    const exercise = exerciseCatalogById.get(id);
+    if (
+      exercise?.type === "cardio" &&
+      cardioEnabled() &&
+      availableCardioAfterExclusion(id).length === 0
+    ) {
+      exerciseDetailExclude.checked = false;
+      showPlanToast("This is the only remaining cardio workout for your selected equipment.");
+      return;
+    }
     excludedExerciseIds.add(id);
     if (!generatePlan()) {
       excludedExerciseIds.delete(id);
@@ -1158,7 +1195,7 @@ function updateEquipmentState(button) {
 equipmentButtons.forEach((button) => button.addEventListener("click", () => {
   if (updateEquipmentState(button)) {
     updatePlanUrl();
-    generatePlan();
+    regenerateFromConfig();
   }
 }));
 document.querySelector("#regenerate-button").addEventListener("click", () => generatePlan({ newSeed: true }));
@@ -1285,28 +1322,39 @@ sessionSlider.addEventListener("input", () => {
   sessionCount = parseSessionCount(sessionSlider.value);
   updateSessionControls();
   updatePlanUrl();
-  generatePlan();
+  regenerateFromConfig();
 });
 dynamicWarmupToggle.addEventListener("change", () => {
   dynamicWarmups = dynamicWarmupToggle.checked;
   updatePlanUrl();
-  generatePlan();
+  regenerateFromConfig();
 });
 dynamicRestToggle.addEventListener("change", () => {
   dynamicRest = dynamicRestToggle.checked;
   updatePlanUrl();
-  generatePlan();
+  regenerateFromConfig();
 });
 
 function generateInitialPlan() {
   const requestedExclusions = [...excludedExerciseIds].sort();
+  const compatibleCardio = cardioExercises.filter((exercise) =>
+    exercise.equipment.some((item) => selectedEquipment.has(item)),
+  );
+  let restoredCardioExclusion = false;
+  if (cardioEnabled() && compatibleCardio.length && !compatibleCardio.some((exercise) => !isExcluded(exercise))) {
+    const cardioExclusion = requestedExclusions.findLast((id) => compatibleCardio.some((exercise) => exercise.id === id));
+    if (cardioExclusion) {
+      excludedExerciseIds.delete(cardioExclusion);
+      restoredCardioExclusion = true;
+    }
+  }
   let generated = generatePlan();
   while (!generated && requestedExclusions.length) {
     excludedExerciseIds.delete(requestedExclusions.pop());
     generated = generatePlan();
   }
   updatePlanUrl();
-  if (requestedExclusions.length < [...decodeExcludedExercises(planParams.get("exclude"))].length) {
+  if (restoredCardioExclusion || requestedExclusions.length < [...decodeExcludedExercises(planParams.get("exclude"))].length) {
     showPlanToast("Some exclusions were restored so the plan could be completed.");
   }
 }

@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=20260963" />
+    <link rel="stylesheet" href="styles.css?v=20260964" />
     <link rel="stylesheet" href="supersets.css?v=20260814" />
   </head>
   <body>
@@ -61,7 +61,7 @@
               <button class="modal-close" id="config-close" type="button" aria-label="Close">×</button>
             </div>
         <div class="equipment-picker">
-          <section class="equipment-group">
+          <section class="equipment-group" data-equipment-group="primary">
             <h3>Primary <span class="equipment-group-note">Required</span></h3>
             <div class="equipment-grid" role="group" aria-label="Primary equipment">
           <button class="equipment-card is-selected" type="button" data-equipment="dumbbells" aria-pressed="true">
@@ -96,7 +96,7 @@
           </button>
             </div>
           </section>
-          <section class="equipment-group">
+          <section class="equipment-group" data-equipment-group="secondary">
             <h3>Secondary <span class="equipment-group-note">Optional</span></h3>
             <div class="equipment-grid" role="group" aria-label="Secondary lifting equipment">
           <button class="equipment-card is-selected" type="button" data-equipment="bench" aria-pressed="true">
@@ -149,7 +149,7 @@
           </button>
             </div>
           </section>
-          <section class="equipment-group">
+          <section class="equipment-group" data-equipment-group="conditioning">
             <h3>Conditioning <span class="equipment-group-note">Optional</span></h3>
             <div class="equipment-grid" role="group" aria-label="Conditioning equipment">
           <button class="equipment-card" type="button" data-equipment="slamball" aria-pressed="false">
@@ -178,7 +178,7 @@
           </button>
             </div>
           </section>
-          <section class="equipment-group">
+          <section class="equipment-group" data-equipment-group="cardio">
             <h3>Cardio <span class="equipment-group-note">Optional</span></h3>
             <div class="equipment-grid" role="group" aria-label="Cardio equipment">
           <button class="equipment-card" type="button" data-equipment="treadmill" aria-pressed="false">
@@ -351,6 +351,6 @@
       </div>
     </dialog>
 
-    <script src="app.js?v=20260980"></script>
+    <script src="app.js?v=20260981"></script>
   </body>
 </html>

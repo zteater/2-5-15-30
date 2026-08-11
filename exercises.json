@@ -17,7 +17,6 @@
       "primaryEligible": true,
       "movementPattern": "horizontal-push",
       "secondaryWarmupEligible": true,
-      "setupResources": [],
       "instructions": [
         "Set the bench or floor position and plant both feet firmly.",
         "Brace the torso and keep the wrists stacked over the elbows.",
@@ -28,14 +27,14 @@
       "formCues": [
         "Keep the shoulder blades stable.",
         "Keep the wrists stacked over the elbows."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Barbell floor press",
       "equipment": [
         "bar"
       ],
-      "setup": "barbell-floor",
       "sets": 3,
       "repRange": "6–10",
       "primaryMuscle": "chest",
@@ -51,10 +50,6 @@
       "primaryEligible": true,
       "movementPattern": "horizontal-push",
       "secondaryWarmupEligible": true,
-      "setupResources": [
-        "olympic-bar",
-        "rack"
-      ],
       "instructions": [
         "Set the bench or floor position and plant both feet firmly.",
         "Brace the torso and keep the wrists stacked over the elbows.",
@@ -65,6 +60,10 @@
       "formCues": [
         "Keep the shoulder blades stable.",
         "Keep the wrists stacked over the elbows."
+      ],
+      "supersetConflicts": [
+        "loaded-olympic-bar",
+        "rack"
       ]
     },
     {
@@ -87,9 +86,6 @@
       "primaryEligible": true,
       "movementPattern": "horizontal-push",
       "secondaryWarmupEligible": true,
-      "setupResources": [
-        "bench-flat"
-      ],
       "instructions": [
         "Set the bench to a flat position and plant both feet firmly.",
         "Start with the dumbbells above the chest, palms facing each other, and a soft bend in the elbows.",
@@ -100,6 +96,9 @@
       "formCues": [
         "Keep the shoulder blades set against the bench.",
         "Keep a soft, consistent bend in the elbows."
+      ],
+      "supersetConflicts": [
+        "bench-flat"
       ]
     },
     {
@@ -110,7 +109,6 @@
       "requires": [
         "bench"
       ],
-      "setup": "dumbbell-incline",
       "sets": 3,
       "repRange": "6–10",
       "primaryMuscle": "chest",
@@ -123,9 +121,6 @@
       "primaryEligible": true,
       "movementPattern": "horizontal-push",
       "secondaryWarmupEligible": true,
-      "setupResources": [
-        "bench-incline"
-      ],
       "instructions": [
         "Set the bench or floor position and plant both feet firmly.",
         "Brace the torso and keep the wrists stacked over the elbows.",
@@ -136,6 +131,9 @@
       "formCues": [
         "Keep the shoulder blades stable.",
         "Keep the wrists stacked over the elbows."
+      ],
+      "supersetConflicts": [
+        "bench-incline"
       ]
     },
     {
@@ -158,9 +156,6 @@
       "primaryEligible": false,
       "movementPattern": "horizontal-push",
       "secondaryWarmupEligible": true,
-      "setupResources": [
-        "bench-flat"
-      ],
       "instructions": [
         "Set the bench or floor position and plant both feet firmly.",
         "Brace the torso and keep the wrists stacked over the elbows.",
@@ -171,6 +166,9 @@
       "formCues": [
         "Keep the shoulder blades stable.",
         "Keep the wrists stacked over the elbows."
+      ],
+      "supersetConflicts": [
+        "bench-flat"
       ]
     },
     {
@@ -182,7 +180,6 @@
         "bench",
         "rack"
       ],
-      "setup": "barbell-bench",
       "sets": 3,
       "repRange": "6–10",
       "primaryMuscle": "chest",
@@ -195,11 +192,6 @@
       "primaryEligible": true,
       "movementPattern": "horizontal-push",
       "secondaryWarmupEligible": true,
-      "setupResources": [
-        "olympic-bar",
-        "bench-flat",
-        "rack"
-      ],
       "instructions": [
         "Set the bench or floor position and plant both feet firmly.",
         "Brace the torso and keep the wrists stacked over the elbows.",
@@ -210,6 +202,11 @@
       "formCues": [
         "Keep the shoulder blades stable.",
         "Keep the wrists stacked over the elbows."
+      ],
+      "supersetConflicts": [
+        "loaded-olympic-bar",
+        "bench-flat",
+        "rack"
       ]
     },
     {
@@ -221,7 +218,6 @@
         "bench",
         "rack"
       ],
-      "setup": "barbell-incline",
       "sets": 3,
       "repRange": "6–10",
       "primaryMuscle": "chest",
@@ -234,11 +230,6 @@
       "primaryEligible": true,
       "movementPattern": "horizontal-push",
       "secondaryWarmupEligible": true,
-      "setupResources": [
-        "olympic-bar",
-        "bench-incline",
-        "rack"
-      ],
       "instructions": [
         "Set the bench or floor position and plant both feet firmly.",
         "Brace the torso and keep the wrists stacked over the elbows.",
@@ -249,6 +240,11 @@
       "formCues": [
         "Keep the shoulder blades stable.",
         "Keep the wrists stacked over the elbows."
+      ],
+      "supersetConflicts": [
+        "loaded-olympic-bar",
+        "bench-incline",
+        "rack"
       ]
     },
     {
@@ -269,7 +265,6 @@
       "primaryEligible": false,
       "movementPattern": "conditioning",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the space and equipment securely before starting.",
         "Brace and establish a controlled starting position.",
@@ -281,7 +276,8 @@
         "Prioritize clean speed over fatigue.",
         "Stop when technique or power declines."
       ],
-      "repNotes": "Perform each repetition explosively while maintaining control. Stop the set when speed or technique noticeably declines."
+      "repNotes": "Perform each repetition explosively while maintaining control. Stop the set when speed or technique noticeably declines.",
+      "supersetConflicts": []
     },
     {
       "name": "Kettlebell floor press",
@@ -300,7 +296,6 @@
       "primaryEligible": true,
       "movementPattern": "horizontal-push",
       "secondaryWarmupEligible": true,
-      "setupResources": [],
       "instructions": [
         "Set the bench or floor position and plant both feet firmly.",
         "Brace the torso and keep the wrists stacked over the elbows.",
@@ -311,7 +306,8 @@
       "formCues": [
         "Keep the shoulder blades stable.",
         "Keep the wrists stacked over the elbows."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Tube band chest press",
@@ -333,9 +329,6 @@
       "primaryEligible": false,
       "movementPattern": "horizontal-push",
       "secondaryWarmupEligible": false,
-      "setupResources": [
-        "band-anchor"
-      ],
       "instructions": [
         "Set the bench or floor position and plant both feet firmly.",
         "Brace the torso and keep the wrists stacked over the elbows.",
@@ -346,6 +339,9 @@
       "formCues": [
         "Keep the shoulder blades stable.",
         "Keep the wrists stacked over the elbows."
+      ],
+      "supersetConflicts": [
+        "band-anchor"
       ]
     },
     {
@@ -365,7 +361,6 @@
       "primaryEligible": false,
       "movementPattern": "horizontal-push",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the bench or floor position and plant both feet firmly.",
         "Brace the torso and keep the wrists stacked over the elbows.",
@@ -376,7 +371,8 @@
       "formCues": [
         "Keep the shoulder blades stable.",
         "Keep the wrists stacked over the elbows."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Bodyweight incline push-up",
@@ -398,9 +394,6 @@
       "primaryEligible": false,
       "movementPattern": "horizontal-push",
       "secondaryWarmupEligible": false,
-      "setupResources": [
-        "bench-flat"
-      ],
       "instructions": [
         "Set the bench or floor position and plant both feet firmly.",
         "Brace the torso and keep the wrists stacked over the elbows.",
@@ -411,6 +404,9 @@
       "formCues": [
         "Keep the shoulder blades stable.",
         "Keep the wrists stacked over the elbows."
+      ],
+      "supersetConflicts": [
+        "bench-flat"
       ]
     },
     {
@@ -430,7 +426,6 @@
       "primaryEligible": true,
       "movementPattern": "horizontal-pull",
       "secondaryWarmupEligible": true,
-      "setupResources": [],
       "instructions": [
         "Set the torso and support the spine in a neutral position.",
         "Let the arms reach without rounding the upper back.",
@@ -441,7 +436,8 @@
       "formCues": [
         "Keep the spine neutral.",
         "Pull with the elbows rather than the hands."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Dumbbell one-arm bench-supported row",
@@ -465,9 +461,6 @@
       "primaryEligible": true,
       "movementPattern": "horizontal-pull",
       "secondaryWarmupEligible": true,
-      "setupResources": [
-        "bench-flat"
-      ],
       "instructions": [
         "Set the torso and support the spine in a neutral position.",
         "Let the arms reach without rounding the upper back.",
@@ -478,6 +471,9 @@
       "formCues": [
         "Keep the spine neutral.",
         "Pull with the elbows rather than the hands."
+      ],
+      "supersetConflicts": [
+        "bench-flat"
       ]
     },
     {
@@ -488,7 +484,6 @@
       "requires": [
         "bench"
       ],
-      "setup": "dumbbell-incline",
       "sets": 3,
       "repRange": "10–15",
       "primaryMuscle": "back",
@@ -501,9 +496,6 @@
       "primaryEligible": true,
       "movementPattern": "horizontal-pull",
       "secondaryWarmupEligible": true,
-      "setupResources": [
-        "bench-incline"
-      ],
       "instructions": [
         "Set the torso and support the spine in a neutral position.",
         "Let the arms reach without rounding the upper back.",
@@ -514,6 +506,9 @@
       "formCues": [
         "Keep the spine neutral.",
         "Pull with the elbows rather than the hands."
+      ],
+      "supersetConflicts": [
+        "bench-incline"
       ]
     },
     {
@@ -535,7 +530,6 @@
       "primaryEligible": true,
       "movementPattern": "horizontal-pull",
       "secondaryWarmupEligible": true,
-      "setupResources": [],
       "instructions": [
         "Set the torso and support the spine in a neutral position.",
         "Let the arms reach without rounding the upper back.",
@@ -546,7 +540,8 @@
       "formCues": [
         "Keep the spine neutral.",
         "Pull with the elbows rather than the hands."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Seated tube-band row around the feet",
@@ -565,7 +560,6 @@
       "primaryEligible": false,
       "movementPattern": "horizontal-pull",
       "secondaryWarmupEligible": true,
-      "setupResources": [],
       "instructions": [
         "Set the torso and support the spine in a neutral position.",
         "Let the arms reach without rounding the upper back.",
@@ -576,7 +570,8 @@
       "formCues": [
         "Keep the spine neutral.",
         "Pull with the elbows rather than the hands."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Pull-up bar pull-up",
@@ -595,7 +590,6 @@
       "primaryEligible": false,
       "movementPattern": "vertical-pull",
       "secondaryWarmupEligible": true,
-      "setupResources": [],
       "instructions": [
         "Set the grip and brace the torso before starting the pull.",
         "Begin by drawing the shoulders down away from the ears.",
@@ -606,14 +600,14 @@
       "formCues": [
         "Avoid swinging.",
         "Keep the shoulders away from the ears."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Barbell bent-over row",
       "equipment": [
         "bar"
       ],
-      "setup": "barbell-floor",
       "sets": 3,
       "repRange": "6–10",
       "primaryMuscle": "back",
@@ -626,9 +620,6 @@
       "primaryEligible": true,
       "movementPattern": "horizontal-pull",
       "secondaryWarmupEligible": true,
-      "setupResources": [
-        "olympic-bar"
-      ],
       "instructions": [
         "Set the torso and support the spine in a neutral position.",
         "Let the arms reach without rounding the upper back.",
@@ -639,6 +630,9 @@
       "formCues": [
         "Keep the spine neutral.",
         "Pull with the elbows rather than the hands."
+      ],
+      "supersetConflicts": [
+        "loaded-olympic-bar"
       ]
     },
     {
@@ -646,7 +640,6 @@
       "equipment": [
         "ezbar"
       ],
-      "setup": "ezbar-floor",
       "sets": 3,
       "repRange": "6–10",
       "primaryMuscle": "back",
@@ -659,9 +652,6 @@
       "primaryEligible": true,
       "movementPattern": "horizontal-pull",
       "secondaryWarmupEligible": true,
-      "setupResources": [
-        "ez-bar"
-      ],
       "instructions": [
         "Set the torso and support the spine in a neutral position.",
         "Let the arms reach without rounding the upper back.",
@@ -672,6 +662,9 @@
       "formCues": [
         "Keep the spine neutral.",
         "Pull with the elbows rather than the hands."
+      ],
+      "supersetConflicts": [
+        "loaded-ez-bar"
       ]
     },
     {
@@ -683,7 +676,6 @@
       "requires": [
         "bar"
       ],
-      "setup": "landmine-floor",
       "sets": 3,
       "repRange": "10–15",
       "primaryMuscle": "back",
@@ -698,10 +690,6 @@
       "repUnit": "per side",
       "movementPattern": "horizontal-pull",
       "secondaryWarmupEligible": true,
-      "setupResources": [
-        "olympic-bar",
-        "landmine"
-      ],
       "instructions": [
         "Set the torso and support the spine in a neutral position.",
         "Let the arms reach without rounding the upper back.",
@@ -712,6 +700,10 @@
       "formCues": [
         "Keep the spine neutral.",
         "Pull with the elbows rather than the hands."
+      ],
+      "supersetConflicts": [
+        "loaded-olympic-bar",
+        "landmine"
       ]
     },
     {
@@ -776,7 +768,6 @@
       "primaryEligible": true,
       "movementPattern": "squat",
       "secondaryWarmupEligible": true,
-      "setupResources": [],
       "instructions": [
         "Set the feet comfortably and brace before descending.",
         "Keep the chest tall and let the knees track with the toes.",
@@ -787,7 +778,8 @@
       "formCues": [
         "Keep the knees tracking with the toes.",
         "Use a controlled depth."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Box jump",
@@ -808,7 +800,6 @@
       "primaryEligible": false,
       "movementPattern": "conditioning",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the space and equipment securely before starting.",
         "Brace and establish a controlled starting position.",
@@ -820,7 +811,8 @@
         "Prioritize clean speed over fatigue.",
         "Stop when technique or power declines."
       ],
-      "repNotes": "Perform each repetition explosively while maintaining control. Stop the set when speed or technique noticeably declines."
+      "repNotes": "Perform each repetition explosively while maintaining control. Stop the set when speed or technique noticeably declines.",
+      "supersetConflicts": []
     },
     {
       "name": "Dumbbell Bulgarian split squat",
@@ -844,9 +836,6 @@
       "primaryEligible": true,
       "movementPattern": "squat",
       "secondaryWarmupEligible": true,
-      "setupResources": [
-        "bench-flat"
-      ],
       "instructions": [
         "Set the feet comfortably and brace before descending.",
         "Keep the chest tall and let the knees track with the toes.",
@@ -857,6 +846,9 @@
       "formCues": [
         "Keep the knees tracking with the toes.",
         "Use a controlled depth."
+      ],
+      "supersetConflicts": [
+        "bench-flat"
       ]
     },
     {
@@ -876,7 +868,6 @@
       "primaryEligible": true,
       "movementPattern": "squat",
       "secondaryWarmupEligible": true,
-      "setupResources": [],
       "instructions": [
         "Set the feet comfortably and brace before descending.",
         "Keep the chest tall and let the knees track with the toes.",
@@ -887,7 +878,8 @@
       "formCues": [
         "Keep the knees tracking with the toes.",
         "Use a controlled depth."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Barbell back squat",
@@ -897,7 +889,6 @@
       "requires": [
         "rack"
       ],
-      "setup": "barbell-rack",
       "sets": 3,
       "repRange": "6–10",
       "primaryMuscle": "quads",
@@ -910,10 +901,6 @@
       "primaryEligible": true,
       "movementPattern": "squat",
       "secondaryWarmupEligible": true,
-      "setupResources": [
-        "olympic-bar",
-        "rack"
-      ],
       "instructions": [
         "Set the feet comfortably and brace before descending.",
         "Keep the chest tall and let the knees track with the toes.",
@@ -924,6 +911,10 @@
       "formCues": [
         "Keep the knees tracking with the toes.",
         "Use a controlled depth."
+      ],
+      "supersetConflicts": [
+        "loaded-olympic-bar",
+        "rack"
       ]
     },
     {
@@ -935,7 +926,6 @@
       "requires": [
         "bar"
       ],
-      "setup": "landmine-standing",
       "sets": 3,
       "repRange": "6–10",
       "primaryMuscle": "quads",
@@ -948,10 +938,6 @@
       "primaryEligible": true,
       "movementPattern": "squat",
       "secondaryWarmupEligible": true,
-      "setupResources": [
-        "olympic-bar",
-        "landmine"
-      ],
       "instructions": [
         "Set the feet comfortably and brace before descending.",
         "Keep the chest tall and let the knees track with the toes.",
@@ -962,6 +948,10 @@
       "formCues": [
         "Keep the knees tracking with the toes.",
         "Use a controlled depth."
+      ],
+      "supersetConflicts": [
+        "loaded-olympic-bar",
+        "landmine"
       ]
     },
     {
@@ -981,7 +971,6 @@
       "primaryEligible": false,
       "movementPattern": "squat",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the feet comfortably and brace before descending.",
         "Keep the chest tall and let the knees track with the toes.",
@@ -992,7 +981,8 @@
       "formCues": [
         "Keep the knees tracking with the toes.",
         "Use a controlled depth."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Tube band squat",
@@ -1011,7 +1001,6 @@
       "primaryEligible": false,
       "movementPattern": "squat",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the feet comfortably and brace before descending.",
         "Keep the chest tall and let the knees track with the toes.",
@@ -1022,7 +1011,8 @@
       "formCues": [
         "Keep the knees tracking with the toes.",
         "Use a controlled depth."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Tempo bodyweight squat",
@@ -1041,7 +1031,6 @@
       "primaryEligible": false,
       "movementPattern": "squat",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the feet comfortably and brace before descending.",
         "Keep the chest tall and let the knees track with the toes.",
@@ -1052,7 +1041,8 @@
       "formCues": [
         "Keep the knees tracking with the toes.",
         "Use a controlled depth."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Plyo box step-up",
@@ -1075,7 +1065,6 @@
       "primaryEligible": true,
       "movementPattern": "squat",
       "secondaryWarmupEligible": true,
-      "setupResources": [],
       "instructions": [
         "Set the feet comfortably and brace before descending.",
         "Keep the chest tall and let the knees track with the toes.",
@@ -1086,7 +1075,8 @@
       "formCues": [
         "Keep the knees tracking with the toes.",
         "Use a controlled depth."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Dumbbell Romanian deadlift",
@@ -1105,7 +1095,6 @@
       "primaryEligible": true,
       "movementPattern": "hinge",
       "secondaryWarmupEligible": true,
-      "setupResources": [],
       "instructions": [
         "Set the feet and brace the torso before moving.",
         "Push the hips back while keeping the spine neutral.",
@@ -1116,7 +1105,8 @@
       "formCues": [
         "Keep the spine neutral.",
         "Finish with the hips, not an exaggerated back lean."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Dumbbell single-leg RDL",
@@ -1137,7 +1127,6 @@
       "primaryEligible": true,
       "movementPattern": "hinge",
       "secondaryWarmupEligible": true,
-      "setupResources": [],
       "instructions": [
         "Set the feet and brace the torso before moving.",
         "Push the hips back while keeping the spine neutral.",
@@ -1148,7 +1137,8 @@
       "formCues": [
         "Keep the spine neutral.",
         "Finish with the hips, not an exaggerated back lean."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Kettlebell deadlift",
@@ -1167,7 +1157,6 @@
       "primaryEligible": true,
       "movementPattern": "hinge",
       "secondaryWarmupEligible": true,
-      "setupResources": [],
       "instructions": [
         "Set the feet and brace the torso before moving.",
         "Push the hips back while keeping the spine neutral.",
@@ -1178,14 +1167,14 @@
       "formCues": [
         "Keep the spine neutral.",
         "Finish with the hips, not an exaggerated back lean."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Barbell Romanian deadlift",
       "equipment": [
         "bar"
       ],
-      "setup": "barbell-floor",
       "sets": 3,
       "repRange": "6–10",
       "primaryMuscle": "hamstrings",
@@ -1198,9 +1187,6 @@
       "primaryEligible": true,
       "movementPattern": "hinge",
       "secondaryWarmupEligible": true,
-      "setupResources": [
-        "olympic-bar"
-      ],
       "instructions": [
         "Set the feet and brace the torso before moving.",
         "Push the hips back while keeping the spine neutral.",
@@ -1211,6 +1197,9 @@
       "formCues": [
         "Keep the spine neutral.",
         "Finish with the hips, not an exaggerated back lean."
+      ],
+      "supersetConflicts": [
+        "loaded-olympic-bar"
       ]
     },
     {
@@ -1218,7 +1207,6 @@
       "equipment": [
         "trapbar"
       ],
-      "setup": "trapbar-floor",
       "sets": 3,
       "repRange": "6–10",
       "primaryMuscle": "quads",
@@ -1235,9 +1223,6 @@
       ],
       "movementPattern": "squat",
       "secondaryWarmupEligible": true,
-      "setupResources": [
-        "trap-bar"
-      ],
       "instructions": [
         "Set the feet comfortably and brace before descending.",
         "Keep the chest tall and let the knees track with the toes.",
@@ -1248,6 +1233,9 @@
       "formCues": [
         "Keep the knees tracking with the toes.",
         "Use a controlled depth."
+      ],
+      "supersetConflicts": [
+        "loaded-trap-bar"
       ]
     },
     {
@@ -1259,7 +1247,6 @@
       "requires": [
         "bar"
       ],
-      "setup": "landmine-floor",
       "sets": 3,
       "repRange": "10–15",
       "primaryMuscle": "hamstrings",
@@ -1272,10 +1259,6 @@
       "primaryEligible": true,
       "movementPattern": "hinge",
       "secondaryWarmupEligible": true,
-      "setupResources": [
-        "olympic-bar",
-        "landmine"
-      ],
       "instructions": [
         "Set the feet and brace the torso before moving.",
         "Push the hips back while keeping the spine neutral.",
@@ -1286,6 +1269,10 @@
       "formCues": [
         "Keep the spine neutral.",
         "Finish with the hips, not an exaggerated back lean."
+      ],
+      "supersetConflicts": [
+        "loaded-olympic-bar",
+        "landmine"
       ]
     },
     {
@@ -1305,7 +1292,6 @@
       "primaryEligible": false,
       "movementPattern": "hinge",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the feet and brace the torso before moving.",
         "Push the hips back while keeping the spine neutral.",
@@ -1316,7 +1302,8 @@
       "formCues": [
         "Keep the spine neutral.",
         "Finish with the hips, not an exaggerated back lean."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Bodyweight hamstring walkout",
@@ -1335,7 +1322,6 @@
       "primaryEligible": false,
       "movementPattern": "hinge",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the feet and brace the torso before moving.",
         "Push the hips back while keeping the spine neutral.",
@@ -1346,7 +1332,8 @@
       "formCues": [
         "Keep the spine neutral.",
         "Finish with the hips, not an exaggerated back lean."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Bodyweight dead bug",
@@ -1366,7 +1353,6 @@
       "primaryEligible": false,
       "movementPattern": "core",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the ribs and pelvis in a controlled neutral position.",
         "Brace the trunk before beginning the movement.",
@@ -1377,14 +1363,14 @@
       "formCues": [
         "Keep the ribs and pelvis controlled.",
         "Stop before the lower back loses position."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Barbell rollout",
       "equipment": [
         "bar"
       ],
-      "setup": "barbell-floor",
       "sets": 3,
       "repRange": "6–10",
       "primaryMuscle": "core",
@@ -1397,9 +1383,6 @@
       "primaryEligible": false,
       "movementPattern": "core",
       "secondaryWarmupEligible": false,
-      "setupResources": [
-        "olympic-bar"
-      ],
       "instructions": [
         "Set the ribs and pelvis in a controlled neutral position.",
         "Brace the trunk before beginning the movement.",
@@ -1410,6 +1393,9 @@
       "formCues": [
         "Keep the ribs and pelvis controlled.",
         "Stop before the lower back loses position."
+      ],
+      "supersetConflicts": [
+        "loaded-olympic-bar"
       ]
     },
     {
@@ -1418,7 +1404,6 @@
         "trapbar"
       ],
       "conditioning": true,
-      "setup": "trapbar-standing",
       "sets": 3,
       "primaryMuscle": "core",
       "restPeriod": 60,
@@ -1431,9 +1416,6 @@
       "primaryEligible": false,
       "movementPattern": "conditioning",
       "secondaryWarmupEligible": false,
-      "setupResources": [
-        "trap-bar"
-      ],
       "instructions": [
         "Set the space and equipment securely before starting.",
         "Brace and establish a controlled starting position.",
@@ -1445,7 +1427,10 @@
         "Prioritize clean speed over fatigue.",
         "Stop when technique or power declines."
       ],
-      "repNotes": "Perform each repetition explosively while maintaining control. Stop the set when speed or technique noticeably declines."
+      "repNotes": "Perform each repetition explosively while maintaining control. Stop the set when speed or technique noticeably declines.",
+      "supersetConflicts": [
+        "loaded-trap-bar"
+      ]
     },
     {
       "name": "Bodyweight plank shoulder tap",
@@ -1466,7 +1451,6 @@
       "primaryEligible": false,
       "movementPattern": "core",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the ribs and pelvis in a controlled neutral position.",
         "Brace the trunk before beginning the movement.",
@@ -1477,7 +1461,8 @@
       "formCues": [
         "Keep the ribs and pelvis controlled.",
         "Stop before the lower back loses position."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Dumbbell suitcase march",
@@ -1498,7 +1483,6 @@
       "primaryEligible": false,
       "movementPattern": "carry",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the load evenly and stand tall before moving.",
         "Brace the trunk and keep the shoulders level.",
@@ -1509,7 +1493,8 @@
       "formCues": [
         "Keep the shoulders level.",
         "Walk or hold with steady breathing."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Kettlebell suitcase march",
@@ -1530,7 +1515,6 @@
       "primaryEligible": false,
       "movementPattern": "carry",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the load evenly and stand tall before moving.",
         "Brace the trunk and keep the shoulders level.",
@@ -1541,7 +1525,8 @@
       "formCues": [
         "Keep the shoulders level.",
         "Walk or hold with steady breathing."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Tube band Pallof press",
@@ -1565,9 +1550,6 @@
       "primaryEligible": false,
       "movementPattern": "core",
       "secondaryWarmupEligible": false,
-      "setupResources": [
-        "band-anchor"
-      ],
       "instructions": [
         "Set the ribs and pelvis in a controlled neutral position.",
         "Brace the trunk before beginning the movement.",
@@ -1578,6 +1560,9 @@
       "formCues": [
         "Keep the ribs and pelvis controlled.",
         "Stop before the lower back loses position."
+      ],
+      "supersetConflicts": [
+        "band-anchor"
       ]
     },
     {
@@ -1597,7 +1582,6 @@
       "primaryEligible": false,
       "movementPattern": "core",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the ribs and pelvis in a controlled neutral position.",
         "Brace the trunk before beginning the movement.",
@@ -1608,7 +1592,8 @@
       "formCues": [
         "Keep the ribs and pelvis controlled.",
         "Stop before the lower back loses position."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Bodyweight bench knee tuck",
@@ -1628,7 +1613,6 @@
       "primaryEligible": false,
       "movementPattern": "core",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the ribs and pelvis in a controlled neutral position.",
         "Brace the trunk before beginning the movement.",
@@ -1639,7 +1623,8 @@
       "formCues": [
         "Keep the ribs and pelvis controlled.",
         "Stop before the lower back loses position."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Landmine rotation",
@@ -1650,7 +1635,6 @@
       "requires": [
         "bar"
       ],
-      "setup": "landmine-standing",
       "sets": 3,
       "repRange": "10–15",
       "primaryMuscle": "core",
@@ -1665,10 +1649,6 @@
       "primaryEligible": false,
       "movementPattern": "core",
       "secondaryWarmupEligible": false,
-      "setupResources": [
-        "olympic-bar",
-        "landmine"
-      ],
       "instructions": [
         "Set the ribs and pelvis in a controlled neutral position.",
         "Brace the trunk before beginning the movement.",
@@ -1679,6 +1659,10 @@
       "formCues": [
         "Keep the ribs and pelvis controlled.",
         "Stop before the lower back loses position."
+      ],
+      "supersetConflicts": [
+        "loaded-olympic-bar",
+        "landmine"
       ]
     },
     {
@@ -1699,7 +1683,6 @@
       "primaryEligible": false,
       "movementPattern": "core",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the ribs and pelvis in a controlled neutral position.",
         "Brace the trunk before beginning the movement.",
@@ -1710,7 +1693,8 @@
       "formCues": [
         "Keep the ribs and pelvis controlled.",
         "Stop before the lower back loses position."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Dumbbell shoulder press",
@@ -1729,7 +1713,6 @@
       "primaryEligible": true,
       "movementPattern": "vertical-push",
       "secondaryWarmupEligible": true,
-      "setupResources": [],
       "instructions": [
         "Set a stable stance with the weight at shoulder level.",
         "Brace the ribs and keep the wrists stacked over the elbows.",
@@ -1740,7 +1723,8 @@
       "formCues": [
         "Keep the ribs down.",
         "Avoid shrugging into the neck."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Dumbbell Arnold press",
@@ -1759,7 +1743,6 @@
       "primaryEligible": false,
       "movementPattern": "isolation",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the body in a stable position and keep the target area relaxed between reps.",
         "Move the weight through a controlled range without momentum.",
@@ -1770,14 +1753,14 @@
       "formCues": [
         "Use a slow controlled tempo.",
         "Avoid momentum."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Barbell push press",
       "equipment": [
         "bar"
       ],
-      "setup": "barbell-standing",
       "sets": 3,
       "repRange": "6–10",
       "primaryMuscle": "shoulders",
@@ -1790,9 +1773,6 @@
       "primaryEligible": false,
       "movementPattern": "vertical-push",
       "secondaryWarmupEligible": true,
-      "setupResources": [
-        "olympic-bar"
-      ],
       "conditioning": true,
       "instructions": [
         "Set a stable stance with the weight at shoulder level.",
@@ -1805,7 +1785,10 @@
         "Keep the ribs down.",
         "Avoid shrugging into the neck."
       ],
-      "repNotes": "Perform each repetition explosively while maintaining control. Stop the set when speed or technique noticeably declines."
+      "repNotes": "Perform each repetition explosively while maintaining control. Stop the set when speed or technique noticeably declines.",
+      "supersetConflicts": [
+        "loaded-olympic-bar"
+      ]
     },
     {
       "name": "Dumbbell chest-supported rear delt fly",
@@ -1815,7 +1798,6 @@
       "requires": [
         "bench"
       ],
-      "setup": "dumbbell-incline",
       "sets": 3,
       "repRange": "12–20",
       "primaryMuscle": "shoulders",
@@ -1828,9 +1810,6 @@
       "primaryEligible": false,
       "movementPattern": "isolation",
       "secondaryWarmupEligible": false,
-      "setupResources": [
-        "bench-incline"
-      ],
       "instructions": [
         "Set the body in a stable position and keep the target area relaxed between reps.",
         "Move the weight through a controlled range without momentum.",
@@ -1841,6 +1820,9 @@
       "formCues": [
         "Use a slow controlled tempo.",
         "Avoid momentum."
+      ],
+      "supersetConflicts": [
+        "bench-incline"
       ]
     },
     {
@@ -1862,7 +1844,6 @@
       "primaryEligible": true,
       "movementPattern": "vertical-push",
       "secondaryWarmupEligible": true,
-      "setupResources": [],
       "instructions": [
         "Set a stable stance with the weight at shoulder level.",
         "Brace the ribs and keep the wrists stacked over the elbows.",
@@ -1873,7 +1854,8 @@
       "formCues": [
         "Keep the ribs down.",
         "Avoid shrugging into the neck."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Barbell overhead press",
@@ -1883,7 +1865,6 @@
       "requires": [
         "rack"
       ],
-      "setup": "barbell-rack",
       "sets": 3,
       "repRange": "6–10",
       "primaryMuscle": "shoulders",
@@ -1896,10 +1877,6 @@
       "primaryEligible": true,
       "movementPattern": "vertical-push",
       "secondaryWarmupEligible": true,
-      "setupResources": [
-        "olympic-bar",
-        "rack"
-      ],
       "instructions": [
         "Set a stable stance with the weight at shoulder level.",
         "Brace the ribs and keep the wrists stacked over the elbows.",
@@ -1910,6 +1887,10 @@
       "formCues": [
         "Keep the ribs down.",
         "Avoid shrugging into the neck."
+      ],
+      "supersetConflicts": [
+        "loaded-olympic-bar",
+        "rack"
       ]
     },
     {
@@ -1921,7 +1902,6 @@
       "requires": [
         "bar"
       ],
-      "setup": "landmine-standing",
       "sets": 3,
       "repRange": "10–15",
       "primaryMuscle": "shoulders",
@@ -1936,10 +1916,6 @@
       "primaryEligible": true,
       "movementPattern": "vertical-push",
       "secondaryWarmupEligible": true,
-      "setupResources": [
-        "olympic-bar",
-        "landmine"
-      ],
       "instructions": [
         "Set a stable stance with the weight at shoulder level.",
         "Brace the ribs and keep the wrists stacked over the elbows.",
@@ -1950,6 +1926,10 @@
       "formCues": [
         "Keep the ribs down.",
         "Avoid shrugging into the neck."
+      ],
+      "supersetConflicts": [
+        "loaded-olympic-bar",
+        "landmine"
       ]
     },
     {
@@ -1970,7 +1950,6 @@
       "primaryEligible": false,
       "movementPattern": "conditioning",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the space and equipment securely before starting.",
         "Brace and establish a controlled starting position.",
@@ -1982,7 +1961,8 @@
         "Prioritize clean speed over fatigue.",
         "Stop when technique or power declines."
       ],
-      "repNotes": "Perform each repetition explosively while maintaining control. Stop the set when speed or technique noticeably declines."
+      "repNotes": "Perform each repetition explosively while maintaining control. Stop the set when speed or technique noticeably declines.",
+      "supersetConflicts": []
     },
     {
       "name": "Tube band face pull",
@@ -2004,9 +1984,6 @@
       "primaryEligible": false,
       "movementPattern": "isolation",
       "secondaryWarmupEligible": false,
-      "setupResources": [
-        "band-anchor"
-      ],
       "instructions": [
         "Set the body in a stable position and keep the target area relaxed between reps.",
         "Move the weight through a controlled range without momentum.",
@@ -2017,6 +1994,9 @@
       "formCues": [
         "Use a slow controlled tempo.",
         "Avoid momentum."
+      ],
+      "supersetConflicts": [
+        "band-anchor"
       ]
     },
     {
@@ -2036,7 +2016,6 @@
       "primaryEligible": false,
       "movementPattern": "vertical-push",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set a stable stance with the weight at shoulder level.",
         "Brace the ribs and keep the wrists stacked over the elbows.",
@@ -2047,7 +2026,8 @@
       "formCues": [
         "Keep the ribs down.",
         "Avoid shrugging into the neck."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Dumbbell lean-away lateral raise",
@@ -2068,7 +2048,6 @@
       "primaryEligible": false,
       "movementPattern": "isolation",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the body in a stable position and keep the target area relaxed between reps.",
         "Move the weight through a controlled range without momentum.",
@@ -2079,7 +2058,8 @@
       "formCues": [
         "Use a slow controlled tempo.",
         "Avoid momentum."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Dumbbell alternating curl",
@@ -2100,7 +2080,6 @@
       "primaryEligible": false,
       "movementPattern": "isolation",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the body in a stable position and keep the target area relaxed between reps.",
         "Move the weight through a controlled range without momentum.",
@@ -2111,7 +2090,8 @@
       "formCues": [
         "Use a slow controlled tempo.",
         "Avoid momentum."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Dumbbell hammer curl",
@@ -2130,7 +2110,6 @@
       "primaryEligible": false,
       "movementPattern": "isolation",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the body in a stable position and keep the target area relaxed between reps.",
         "Move the weight through a controlled range without momentum.",
@@ -2141,7 +2120,8 @@
       "formCues": [
         "Use a slow controlled tempo.",
         "Avoid momentum."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Dumbbell incline curl",
@@ -2151,7 +2131,6 @@
       "requires": [
         "bench"
       ],
-      "setup": "dumbbell-incline",
       "sets": 3,
       "repRange": "10–15",
       "primaryMuscle": "biceps",
@@ -2164,9 +2143,6 @@
       "primaryEligible": false,
       "movementPattern": "isolation",
       "secondaryWarmupEligible": false,
-      "setupResources": [
-        "bench-incline"
-      ],
       "instructions": [
         "Set the body in a stable position and keep the target area relaxed between reps.",
         "Move the weight through a controlled range without momentum.",
@@ -2177,6 +2153,9 @@
       "formCues": [
         "Use a slow controlled tempo.",
         "Avoid momentum."
+      ],
+      "supersetConflicts": [
+        "bench-incline"
       ]
     },
     {
@@ -2196,7 +2175,6 @@
       "primaryEligible": false,
       "movementPattern": "isolation",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the body in a stable position and keep the target area relaxed between reps.",
         "Move the weight through a controlled range without momentum.",
@@ -2207,14 +2185,14 @@
       "formCues": [
         "Use a slow controlled tempo.",
         "Avoid momentum."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Barbell curl",
       "equipment": [
         "bar"
       ],
-      "setup": "barbell-standing",
       "sets": 3,
       "repRange": "10–15",
       "primaryMuscle": "biceps",
@@ -2227,9 +2205,6 @@
       "primaryEligible": false,
       "movementPattern": "isolation",
       "secondaryWarmupEligible": false,
-      "setupResources": [
-        "olympic-bar"
-      ],
       "instructions": [
         "Set the body in a stable position and keep the target area relaxed between reps.",
         "Move the weight through a controlled range without momentum.",
@@ -2240,6 +2215,9 @@
       "formCues": [
         "Use a slow controlled tempo.",
         "Avoid momentum."
+      ],
+      "supersetConflicts": [
+        "loaded-olympic-bar"
       ]
     },
     {
@@ -2247,7 +2225,6 @@
       "equipment": [
         "ezbar"
       ],
-      "setup": "ezbar-standing",
       "sets": 3,
       "repRange": "10–15",
       "primaryMuscle": "biceps",
@@ -2260,9 +2237,6 @@
       "primaryEligible": false,
       "movementPattern": "isolation",
       "secondaryWarmupEligible": false,
-      "setupResources": [
-        "ez-bar"
-      ],
       "instructions": [
         "Set the body in a stable position and keep the target area relaxed between reps.",
         "Move the weight through a controlled range without momentum.",
@@ -2273,6 +2247,9 @@
       "formCues": [
         "Use a slow controlled tempo.",
         "Avoid momentum."
+      ],
+      "supersetConflicts": [
+        "loaded-ez-bar"
       ]
     },
     {
@@ -2292,7 +2269,6 @@
       "primaryEligible": false,
       "movementPattern": "isolation",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the body in a stable position and keep the target area relaxed between reps.",
         "Move the weight through a controlled range without momentum.",
@@ -2303,14 +2279,14 @@
       "formCues": [
         "Use a slow controlled tempo.",
         "Avoid momentum."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Barbell close-grip floor press",
       "equipment": [
         "bar"
       ],
-      "setup": "barbell-floor",
       "sets": 3,
       "repRange": "6–10",
       "primaryMuscle": "triceps",
@@ -2326,10 +2302,6 @@
       "primaryEligible": true,
       "movementPattern": "horizontal-push",
       "secondaryWarmupEligible": true,
-      "setupResources": [
-        "olympic-bar",
-        "rack"
-      ],
       "instructions": [
         "Set the bench or floor position and plant both feet firmly.",
         "Brace the torso and keep the wrists stacked over the elbows.",
@@ -2340,6 +2312,10 @@
       "formCues": [
         "Keep the shoulder blades stable.",
         "Keep the wrists stacked over the elbows."
+      ],
+      "supersetConflicts": [
+        "loaded-olympic-bar",
+        "rack"
       ]
     },
     {
@@ -2359,7 +2335,6 @@
       "primaryEligible": false,
       "movementPattern": "isolation",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the body in a stable position and keep the target area relaxed between reps.",
         "Move the weight through a controlled range without momentum.",
@@ -2370,7 +2345,8 @@
       "formCues": [
         "Use a slow controlled tempo.",
         "Avoid momentum."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Tube band pressdown",
@@ -2392,9 +2368,6 @@
       "primaryEligible": false,
       "movementPattern": "isolation",
       "secondaryWarmupEligible": false,
-      "setupResources": [
-        "band-anchor"
-      ],
       "instructions": [
         "Set the body in a stable position and keep the target area relaxed between reps.",
         "Move the weight through a controlled range without momentum.",
@@ -2405,6 +2378,9 @@
       "formCues": [
         "Use a slow controlled tempo.",
         "Avoid momentum."
+      ],
+      "supersetConflicts": [
+        "band-anchor"
       ]
     },
     {
@@ -2416,7 +2392,6 @@
         "bench",
         "rack"
       ],
-      "setup": "barbell-bench",
       "sets": 3,
       "repRange": "6–10",
       "primaryMuscle": "triceps",
@@ -2429,11 +2404,6 @@
       "primaryEligible": true,
       "movementPattern": "horizontal-push",
       "secondaryWarmupEligible": true,
-      "setupResources": [
-        "olympic-bar",
-        "bench-flat",
-        "rack"
-      ],
       "instructions": [
         "Set the bench or floor position and plant both feet firmly.",
         "Brace the torso and keep the wrists stacked over the elbows.",
@@ -2444,6 +2414,11 @@
       "formCues": [
         "Keep the shoulder blades stable.",
         "Keep the wrists stacked over the elbows."
+      ],
+      "supersetConflicts": [
+        "loaded-olympic-bar",
+        "bench-flat",
+        "rack"
       ]
     },
     {
@@ -2454,7 +2429,6 @@
       "requires": [
         "bench"
       ],
-      "setup": "ezbar-bench",
       "sets": 3,
       "repRange": "10–15",
       "primaryMuscle": "triceps",
@@ -2467,10 +2441,6 @@
       "primaryEligible": false,
       "movementPattern": "isolation",
       "secondaryWarmupEligible": false,
-      "setupResources": [
-        "ez-bar",
-        "bench-flat"
-      ],
       "instructions": [
         "Set the body in a stable position and keep the target area relaxed between reps.",
         "Move the weight through a controlled range without momentum.",
@@ -2481,6 +2451,10 @@
       "formCues": [
         "Use a slow controlled tempo.",
         "Avoid momentum."
+      ],
+      "supersetConflicts": [
+        "loaded-ez-bar",
+        "bench-flat"
       ]
     },
     {
@@ -2500,7 +2474,6 @@
       "primaryEligible": false,
       "movementPattern": "isolation",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the body in a stable position and keep the target area relaxed between reps.",
         "Move the weight through a controlled range without momentum.",
@@ -2511,7 +2484,8 @@
       "formCues": [
         "Use a slow controlled tempo.",
         "Avoid momentum."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Dumbbell hip thrust",
@@ -2536,9 +2510,6 @@
       ],
       "movementPattern": "hinge",
       "secondaryWarmupEligible": true,
-      "setupResources": [
-        "bench-flat"
-      ],
       "instructions": [
         "Set the feet and brace the torso before moving.",
         "Push the hips back while keeping the spine neutral.",
@@ -2549,6 +2520,9 @@
       "formCues": [
         "Keep the spine neutral.",
         "Finish with the hips, not an exaggerated back lean."
+      ],
+      "supersetConflicts": [
+        "bench-flat"
       ]
     },
     {
@@ -2572,7 +2546,6 @@
       ],
       "movementPattern": "conditioning",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the space and equipment securely before starting.",
         "Brace and establish a controlled starting position.",
@@ -2584,7 +2557,8 @@
         "Prioritize clean speed over fatigue.",
         "Stop when technique or power declines."
       ],
-      "repNotes": "Perform each repetition explosively while maintaining control. Stop the set when speed or technique noticeably declines."
+      "repNotes": "Perform each repetition explosively while maintaining control. Stop the set when speed or technique noticeably declines.",
+      "supersetConflicts": []
     },
     {
       "name": "Barbell hip thrust",
@@ -2594,7 +2568,6 @@
       "requires": [
         "bench"
       ],
-      "setup": "barbell-bench",
       "sets": 3,
       "repRange": "6–10",
       "primaryMuscle": "hamstrings",
@@ -2610,10 +2583,6 @@
       ],
       "movementPattern": "hinge",
       "secondaryWarmupEligible": true,
-      "setupResources": [
-        "olympic-bar",
-        "bench-flat"
-      ],
       "instructions": [
         "Set the feet and brace the torso before moving.",
         "Push the hips back while keeping the spine neutral.",
@@ -2624,6 +2593,10 @@
       "formCues": [
         "Keep the spine neutral.",
         "Finish with the hips, not an exaggerated back lean."
+      ],
+      "supersetConflicts": [
+        "loaded-olympic-bar",
+        "bench-flat"
       ]
     },
     {
@@ -2635,7 +2608,6 @@
       "requires": [
         "bar"
       ],
-      "setup": "landmine-standing",
       "sets": 3,
       "repRange": "10–15",
       "primaryMuscle": "quads",
@@ -2653,10 +2625,6 @@
       ],
       "movementPattern": "squat",
       "secondaryWarmupEligible": true,
-      "setupResources": [
-        "olympic-bar",
-        "landmine"
-      ],
       "instructions": [
         "Set the feet comfortably and brace before descending.",
         "Keep the chest tall and let the knees track with the toes.",
@@ -2667,6 +2635,10 @@
       "formCues": [
         "Keep the knees tracking with the toes.",
         "Use a controlled depth."
+      ],
+      "supersetConflicts": [
+        "loaded-olympic-bar",
+        "landmine"
       ]
     },
     {
@@ -2691,7 +2663,6 @@
       ],
       "movementPattern": "squat",
       "secondaryWarmupEligible": true,
-      "setupResources": [],
       "instructions": [
         "Set the feet comfortably and brace before descending.",
         "Keep the chest tall and let the knees track with the toes.",
@@ -2702,7 +2673,8 @@
       "formCues": [
         "Keep the knees tracking with the toes.",
         "Use a controlled depth."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Loop band lateral walk",
@@ -2725,7 +2697,6 @@
       "conditioning": true,
       "movementPattern": "conditioning",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the space and equipment securely before starting.",
         "Brace and establish a controlled starting position.",
@@ -2737,7 +2708,8 @@
         "Prioritize clean speed over fatigue.",
         "Stop when technique or power declines."
       ],
-      "repNotes": "Perform each repetition explosively while maintaining control. Stop the set when speed or technique noticeably declines."
+      "repNotes": "Perform each repetition explosively while maintaining control. Stop the set when speed or technique noticeably declines.",
+      "supersetConflicts": []
     },
     {
       "name": "Bodyweight single-leg glute bridge",
@@ -2761,7 +2733,6 @@
       ],
       "movementPattern": "hinge",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the feet and brace the torso before moving.",
         "Push the hips back while keeping the spine neutral.",
@@ -2772,7 +2743,8 @@
       "formCues": [
         "Keep the spine neutral.",
         "Finish with the hips, not an exaggerated back lean."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Bodyweight reverse lunge",
@@ -2796,7 +2768,6 @@
       ],
       "movementPattern": "squat",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the feet comfortably and brace before descending.",
         "Keep the chest tall and let the knees track with the toes.",
@@ -2807,7 +2778,8 @@
       "formCues": [
         "Keep the knees tracking with the toes.",
         "Use a controlled depth."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Dumbbell sumo squat",
@@ -2829,7 +2801,6 @@
       ],
       "movementPattern": "squat",
       "secondaryWarmupEligible": true,
-      "setupResources": [],
       "instructions": [
         "Set the feet comfortably and brace before descending.",
         "Keep the chest tall and let the knees track with the toes.",
@@ -2840,14 +2811,14 @@
       "formCues": [
         "Keep the knees tracking with the toes.",
         "Use a controlled depth."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Barbell reverse lunge",
       "equipment": [
         "bar"
       ],
-      "setup": "barbell-standing",
       "sets": 3,
       "repRange": "10–15",
       "primaryMuscle": "quads",
@@ -2868,10 +2839,6 @@
       ],
       "movementPattern": "squat",
       "secondaryWarmupEligible": true,
-      "setupResources": [
-        "olympic-bar",
-        "rack"
-      ],
       "instructions": [
         "Set the feet comfortably and brace before descending.",
         "Keep the chest tall and let the knees track with the toes.",
@@ -2882,6 +2849,10 @@
       "formCues": [
         "Keep the knees tracking with the toes.",
         "Use a controlled depth."
+      ],
+      "supersetConflicts": [
+        "loaded-olympic-bar",
+        "rack"
       ]
     },
     {
@@ -2906,7 +2877,6 @@
       ],
       "movementPattern": "squat",
       "secondaryWarmupEligible": true,
-      "setupResources": [],
       "instructions": [
         "Set the feet comfortably and brace before descending.",
         "Keep the chest tall and let the knees track with the toes.",
@@ -2917,7 +2887,8 @@
       "formCues": [
         "Keep the knees tracking with the toes.",
         "Use a controlled depth."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Dumbbell glute bridge",
@@ -2939,7 +2910,6 @@
       ],
       "movementPattern": "hinge",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the feet and brace the torso before moving.",
         "Push the hips back while keeping the spine neutral.",
@@ -2950,7 +2920,8 @@
       "formCues": [
         "Keep the spine neutral.",
         "Finish with the hips, not an exaggerated back lean."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Steady incline walk",
@@ -3265,7 +3236,6 @@
       "primaryEligible": false,
       "movementPattern": "calves",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the feet evenly and use support if needed for balance.",
         "Lower the heels under control into a comfortable stretch.",
@@ -3276,7 +3246,8 @@
       "formCues": [
         "Use the full comfortable range.",
         "Avoid bouncing at the bottom."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Dumbbell seated calf raise",
@@ -3296,7 +3267,6 @@
       "primaryEligible": false,
       "movementPattern": "calves",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the feet evenly and use support if needed for balance.",
         "Lower the heels under control into a comfortable stretch.",
@@ -3307,7 +3277,8 @@
       "formCues": [
         "Use the full comfortable range.",
         "Avoid bouncing at the bottom."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Kettlebell standing calf raise",
@@ -3326,7 +3297,6 @@
       "primaryEligible": false,
       "movementPattern": "calves",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the feet evenly and use support if needed for balance.",
         "Lower the heels under control into a comfortable stretch.",
@@ -3337,7 +3307,8 @@
       "formCues": [
         "Use the full comfortable range.",
         "Avoid bouncing at the bottom."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Tube band calf raise",
@@ -3356,7 +3327,6 @@
       "primaryEligible": false,
       "movementPattern": "calves",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the feet evenly and use support if needed for balance.",
         "Lower the heels under control into a comfortable stretch.",
@@ -3367,7 +3337,8 @@
       "formCues": [
         "Use the full comfortable range.",
         "Avoid bouncing at the bottom."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Bodyweight single-leg calf raise",
@@ -3388,7 +3359,6 @@
       "primaryEligible": false,
       "movementPattern": "calves",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the feet evenly and use support if needed for balance.",
         "Lower the heels under control into a comfortable stretch.",
@@ -3399,7 +3369,8 @@
       "formCues": [
         "Use the full comfortable range.",
         "Avoid bouncing at the bottom."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Bodyweight scapular push-up",
@@ -4364,7 +4335,6 @@
       "requires": [
         "rack"
       ],
-      "setup": "barbell-rack",
       "sets": 3,
       "repRange": "6–10",
       "primaryMuscle": "quads",
@@ -4377,10 +4347,6 @@
       "primaryEligible": true,
       "movementPattern": "squat",
       "secondaryWarmupEligible": true,
-      "setupResources": [
-        "olympic-bar",
-        "rack"
-      ],
       "instructions": [
         "Set the feet comfortably and brace before descending.",
         "Keep the chest tall and let the knees track with the toes.",
@@ -4391,6 +4357,10 @@
       "formCues": [
         "Keep the knees tracking with the toes.",
         "Use a controlled depth."
+      ],
+      "supersetConflicts": [
+        "loaded-olympic-bar",
+        "rack"
       ]
     },
     {
@@ -4402,7 +4372,6 @@
         "bandanchor",
         "anklestrap"
       ],
-      "setup": "band-anchor",
       "sets": 3,
       "repRange": "12–20",
       "repUnit": "per side",
@@ -4417,9 +4386,6 @@
       "primaryEligible": false,
       "movementPattern": "hinge",
       "secondaryWarmupEligible": false,
-      "setupResources": [
-        "band-anchor"
-      ],
       "instructions": [
         "Set the feet and brace the torso before moving.",
         "Push the hips back while keeping the spine neutral.",
@@ -4430,6 +4396,9 @@
       "formCues": [
         "Keep the spine neutral.",
         "Finish with the hips, not an exaggerated back lean."
+      ],
+      "supersetConflicts": [
+        "band-anchor"
       ]
     },
     {
@@ -4449,7 +4418,6 @@
       "primaryEligible": false,
       "movementPattern": "core",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the ribs and pelvis in a controlled neutral position.",
         "Brace the trunk before beginning the movement.",
@@ -4460,7 +4428,8 @@
       "formCues": [
         "Keep the ribs and pelvis controlled.",
         "Stop before the lower back loses position."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Bodyweight side plank",
@@ -4481,7 +4450,6 @@
       "primaryEligible": false,
       "movementPattern": "core",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the ribs and pelvis in a controlled neutral position.",
         "Brace the trunk before beginning the movement.",
@@ -4492,7 +4460,8 @@
       "formCues": [
         "Keep the ribs and pelvis controlled.",
         "Stop before the lower back loses position."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Bodyweight hollow-body hold",
@@ -4511,7 +4480,6 @@
       "primaryEligible": false,
       "movementPattern": "carry",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the load evenly and stand tall before moving.",
         "Brace the trunk and keep the shoulders level.",
@@ -4522,7 +4490,8 @@
       "formCues": [
         "Keep the shoulders level.",
         "Walk or hold with steady breathing."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Dumbbell farmer carry",
@@ -4541,7 +4510,6 @@
       "primaryEligible": false,
       "movementPattern": "carry",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the load evenly and stand tall before moving.",
         "Brace the trunk and keep the shoulders level.",
@@ -4552,7 +4520,8 @@
       "formCues": [
         "Keep the shoulders level.",
         "Walk or hold with steady breathing."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Dumbbell lateral raise",
@@ -4571,7 +4540,6 @@
       "primaryEligible": false,
       "movementPattern": "isolation",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the body in a stable position and keep the target area relaxed between reps.",
         "Move the weight through a controlled range without momentum.",
@@ -4582,7 +4550,8 @@
       "formCues": [
         "Use a slow controlled tempo.",
         "Avoid momentum."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Dumbbell concentration curl",
@@ -4606,9 +4575,6 @@
       "primaryEligible": false,
       "movementPattern": "isolation",
       "secondaryWarmupEligible": false,
-      "setupResources": [
-        "bench-flat"
-      ],
       "instructions": [
         "Set the body in a stable position and keep the target area relaxed between reps.",
         "Move the weight through a controlled range without momentum.",
@@ -4619,6 +4585,9 @@
       "formCues": [
         "Use a slow controlled tempo.",
         "Avoid momentum."
+      ],
+      "supersetConflicts": [
+        "bench-flat"
       ]
     },
     {
@@ -4641,9 +4610,6 @@
       "primaryEligible": false,
       "movementPattern": "isolation",
       "secondaryWarmupEligible": false,
-      "setupResources": [
-        "bench-flat"
-      ],
       "instructions": [
         "Set the body in a stable position and keep the target area relaxed between reps.",
         "Move the weight through a controlled range without momentum.",
@@ -4654,6 +4620,9 @@
       "formCues": [
         "Use a slow controlled tempo.",
         "Avoid momentum."
+      ],
+      "supersetConflicts": [
+        "bench-flat"
       ]
     },
     {
@@ -4674,7 +4643,6 @@
       "primaryEligible": false,
       "movementPattern": "conditioning",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the space and equipment securely before starting.",
         "Brace and establish a controlled starting position.",
@@ -4686,7 +4654,8 @@
         "Prioritize clean speed over fatigue.",
         "Stop when technique or power declines."
       ],
-      "repNotes": "Perform each repetition explosively while maintaining control. Stop the set when speed or technique noticeably declines."
+      "repNotes": "Perform each repetition explosively while maintaining control. Stop the set when speed or technique noticeably declines.",
+      "supersetConflicts": []
     },
     {
       "name": "Jump rope intervals",
@@ -4706,7 +4675,6 @@
       "primaryEligible": false,
       "movementPattern": "conditioning",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the space and equipment securely before starting.",
         "Brace and establish a controlled starting position.",
@@ -4718,7 +4686,8 @@
         "Prioritize clean speed over fatigue.",
         "Stop when technique or power declines."
       ],
-      "repNotes": "Perform each repetition explosively while maintaining control. Stop the set when speed or technique noticeably declines."
+      "repNotes": "Perform each repetition explosively while maintaining control. Stop the set when speed or technique noticeably declines.",
+      "supersetConflicts": []
     },
     {
       "name": "Dumbbell one-arm row",
@@ -4739,7 +4708,6 @@
       "id": "dumbbell-one-arm-row",
       "movementPattern": "horizontal-pull",
       "secondaryWarmupEligible": true,
-      "setupResources": [],
       "instructions": [
         "Set the torso and support the spine in a neutral position.",
         "Let the arms reach without rounding the upper back.",
@@ -4750,7 +4718,8 @@
       "formCues": [
         "Keep the spine neutral.",
         "Pull with the elbows rather than the hands."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Chin-up",
@@ -4769,7 +4738,6 @@
       "id": "chin-up",
       "movementPattern": "vertical-pull",
       "secondaryWarmupEligible": true,
-      "setupResources": [],
       "instructions": [
         "Set the grip and brace the torso before starting the pull.",
         "Begin by drawing the shoulders down away from the ears.",
@@ -4780,7 +4748,8 @@
       "formCues": [
         "Avoid swinging.",
         "Keep the shoulders away from the ears."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Dumbbell single-leg calf raise",
@@ -4801,7 +4770,6 @@
       "id": "dumbbell-single-leg-calf-raise",
       "movementPattern": "calves",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the feet evenly and use support if needed for balance.",
         "Lower the heels under control into a comfortable stretch.",
@@ -4812,7 +4780,8 @@
       "formCues": [
         "Use the full comfortable range.",
         "Avoid bouncing at the bottom."
-      ]
+      ],
+      "supersetConflicts": []
     },
     {
       "name": "Kettlebell hammer curl",
@@ -4831,7 +4800,6 @@
       "primaryEligible": false,
       "movementPattern": "isolation",
       "secondaryWarmupEligible": false,
-      "setupResources": [],
       "instructions": [
         "Set the body in a stable position and keep the target area relaxed between reps.",
         "Move the weight through a controlled range without momentum.",
@@ -4842,7 +4810,8 @@
       "formCues": [
         "Use a slow controlled tempo.",
         "Avoid momentum."
-      ]
+      ],
+      "supersetConflicts": []
     }
   ]
 }

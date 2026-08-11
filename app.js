@@ -3,6 +3,7 @@ import { createRoutineRenderer } from "./routine-renderer.js";
 import { createHevyUi } from "./hevy-ui.js";
 import { createPlanState } from "./plan-state.js";
 import { createUiController } from "./ui-modals.js";
+import { validateCatalog } from "./catalog-validation.js";
 
 async function startApp() {
   const loadJson = (file) => fetch(`./${file}?v=20260985`).then((response) => {
@@ -99,26 +100,8 @@ equipmentButtons.forEach((button) => {
   equipmentGroupGrids.get(equipment?.group)?.append(button);
 });
 
-const equipmentReferences = new Set(equipmentCatalog.flatMap((item) => [item.key, ...(item.aliases || [])]));
-const knownSupersetConflictResources = new Set([
-  "loaded-olympic-bar",
-  "loaded-ez-bar",
-  "loaded-trap-bar",
-  "landmine",
-  "rack",
-  "bench-flat",
-  "bench-incline",
-  "band-anchor",
-]);
-const duplicateExerciseIds = exercises.map((exercise) => exercise.id).filter((id, index, ids) => ids.indexOf(id) !== index);
 const catalogErrors = [
-  duplicateExerciseIds.length ? `duplicate exercise IDs: ${[...new Set(duplicateExerciseIds)].join(", ")}` : "",
-  equipmentCatalog.some((item) => !item.key || !item.group || !Array.isArray(item.dependencies)) ? "invalid equipment record" : "",
-  exercises.some((exercise) => !exercise.id || !Array.isArray(exercise.equipment)) ? "invalid exercise record" : "",
-  exercises.some((exercise) => [...(exercise.equipment || []), ...(exercise.requires || [])].some((item) => item !== "bodyweight" && !equipmentReferences.has(item))) ? "unknown exercise equipment reference" : "",
-  exercises.some((exercise) => exercise.type === "strength" && !Array.isArray(exercise.supersetConflicts)) ? "strength exercise superset conflicts missing" : "",
-  exercises.some((exercise) => (exercise.supersetConflicts || []).some((resource) => !knownSupersetConflictResources.has(resource))) ? "unknown superset conflict resource" : "",
-  exercises.some((exercise) => "setup" in exercise || "setupResources" in exercise) ? "legacy setup fields remain" : "",
+  ...validateCatalog({ exercises, equipmentCatalog }),
   exercises.some((exercise) => !exercise.instructions?.length) ? "exercise instructions missing" : "",
   !Array.isArray(coverageCycle) || coverageCycle.length !== 4 ? "coverage cycle must contain four routines" : "",
 ].filter(Boolean);

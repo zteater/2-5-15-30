@@ -26,6 +26,7 @@ The project intentionally has no backend, build system, framework, account model
 | `styles.css` | Global layout, components, themes, and responsive behavior |
 | `supersets.css` | Routine-card and superset presentation |
 | `planner.js` | Equipment-aware routine generation and coverage planning |
+| `catalog-validation.js` | Exercise metadata, timing, equipment, and conflict validation |
 | `plan-state.js` | Seed URL, configuration, theme, and deterministic random state |
 | `routine-renderer.js` | Routine cards and exercise detail rendering |
 | `hevy-ui.js` | Hevy connection and export interface |
@@ -37,6 +38,7 @@ The project intentionally has no backend, build system, framework, account model
 | `tools/build-hevy-template-map.mjs` | Developer-only mapping review generator |
 | `tests/hevy-export.test.mjs` | Node export-mapper tests |
 | `tests/planner.test.mjs` | Planner structure, determinism, and rest-mode tests |
+| `tests/catalog-validation.test.mjs` | Exercise catalog schema and metadata tests |
 | `tests/routine-timing.test.mjs` | Routine duration regression tests |
 | `README.md` | Engineering documentation |
 

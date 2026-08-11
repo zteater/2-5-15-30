@@ -100,6 +100,9 @@ test("exercise records use the normalized equipment model", () => {
     "bench-flat",
     "bench-incline",
     "band-anchor",
+    "pull-up-bar",
+    "plyo-box",
+    "open-floor-space",
   ]);
   for (const exercise of exercises) {
     assert.equal("setup" in exercise, false, `${exercise.id} still has setup`);

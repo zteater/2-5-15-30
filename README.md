@@ -14,36 +14,6 @@ The project intentionally has no backend, build system, framework, account model
 - Avoid collecting or storing user data.
 - Prefer a small, understandable codebase over framework machinery.
 
-## Repository structure
-
-| File | Responsibility |
-|---|---|
-| `index.html` | Application shell, configuration UI, dialogs, and static content |
-| `app.js` | Application bootstrap and generation orchestration |
-| `data.json` | Four-routine muscle coverage cycle |
-| `exercises.json` | Strength, warm-up, conditioning, and cardio catalog |
-| `equipment.json` | Equipment catalog, grouping, aliases, and dependencies |
-| `styles.css` | Global layout, components, themes, and responsive behavior |
-| `supersets.css` | Routine-card and superset presentation |
-| `planner.js` | Equipment-aware routine generation and coverage planning |
-| `catalog-validation.js` | Exercise metadata, timing, equipment, and conflict validation |
-| `plan-state.js` | Seed URL, configuration, theme, and deterministic random state |
-| `routine-renderer.js` | Routine cards and exercise detail rendering |
-| `hevy-ui.js` | Hevy connection and export interface |
-| `ui-modals.js` | Modal, menu, configuration, and plan-action interactions |
-| `hevy-client.js` | In-memory browser client for the documented Hevy API |
-| `hevy-export.js` | Pure Hevy folder and routine payload mapper |
-| `routine-timing.js` | Pure routine duration calculation used during generation |
-| `hevy-mappings.json` | Verified internal-exercise to Hevy-template mappings |
-| `tools/build-hevy-template-map.mjs` | Developer-only mapping review generator |
-| `tests/hevy-export.test.mjs` | Node export-mapper tests |
-| `tests/planner.test.mjs` | Planner structure, determinism, and rest-mode tests |
-| `tests/catalog-validation.test.mjs` | Exercise catalog schema and metadata tests |
-| `tests/routine-timing.test.mjs` | Routine duration regression tests |
-| `README.md` | Engineering documentation |
-
-There are no generated assets and no build output directory.
-
 ## Runtime model
 
 At startup, `app.js` loads the catalogs and Hevy mapping file in parallel, then wires the planner, renderer, and UI modules:

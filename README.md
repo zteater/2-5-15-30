@@ -1,4 +1,4 @@
-# 2–5–15–30
+# [2–5–15–30](https://zteater.github.io/2-5-15-30)
 
 A deterministic, equipment-aware workout-plan generator implemented as a dependency-free static web application.
 
